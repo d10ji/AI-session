@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for IT Students — Workshop</title>
+<style>
+:root{--sb:280px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:#eef2ff;color:#1e293b;
+  display:flex;height:100vh;overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+
+/* ── Sidebar ── */
+#sidebar{width:var(--sb);min-width:0;background:#fff;color:#334155;display:flex;flex-direction:column;height:100vh;border-right:1.5px solid #e0e7ff;box-shadow:4px 0 24px rgba(79,70,229,.09);transition:width .35s cubic-bezier(0.22,1,0.36,1);overflow-x:hidden;overflow-y:auto}
+#sidebar::-webkit-scrollbar{width:3px}
+#sidebar::-webkit-scrollbar-thumb{background:#c7d2fe;border-radius:3px}
+#sidebar::-webkit-scrollbar-track{background:transparent}
+.sb-header{
+  padding:28px 22px 22px;
+  background:linear-gradient(135deg,#2a265b 0%,#5049b8 55%,#6a3bb8 100%);
+  -webkit-font-smoothing:antialiased;
+}
+.sb-header h2{font-size:15px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:2px}
+.sb-header p{font-size:13px;color:rgba(255,255,255,.8);margin-top:6px;font-weight:500}
+.day-group{padding:14px 0 4px}
+.day-label{
+  padding:9px 20px;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:1.5px;
+  color:#4f46e5;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  user-select:none;transition:color .15s;
+  -webkit-font-smoothing:antialiased;
+}
+.day-label:hover{color:#3730a3}
+.day-label .arrow{transition:transform .2s;font-size:10px;color:#a5b4fc}
+.day-label.collapsed .arrow{transform:rotate(-90deg)}
+.day-items.collapsed{display:none}
+.nav-item{
+  display:block;padding:9px 20px 9px 30px;
+  font-size:13.5px;color:#374151;
+  text-decoration:none;cursor:pointer;
+  border-left:3px solid transparent;
+  transition:all .15s;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+.nav-item:hover{color:#4f46e5;background:#eef2ff;border-left-color:#a5b4fc}
+.nav-item.active{color:#4f46e5;background:linear-gradient(to right,#eef2ff,#f5f3ff);border-left-color:#6366f1;font-weight:700}
+.nav-tag{font-size:10px;background:#e0e7ff;color:#4f46e5;padding:1px 6px;border-radius:3px;margin-left:4px;vertical-align:middle;font-weight:700}
+.nav-tag.g{background:#d1fae5;color:#059669}
+
+/* ── Sidebar mini-mode ── */
+#sidebar.mini .sb-header{padding:14px 10px;justify-content:center;gap:0}
+#sidebar.mini .sb-header h2,
+#sidebar.mini .sb-header p,
+#sidebar.mini .day-group{display:none}
+#sidebar.mini #slide-nums{display:flex}
+#slide-nums{display:none;flex-direction:column;align-items:center;padding:10px 6px;gap:5px;overflow-y:auto;flex:1}
+#slide-nums::-webkit-scrollbar{width:3px}
+#slide-nums::-webkit-scrollbar-thumb{background:#c7d2fe;border-radius:2px}
+.sn-btn{width:40px;height:34px;border-radius:8px;background:#f1f5f9;border:1px solid #e0e7ff;font-size:12px;font-weight:700;color:#374151;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-font-smoothing:antialiased}
+.sn-btn:hover{background:#eef2ff;color:#4f46e5;border-color:#c7d2fe}
+.sn-btn.sn-active{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(79,70,229,.4)}
+.sn-btn.sn-done{background:#e0e7ff;color:#4338ca;border-color:#c7d2fe}
+/* Toggle button in header */
+.sb-toggle{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.sb-toggle:hover{background:rgba(255,255,255,.25)}
+#sidebar.mini .sb-toggle{margin:0 auto}
+/* Progress / nav-bar follow sidebar width */
+#progress-bar{left:var(--sb);transition:left .35s cubic-bezier(0.22,1,0.36,1)}
+#nav-bar{left:var(--sb);transition:left .35s cubic-bezier(0.22,1,0.36,1)}
+
+/* ── Main ── */
+#main{flex:1;position:relative;overflow:hidden;padding:0;background:#ffffff}
+#main::-webkit-scrollbar{width:6px}
+#main::-webkit-scrollbar-thumb{background:#c7d2fe;border-radius:4px}
+.section{max-width:min(1100px,calc(100% - 60px));margin:0 auto 72px;scroll-margin-top:20px}
+.day-badge{display:inline-block;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:.5px;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.day-badge.d2{background:linear-gradient(135deg,#7c3aed,#db2777);box-shadow:0 2px 8px rgba(124,58,237,.3)}
+.day-badge.gl{background:linear-gradient(135deg,#059669,#0891b2);box-shadow:0 2px 8px rgba(5,150,105,.3)}
+.section h1{font-size:clamp(26px,2.6vw,40px);font-weight:800;color:#000;margin-bottom:10px;line-height:1.2}
+.section-sub{color:#374151;font-size:clamp(14px,1.3vw,18px);margin-bottom:30px;line-height:1.65}
+
+/* ── Generic card ── */
+.card{background:#fff;border-radius:16px;padding:26px;margin-bottom:20px;box-shadow:0 4px 20px rgba(79,70,229,.07);border:1px solid #e0e7ff}
+.card h3{font-size:clamp(15px,1.4vw,20px);font-weight:700;margin-bottom:14px;color:#000}
+.card h4{font-size:clamp(13px,1.2vw,17px);font-weight:700;margin-bottom:8px;color:#000}
+.card p,.card li{line-height:1.85;color:#111827;font-size:clamp(13px,1.2vw,16px)}
+.card ul,.card ol{padding-left:22px}
+.card ul li,.card ol li{margin-bottom:3px}
+
+/* ── Compare two-col ── */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.bad,.good{border-radius:14px;padding:22px}
+.bad{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border:1.5px solid #fca5a5}
+.good{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac}
+.bad .lbl{font-size:10px;font-weight:800;color:#dc2626;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.good .lbl{font-size:10px;font-weight:800;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.cmp-text{font-size:clamp(12px,1.1vw,15px);line-height:1.75;color:#111827}
+.cmp-text strong{color:#000}
+
+/* ── Code blocks ── */
+.code{background:#2e4a6b;color:#ddeeff;padding:20px 22px;border-radius:14px;font-family:'Cascadia Code','Consolas',monospace;font-size:clamp(12px,1.1vw,15px);line-height:1.9;overflow-x:auto;margin:12px 0;white-space:pre;box-shadow:0 4px 16px rgba(0,0,0,.12);border:1px solid #3a5a7e}
+.kw{color:#7dd3fc;font-weight:600}.str{color:#6ee7b7}.cmt{color:#94b4cc;font-style:italic}.fn{color:#d8b4fe}.num{color:#fbbf24}.err{color:#fca5a5}.op{color:#38bdf8}
+
+/* ── Prompt components ── */
+.comp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin:20px 0}
+.comp-card{background:linear-gradient(135deg,#eef2ff,#e0e7ff);border:1.5px solid #c7d2fe;border-radius:18px;padding:28px 14px 24px;text-align:center;transition:transform .2s,box-shadow .2s}
+.comp-card:hover{transform:translateY(-5px);box-shadow:0 10px 24px rgba(79,70,229,.18)}
+.comp-card .ic{font-size:38px;margin-bottom:12px;display:block}
+.comp-card .nm{font-weight:900;font-size:clamp(13px,1.2vw,16px);color:#4f46e5;letter-spacing:.3px}
+.comp-card .dc{font-size:clamp(12px,1.1vw,15px);color:#111827;margin-top:8px;line-height:1.55}
+
+/* ── Limitation cards ── */
+.lim{border-radius:14px;padding:20px;margin-bottom:14px;border-left:5px solid #ef4444;background:#fff;box-shadow:0 3px 12px rgba(239,68,68,.08);border-top:1px solid #fee2e2;border-right:1px solid #fee2e2;border-bottom:1px solid #fee2e2}
+.lim.bias{border-left-color:#f97316;border-top-color:#fed7aa;border-right-color:#fed7aa;border-bottom-color:#fed7aa;box-shadow:0 3px 12px rgba(249,115,22,.08)}
+.lim.err2{border-left-color:#eab308;border-top-color:#fef08a;border-right-color:#fef08a;border-bottom-color:#fef08a;box-shadow:0 3px 12px rgba(234,179,8,.08)}
+.lim h4{font-size:clamp(14px,1.3vw,17px);font-weight:700;margin-bottom:8px;color:#000}
+.lim p{font-size:clamp(13px,1.2vw,16px);color:#111827;line-height:1.75}
+
+/* ── Why-matters grid ── */
+.why-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin:20px 0}
+.why-grid .why-card:nth-child(1),
+.why-grid .why-card:nth-child(2),
+.why-grid .why-card:nth-child(3){grid-column:span 2}
+.why-grid .why-card:nth-child(4),
+.why-grid .why-card:nth-child(5){grid-column:span 3}
+.why-card{background:linear-gradient(135deg,#fff,#f0f4ff);border-radius:18px;padding:30px 24px;border:1.5px solid #e0e7ff;text-align:center;box-shadow:0 4px 16px rgba(79,70,229,.09);transition:transform .2s,box-shadow .2s}
+.why-card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(79,70,229,.18)}
+.why-card .wic{font-size:44px;margin-bottom:14px}
+.why-card .wnm{font-size:clamp(15px,1.4vw,18px);font-weight:800;color:#000;margin-bottom:8px}
+.why-card .wdc{font-size:clamp(12px,1.1vw,14px);color:#111827;line-height:1.65}
+
+/* ── Principle box ── */
+.principle-box{background:linear-gradient(135deg,#eff6ff,#eef2ff);border:1.5px solid #bfdbfe;border-radius:16px;padding:24px;margin-bottom:20px}
+.principle-box h3{color:#2563eb;font-size:clamp(15px,1.4vw,18px);font-weight:800;margin-bottom:10px}
+.principle-box p{font-size:clamp(13px,1.2vw,16px);color:#111827;line-height:1.75}
+.principle-box ul{padding-left:20px;margin-top:8px}
+.principle-box li{font-size:clamp(13px,1.2vw,16px);color:#111827;line-height:1.8}
+
+/* ── Technique cards ── */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:16px 0}
+.tech-card{background:#fff;border-radius:14px;padding:20px;border-top:4px solid #4f46e5;box-shadow:0 4px 14px rgba(79,70,229,.08);transition:transform .15s}
+.tech-card:hover{transform:translateY(-3px)}
+.tech-card .tn{font-size:clamp(13px,1.2vw,16px);font-weight:800;color:#4f46e5;margin-bottom:8px}
+.tech-card .td{font-size:clamp(13px,1.1vw,15px);color:#111827;line-height:1.65}
+
+/* ── Checklist ── */
+.cklist{list-style:none;padding:0}
+.cklist li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f1f5f9;font-size:clamp(13px,1.2vw,16px);color:#111827}
+.cklist li:last-child{border-bottom:none}
+.ck{width:24px;height:24px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;border-radius:7px;min-width:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+
+/* ── Pitfalls ── */
+.pitfall{background:linear-gradient(135deg,#fffbeb,#fef9c3);border:1.5px solid #fde68a;border-radius:14px;padding:20px;margin-bottom:14px}
+.pitfall h4{font-size:clamp(14px,1.3vw,17px);font-weight:700;color:#78350f;margin-bottom:8px}
+.pitfall p{font-size:clamp(13px,1.2vw,16px);color:#111827;line-height:1.75}
+
+/* ── Workflow ── */
+.wf{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:20px 0}
+.wf-step{background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;padding:11px 20px;border-radius:10px;font-size:clamp(13px,1.2vw,16px);font-weight:700;box-shadow:0 3px 10px rgba(37,99,235,.3)}
+.wf-step.p{background:linear-gradient(135deg,#7c3aed,#db2777);box-shadow:0 3px 10px rgba(124,58,237,.3)}
+.wf-arr{color:#94a3b8;font-size:18px;font-weight:700}
+
+/* ── Alert variants ── */
+.alert-red{background:linear-gradient(135deg,#fff1f2,#ffe4e6);border:1.5px solid #fca5a5;border-radius:12px;padding:16px;margin:14px 0}
+.alert-green{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:14px;padding:22px;margin-bottom:20px}
+.alert-amber{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;border-radius:12px;padding:16px;margin:14px 0}
+.alert-blue{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:14px;padding:22px;margin-bottom:20px}
+.alert-purple{background:linear-gradient(135deg,#faf5ff,#ede9fe);border:1.5px solid #c4b5fd;border-radius:14px;padding:22px;margin-bottom:20px}
+
+/* ── Big quote ── */
+.bq{background:linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);color:#fff;border-radius:20px;padding:44px;text-align:center;margin:24px 0;box-shadow:0 10px 32px rgba(79,70,229,.3)}
+.bq p{font-size:24px;font-weight:800;line-height:1.5}
+
+/* ── Hero block ── */
+.hero{background:linear-gradient(135deg,#4b71da,#534eae,#7443c9);color:#fff;border-radius:20px;padding:44px;text-align:center;margin-bottom:28px;box-shadow:0 10px 32px rgba(79,70,229,.3)}
+.hero h2{font-size:32px;font-weight:800;margin-bottom:14px}
+.hero p{font-size:15px;color:rgba(255,255,255,.85);max-width:500px;margin:0 auto;line-height:1.7}
+
+/* ── Part labels ── */
+.part-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:20px}
+.ps{background:linear-gradient(135deg,#eef2ff,#e0e7ff);border-radius:16px;padding:22px 12px;text-align:center;border:1.5px solid #c7d2fe;box-shadow:0 3px 10px rgba(79,70,229,.08);transition:transform .2s}
+.ps:hover{transform:translateY(-3px)}
+.ps strong{display:block;font-size:clamp(12px,1.1vw,15px);color:#4f46e5;margin-bottom:8px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+.ps span{font-size:clamp(12px,1.1vw,14px);color:#111827;line-height:1.5;display:block}
+
+/* ── Step-by-step list ── */
+.steps{list-style:none;padding:0;counter-reset:step}
+.steps li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.steps li:last-child{border-bottom:none}
+.steps li::before{counter-increment:step;content:counter(step);width:28px;height:28px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;min-width:28px;margin-top:1px;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.steps li .s-text{font-size:clamp(13px,1.2vw,16px);color:#111827;line-height:1.8}
+.steps li .s-text strong{color:#000}
+
+/* ── Template block ── */
+.template-box{background:#2e4a6b;color:#ddeeff;border-radius:14px;padding:22px;font-family:'Cascadia Code','Consolas',monospace;font-size:12.5px;line-height:2;margin:14px 0;box-shadow:0 4px 16px rgba(0,0,0,.12);border:1px solid #3a5a7e}
+.t-field{color:#fbbf24}.t-bracket{color:#7dd3fc;font-weight:600}
+
+/* ── Annotated ── */
+.annotated{background:#e0e7ff;border-radius:4px;padding:1px 5px;font-size:12.5px}
+
+/* ── Divider ── */
+.divider{display:none}
+
+/* ── Format Options cards ── */
+.fmt-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;margin:18px 0;
+}
+.fmt-card{
+  background:var(--bg);
+  border:1.5px solid var(--bd);
+  border-radius:16px;
+  padding:22px 16px 20px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+  cursor:default;
+}
+.fmt-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+}
+.fmt-card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(0,0,0,.1)}
+.fmt-icon{font-size:36px;margin-bottom:12px;display:block}
+.fmt-name{font-size:clamp(13px,1.2vw,15px);font-weight:800;color:var(--c1);margin-bottom:8px}
+.fmt-desc{font-size:clamp(12px,1.1vw,15px);color:#111827;line-height:1.65}
+
+/* ══════════════════════════════════════
+   SLIDE ENGINE
+══════════════════════════════════════ */
+.section{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  overflow-y:auto;padding:44px 44px 110px;
+  opacity:0;pointer-events:none;
+  transform:translateY(60px);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.section::-webkit-scrollbar{width:5px}
+.section::-webkit-scrollbar-thumb{background:#c7d2fe;border-radius:4px}
+
+.section.s-active{opacity:1;pointer-events:all;animation:sEnter .5s cubic-bezier(0.22,1,0.36,1) forwards}
+.section.s-exit-fwd{animation:sExitFwd .32s ease-in forwards;pointer-events:none}
+.section.s-exit-bwd{animation:sExitBwd .32s ease-in forwards;pointer-events:none}
+.section.s-enter-bwd{animation:sEnterBwd .5s cubic-bezier(0.22,1,0.36,1) forwards;opacity:1;pointer-events:all}
+
+@keyframes sEnter   {from{opacity:0;transform:translateY(55px)} to{opacity:1;transform:translateY(0)}}
+@keyframes sEnterBwd{from{opacity:0;transform:translateY(-55px)} to{opacity:1;transform:translateY(0)}}
+@keyframes sExitFwd {from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-45px)}}
+@keyframes sExitBwd {from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(45px)}}
+
+/* Step items — hidden until revealed */
+.step-item{opacity:0;transform:translateY(36px);pointer-events:none;transition:none;backface-visibility:hidden}
+.step-item.step-in{
+  animation:stepReveal .5s cubic-bezier(0.22,1,0.36,1) forwards;
+  pointer-events:all;
+}
+.step-item.step-skip{opacity:1;transform:none;pointer-events:all}
+
+@keyframes stepReveal{
+  0%  {opacity:0;transform:translateY(36px)}
+  50% {opacity:1}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* Progress bar */
+#progress-bar{
+  position:fixed;top:0;left:280px;right:0;height:5px;
+  background:#e0e7ff;z-index:200;
+}
+#progress-fill{
+  height:100%;width:0;
+  background:linear-gradient(to right,#4f46e5,#7c3aed,#a855f7);
+  transition:width .45s cubic-bezier(0.22,1,0.36,1);
+  border-radius:0 3px 3px 0;
+  box-shadow:0 0 8px rgba(124,58,237,.5);
+}
+
+/* Bottom nav bar */
+#nav-bar{
+  position:fixed;bottom:0;left:280px;right:0;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(14px);
+  border-top:1.5px solid #e0e7ff;
+  padding:10px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:200;
+  box-shadow:0 -4px 20px rgba(79,70,229,.07);
+}
+.nb-btn{
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);
+  color:#fff;border:none;border-radius:10px;
+  padding:9px 20px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  box-shadow:0 3px 10px rgba(79,70,229,.3);
+  display:flex;align-items:center;gap:7px;letter-spacing:.2px;
+}
+.nb-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(79,70,229,.4)}
+.nb-btn:active{transform:translateY(0)}
+.nb-btn:disabled{opacity:.3;cursor:not-allowed;transform:none;box-shadow:none;background:#94a3b8}
+
+#nb-info{text-align:center;flex:1;padding:0 20px}
+#nb-title{font-size:12.5px;font-weight:700;color:#000;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#nb-counter{font-size:11px;color:#374151;margin-bottom:5px}
+#nb-dots{display:flex;gap:4px;justify-content:center;align-items:center;flex-wrap:wrap;max-width:300px;margin:0 auto}
+.nb-dot{width:6px;height:6px;border-radius:50%;background:#e0e7ff;transition:all .25s;flex-shrink:0}
+.nb-dot.d-done{background:#c7d2fe}
+.nb-dot.d-cur{background:#504bb8;width:16px;border-radius:3px}
+
+/* Click hint pill */
+#hint{
+  position:fixed;bottom:76px;right:28px;
+  background:linear-gradient(135deg,#5b55cc,#6f47b5);
+  color:#fff;border-radius:20px;
+  padding:7px 16px;font-size:12px;font-weight:600;
+  box-shadow:0 4px 14px rgba(81, 75, 193, 0.35);
+  animation:hintFloat 2.2s ease-in-out infinite;
+  z-index:199;pointer-events:none;
+  transition:opacity .3s;
+}
+#hint.hidden{opacity:0}
+@keyframes hintFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+
+/* Slide title header area stays visible */
+.slide-header{margin-bottom:24px}
+.slide-header .day-badge{margin-bottom:10px}
+.slide-header h1{font-size:clamp(26px,2.6vw,40px);font-weight:800;color:#000;margin-bottom:8px}
+.slide-header .section-sub{color:#374151;font-size:clamp(14px,1.3vw,18px);line-height:1.65;margin:0}
+/* ── Day filter pills ── */
+.day-filter-row{display:flex;gap:6px;margin-top:14px}
+.df-btn{
+  flex:1;padding:5px 0;font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.8px;
+  border-radius:20px;border:1.5px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);
+  cursor:pointer;transition:all .2s;-webkit-font-smoothing:antialiased;
+}
+.df-btn:hover{background:rgba(255,255,255,.22);color:#fff}
+.df-btn.df-active{
+  background:#fff;color:#4f46e5;border-color:#fff;
+  font-weight:900;box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+#sidebar.mini .day-filter-row{display:none}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ SIDEBAR ═══════════════════════════ -->
+<nav id="sidebar">
+  <div class="sb-header" style="display:flex;flex-direction:column;gap:0">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+      <div>
+        <h2>AI Workshop</h2>
+        <p>BIT Students &nbsp;·&nbsp; 2 Days</p>
+      </div>
+      <button class="sb-toggle" id="sb-toggle-btn" title="Collapse sidebar">&#8942;</button>
+    </div>
+    <div class="day-filter-row">
+      <button class="df-btn df-active" id="df-all"  onclick="setDayFilter(0)">All</button>
+      <button class="df-btn"           id="df-day1" onclick="setDayFilter(1)">Day 1</button>
+      <button class="df-btn"           id="df-day2" onclick="setDayFilter(2)">Day 2</button>
+    </div>
+  </div>
+  <div id="slide-nums"></div>
+
+  <div class="day-group">
+    <div class="day-label" onclick="toggleDay('d1','lbl1')" id="lbl1">
+      Day 1 — Prompt Engineering <span class="arrow">▼</span>
+    </div>
+    <div class="day-items" id="d1">
+      <a class="nav-item" href="#s1" onclick="setActive(this)">1 · Welcome &amp; Hook</a>
+      <a class="nav-item" href="#s2" onclick="setActive(this)">2 · What is AI?</a>
+      <a class="nav-item" href="#s3" onclick="setActive(this)">3 · How ChatGPT Works</a>
+      <a class="nav-item" href="#s4" onclick="setActive(this)">4 · Limitation: Hallucination</a>
+      <a class="nav-item" href="#s5" onclick="setActive(this)">5 · Limitation: Bias &amp; Errors</a>
+      <a class="nav-item" href="#s6" onclick="setActive(this)">6 · Why Prompt Eng. Matters</a>
+      <a class="nav-item" href="#s7" onclick="setActive(this)">7 · Principle: Clarity</a>
+      <a class="nav-item" href="#s8" onclick="setActive(this)">8 · Principle: Context</a>
+      <a class="nav-item" href="#s9" onclick="setActive(this)">9 · Principle: Task Decomp.</a>
+      <a class="nav-item" href="#s10" onclick="setActive(this)">10 · Principle: Output Format</a>
+      <a class="nav-item" href="#s11" onclick="setActive(this)">11 · Prompt Structure</a>
+      <a class="nav-item" href="#s12" onclick="setActive(this)">12 · Techniques</a>
+      <a class="nav-item" href="#s13" onclick="setActive(this)">13 · Common Pitfalls</a>
+      <a class="nav-item" href="#s14" onclick="setActive(this)">14 · Checklist &amp; Practice</a>
+    </div>
+  </div>
+
+  <div class="day-group">
+    <div class="day-label" onclick="toggleDay('d2','lbl2')" id="lbl2">
+      Day 2 — AI Programming <span class="arrow">▼</span>
+    </div>
+    <div class="day-items" id="d2">
+      <a class="nav-item" href="#s15" onclick="setActive(this)">15 · Day 2 Recap</a>
+      <a class="nav-item" href="#s16" onclick="setActive(this)">16 · AI as a Tutor</a>
+      <a class="nav-item" href="#s17" onclick="setActive(this)">17 · Code Generation</a>
+      <a class="nav-item" href="#s18" onclick="setActive(this)">18 · Debugging with AI</a>
+      <a class="nav-item" href="#s19" onclick="setActive(this)">19 · Template Prompting</a>
+      <a class="nav-item" href="#s20" onclick="setActive(this)">20 · Iterative Refinement</a>
+      <a class="nav-item" href="#s21" onclick="setActive(this)">21 · Common Mistakes</a>
+      <a class="nav-item" href="#s22" onclick="setActive(this)">22 · Real Workflow</a>
+      <a class="nav-item" href="#s23" onclick="setActive(this)">23 · Closing</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
+<main id="main">
+
+<!-- ══════════════════════════════════════════
+     DAY 1
+══════════════════════════════════════════ -->
+
+<!-- S1 -->
+<section class="section" id="s1">
+  <div class="day-badge">DAY 1 · 1 of 14</div>
+  <h1>Welcome</h1>
+  <p class="section-sub">AI for IT Students: Prompt Engineering &amp; AI-Assisted Programming (C, C++, Python)</p>
+
+  <div class="hero">
+    <h2>Quick Question 🙋</h2>
+    <p>How many of you have already used ChatGPT, Gemini, or any AI tool before today?</p>
+  </div>
+
+  <div class="card">
+    <h3>Now the harder question…</h3>
+    <p>How many of you feel you <strong>always</strong> get correct, useful answers from AI?</p>
+    <br>
+    <p style="color:#e53e3e;font-weight:600">Most people say no — and that is the exact problem this workshop solves.</p>
+  </div>
+
+  <div class="card">
+    <h3>The core insight</h3>
+    <div class="cmp">
+      <div class="bad">
+        <div class="lbl">Without this workshop</div>
+        <div class="cmp-text">You are using AI by guessing. Sometimes it works. Often it gives vague, wrong, or unhelpful responses.<br><br>You blame AI. But the problem is the prompt.</div>
+      </div>
+      <div class="good">
+        <div class="lbl">After this workshop</div>
+        <div class="cmp-text">You will know exactly how to write prompts that get reliable, accurate, useful outputs every time — for learning and for programming.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What we cover across 2 days</h3>
+    <ul>
+      <li>What AI and Generative AI actually is</li>
+      <li>How ChatGPT-style models work internally (simple intuition)</li>
+      <li>Why AI makes mistakes — hallucination, bias, errors</li>
+      <li>Why prompt engineering matters (precision, efficiency, reliability)</li>
+      <li>Core principles of writing good prompts</li>
+      <li>Prompt structure: Role + Task + Context + Output + Constraints</li>
+      <li>Prompting techniques: zero-shot, few-shot, chain-of-thought, role-based, negative</li>
+      <li>Using AI as a tutor to learn C, C++, and Python faster</li>
+      <li>Generating and debugging code using AI</li>
+      <li>The real developer workflow with AI</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S2 -->
+<section class="section" id="s2">
+  <div class="day-badge">DAY 1 · 2 of 14</div>
+  <h1>What is AI?</h1>
+  <p class="section-sub">A clear, honest explanation — from the ground up.</p>
+
+  <div class="card">
+    <h3>The Simple Definition</h3>
+    <p>Artificial Intelligence is a system that <strong>predicts the next best output</strong> based on patterns learned from large amounts of data.</p>
+    <br>
+    <p>It does not think. It does not understand. It <em>predicts</em> — extremely well, at enormous scale.</p>
+  </div>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">Traditional Programming</div>
+      <div class="cmp-text">A programmer writes exact rules.<br>The computer follows rules precisely.<br><br>
+      <code style="background:#ffe0e0;border-radius:4px;padding:2px 5px;font-size:12px">if input == "hello" → reply "hi"</code><br><br>
+      If the rule does not exist — the program fails.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">Artificial Intelligence</div>
+      <div class="cmp-text">We give millions of examples.<br>AI finds patterns by itself.<br><br>
+      <code style="background:#d4edda;border-radius:4px;padding:2px 5px;font-size:12px">learns from billions of examples → predicts</code><br><br>
+      It can handle inputs it has never seen before.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What is Generative AI?</h3>
+    <p>Generative AI is a specific type of AI that <strong>creates new content</strong> — text, code, images, audio — rather than just classifying or searching.</p>
+    <br>
+    <ul>
+      <li>ChatGPT, Claude, Gemini → generate text and code</li>
+      <li>DALL·E, Midjourney → generate images</li>
+      <li>GitHub Copilot → generate and complete code</li>
+    </ul>
+    <br>
+    <p>In this workshop we focus on <strong>text and code generation</strong> — the most useful for IT students.</p>
+  </div>
+</section>
+
+<!-- S3 -->
+<section class="section" id="s3">
+  <div class="day-badge">DAY 1 · 3 of 14</div>
+  <h1>How ChatGPT-Style Models Work</h1>
+  <p class="section-sub">Simple intuition — no math, no jargon. Just what you need to understand why prompts matter.</p>
+
+  <div class="card">
+    <h3>The Basic Flow</h3>
+    <div class="wf">
+      <div class="wf-step">Your Prompt (Input)</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">AI Model (Prediction)</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Response (Output)</div>
+    </div>
+    <p>The model was trained on billions of text documents — books, websites, code, conversations. During training it learned patterns: which words usually follow which other words, in which contexts.</p>
+    <br>
+    <p>When you send a prompt, the model predicts the most statistically likely helpful continuation based on everything it learned.</p>
+  </div>
+
+  <div class="card">
+    <h3>Training vs Using the Model</h3>
+    <div class="cmp">
+      <div class="bad">
+        <div class="lbl">Training (done once, by the company)</div>
+        <div class="cmp-text">Model reads billions of text examples.<br>Adjusts its internal weights to improve predictions.<br>Takes weeks on thousands of computers.<br><br>You do NOT control this.</div>
+      </div>
+      <div class="good">
+        <div class="lbl">Inference (what you do every day)</div>
+        <div class="cmp-text">You send a prompt.<br>Model uses its trained weights to predict the best response.<br>Happens in seconds.<br><br>Your prompt IS your control lever.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why the Same Question Can Give Different Answers</h3>
+    <p>AI models add slight randomness to their output so they do not always repeat the same sentences. This is called <strong>temperature</strong>.</p>
+    <br>
+    <ul>
+      <li>Low temperature → more predictable, consistent answers (good for code)</li>
+      <li>High temperature → more creative, varied answers (good for writing)</li>
+    </ul>
+    <br>
+    <p>This is why <strong>your prompt needs to be precise</strong> — a vague prompt + randomness = unpredictable output.</p>
+  </div>
+
+  <div class="alert-blue">
+    <h3 style="color:#2e5b8b;margin-bottom:8px">Key Takeaway</h3>
+    <p style="color:#243669;font-size:clamp(14px,1.3vw,17px)">The model is a very powerful pattern predictor. The quality of its output depends almost entirely on the quality of your input — your <strong>prompt</strong>. This is why prompt engineering exists.</p>
+  </div>
+</section>
+
+<!-- S4 -->
+<section class="section" id="s4">
+  <div class="day-badge">DAY 1 · 4 of 14</div>
+  <h1>AI Limitation: Hallucination</h1>
+  <p class="section-sub">The most dangerous AI problem — and why every IT student must know about it.</p>
+
+  <div class="lim">
+    <h4>What is Hallucination?</h4>
+    <p>AI can generate responses that sound completely correct, professional, and confident — but are entirely false or invented. The model does not know it is wrong. It is simply predicting what a plausible-sounding answer looks like.</p>
+  </div>
+
+  <div class="card">
+    <h3>Example 1 — Fake Code (NASA API)</h3>
+    <p style="margin-bottom:10px;font-size:clamp(13px,1.2vw,16px);color:#374151">Prompt given to AI:</p>
+    <div class="code"><span class="cmt"># Give me the Python function from the official NASA Mars Rover API to fetch photos</span></div>
+    <p style="margin:12px 0;font-size:clamp(13px,1.2vw,16px);color:#374151">AI response (sounds completely real — but is entirely invented):</p>
+    <div class="code"><span class="kw">def</span> <span class="fn">get_mars_photos</span>(rover_name: <span class="kw">str</span>, date: <span class="kw">str</span>) -> <span class="kw">list</span>:
+    <span class="cmt"># This function fetches Mars rover photos from NASA</span>
+    <span class="kw">return</span> nasa_api.<span class="fn">fetch_photos</span>(rover=rover_name, earth_date=date)</div>
+    <div class="alert-red">
+      <strong style="color:#e53e3e">What is wrong with this response:</strong>
+      <ul style="margin-top:8px;padding-left:18px;color:#4a5568;font-size:13px;line-height:1.9">
+        <li>The function <code>nasa_api.fetch_photos()</code> does NOT exist — never has</li>
+        <li>NASA's real API works through HTTP requests to a URL, not a Python object</li>
+        <li>If a student copies this and runs it — it will crash immediately</li>
+        <li>AI made it up because it "sounds like" what a NASA Python function might look like</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Example 2 — Fake Facts</h3>
+    <p style="margin-bottom:10px;font-size:clamp(13px,1.2vw,16px);color:#374151">Asking AI about a made-up function name:</p>
+    <div class="code"><span class="cmt"># What does the C function strsplit() do?</span></div>
+    <p style="margin:10px 0;font-size:clamp(13px,1.2vw,16px);color:#374151">AI might confidently explain a function that <strong>does not exist in the C standard library</strong> — giving it fake parameters, a fake return value, and fake examples. All sounding perfectly correct.</p>
+  </div>
+
+  <div class="card">
+    <h3>How to Protect Yourself</h3>
+    <ul class="steps">
+      <li><div class="s-text"><strong>Never run AI code without reading it first.</strong> Read every line. If a function name looks unfamiliar — search it.</div></li>
+      <li><div class="s-text"><strong>Cross-check facts.</strong> If AI tells you something important — verify it against official documentation or a trusted source.</div></li>
+      <li><div class="s-text"><strong>Ask AI to explain its answer.</strong> If the explanation has gaps or circular reasoning — it may be hallucinating.</div></li>
+      <li><div class="s-text"><strong>Test the code.</strong> Always compile and run AI-generated code to see if it actually works.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- S5 -->
+<section class="section" id="s5">
+  <div class="day-badge">DAY 1 · 5 of 14</div>
+  <h1>AI Limitations: Bias &amp; Errors</h1>
+  <p class="section-sub">Two more important limitations every IT student should be aware of.</p>
+
+  <div class="lim bias">
+    <h4>What is AI Bias?</h4>
+    <p>AI models learn from human-written data. Human writing contains cultural assumptions, stereotypes, and historical biases. The model learns these patterns and can reproduce them in its output — without knowing it is doing so.</p>
+  </div>
+
+  <div class="card">
+    <h3>Bias Example — The Software Engineer Story</h3>
+    <p style="margin-bottom:10px;font-size:clamp(13px,1.2vw,16px);color:#374151">Prompt given to AI:</p>
+    <div class="code"><span class="cmt"># Write a short story about a software engineer.</span></div>
+    <p style="margin:12px 0;font-size:clamp(13px,1.2vw,16px);color:#374151">A typical AI response:</p>
+    <div class="card" style="background:#f8f9fa;margin:0 0 12px">
+      <p style="font-style:italic;font-size:13px;line-height:1.8">"<strong>John</strong> is a brilliant software engineer who leads a team of developers. He works long hours and loves solving hard math problems. His wife, a schoolteacher, always supports him from home."</p>
+    </div>
+    <div class="alert-amber">
+      <strong style="color:#c05621">What is biased here:</strong>
+      <ul style="margin-top:8px;padding-left:18px;color:#4a5568;font-size:13px;line-height:1.9">
+        <li>AI assumed the engineer is male — without being told</li>
+        <li>AI assumed the spouse is female in a domestic support role</li>
+        <li>This reflects historical gender stereotypes in training data</li>
+        <li>The model did not "decide" to be biased — it learned this pattern from millions of examples</li>
+      </ul>
+    </div>
+    <p style="font-size:13px;margin-top:12px;color:#4a5568"><strong>Why it matters for you:</strong> When you use AI for research, reports, or explanations — be critical. Ask yourself: whose perspective is this reflecting?</p>
+  </div>
+
+  <div class="lim err2">
+    <h4>What are AI Errors (Logic &amp; Code Errors)?</h4>
+    <p>Even when AI is not hallucinating, it can produce code with subtle logic errors, use outdated syntax, miss edge cases, or produce code that compiles but gives wrong results.</p>
+  </div>
+
+  <div class="card">
+    <h3>Error Example — Off-by-One in C</h3>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-bottom:10px">AI-generated code that compiles but gives wrong output:</p>
+    <div class="code"><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+<span class="kw">int</span> <span class="fn">main</span>() {
+    <span class="kw">int</span> arr[] = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>};
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; <span class="num">6</span>; i++) {  <span class="err">/* Bug: should be i < 5 */</span>
+        printf(<span class="str">"%d\n"</span>, arr[i]);       <span class="err">/* reads beyond array boundary */</span>
+    }
+}</div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#111827;margin-top:10px">This code will compile without errors but will read memory beyond the array — a classic error AI makes when it is not given the exact array size in the prompt.</p>
+  </div>
+
+  <div class="alert-green">
+    <h3 style="color:#276749;margin-bottom:8px">Golden Rule for All Three Limitations</h3>
+    <p style="color:#2d6a4f;font-size:15px;font-weight:600">Never blindly copy AI output. Always read it, understand it, test it — then use it.</p>
+  </div>
+</section>
+
+<!-- S6 -->
+<section class="section" id="s6">
+  <div class="day-badge">DAY 1 · 6 of 14</div>
+  <h1>Why Prompt Engineering Matters</h1>
+  <p class="section-sub">You already use AI. This section explains why learning to use it <em>properly</em> changes everything.</p>
+
+  <div class="card">
+    <h3>The Simple Truth</h3>
+    <div class="cmp">
+      <div class="bad">
+        <div class="lbl">Bad Prompt</div>
+        <div class="cmp-text" style="font-size:18px;font-weight:700;margin-bottom:10px">"Write about AI"</div>
+        <div class="cmp-text">Vague. AI does not know: Which aspect of AI? What length? What audience? What format?<br><br>Result: generic, often useless output.</div>
+      </div>
+      <div class="good">
+        <div class="lbl">Good Prompt</div>
+        <div class="cmp-text" style="font-weight:600;margin-bottom:8px">"Write a 200-word explanation of how AI is used in healthcare to improve early disease detection. Include two real-world examples. Write for a beginner IT student."</div>
+        <div class="cmp-text">Result: focused, accurate, useful output.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Five Reasons Prompt Engineering Matters</h3>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="wic">🎯</div>
+        <div class="wnm">Precision</div>
+        <div class="wdc">Well-crafted prompts reduce ambiguity and dramatically improve output quality</div>
+      </div>
+      <div class="why-card">
+        <div class="wic">⚡</div>
+        <div class="wnm">Efficiency</div>
+        <div class="wdc">Good prompts mean fewer retries. You get the right answer faster.</div>
+      </div>
+      <div class="why-card">
+        <div class="wic">💰</div>
+        <div class="wnm">Cost-Effective</div>
+        <div class="wdc">Better prompts use fewer AI tokens and fewer API calls. Saves money at scale.</div>
+      </div>
+      <div class="why-card">
+        <div class="wic">🔁</div>
+        <div class="wnm">Reliability</div>
+        <div class="wdc">Consistent prompt patterns produce predictable, repeatable results.</div>
+      </div>
+      <div class="why-card">
+        <div class="wic">🔒</div>
+        <div class="wnm">Security</div>
+        <div class="wdc">Proper prompt design helps prevent misuse, injection attacks, and unsafe outputs.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Think of It This Way</h3>
+    <p>AI is an incredibly powerful engine. A bad prompt is like driving with your eyes closed — the engine works, but you will crash.</p>
+    <br>
+    <p>A good prompt is the steering wheel. <strong>Prompt engineering is the skill of steering.</strong></p>
+  </div>
+</section>
+
+<!-- S7 -->
+<section class="section" id="s7">
+  <div class="day-badge">DAY 1 · 7 of 14</div>
+  <h1>Core Principle 1: Clarity &amp; Specificity</h1>
+  <p class="section-sub">Write prompts that leave absolutely no room for misinterpretation.</p>
+
+  <div class="principle-box">
+    <h3>The Principle</h3>
+    <p>Use specific language. Avoid ambiguous terms. Start with clear action verbs. Every word in your prompt should serve a purpose.</p>
+    <ul style="margin-top:10px">
+      <li>Use: Analyze, Summarize, Create, Explain, Fix, List, Compare</li>
+      <li>Avoid: "look at", "tell me about", "help with", "do something with"</li>
+    </ul>
+  </div>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">❌ Not Specific</div>
+      <div class="cmp-text" style="font-weight:700;font-size:15px;margin-bottom:8px">"Look at this and tell me about it"</div>
+      <div class="cmp-text">What should AI look at? What aspect? What kind of response? There is no action verb, no scope, no target.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">✅ Specific</div>
+      <div class="cmp-text" style="font-weight:600;margin-bottom:8px">"Analyze this C program and list the top 3 logic errors, with an explanation of each."</div>
+      <div class="cmp-text">Action verb: Analyze + List. Scope: C program. Target: logic errors. Format: top 3 with explanations.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Programming-Specific Examples</h3>
+    <div class="code"><span class="cmt">❌ Vague C prompt:</span>
+<span class="err">"Explain functions in C"</span>
+
+<span class="cmt">✅ Specific C prompt:</span>
+<span class="str">"Explain C functions to a beginner: cover definition, syntax,
+parameters, return values, and show a complete working example
+that calculates the area of a rectangle."</span>
+
+<span class="cmt">❌ Vague Python prompt:</span>
+<span class="err">"Tell me about loops"</span>
+
+<span class="cmt">✅ Specific Python prompt:</span>
+<span class="str">"Compare for loops and while loops in Python.
+Show one example of each using a list of 5 numbers.
+Explain when to use each type."</span></div>
+  </div>
+
+  <div class="alert-amber">
+    <strong>Quick Rule:</strong> After writing your prompt, ask: "Could AI misunderstand what I want here?" If yes — make it more specific before sending.
+  </div>
+</section>
+
+<!-- S8 -->
+<section class="section" id="s8">
+  <div class="day-badge">DAY 1 · 8 of 14</div>
+  <h1>Core Principle 2: Context Provision</h1>
+  <p class="section-sub">AI does not know your situation unless you tell it. Context is everything.</p>
+
+  <div class="principle-box">
+    <h3>The Principle</h3>
+    <p>Provide sufficient background information so the model understands the scenario, who you are, what you already know, and what specifically you need. Without context, AI gives a generic answer. With context, it gives a targeted answer.</p>
+  </div>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">❌ No Context</div>
+      <div class="cmp-text" style="font-weight:700;font-size:15px;margin-bottom:8px">"Fix this code"</div>
+      <div class="cmp-text">AI does not know: What language? What is it supposed to do? What error is occurring? Where does it fail?</div>
+    </div>
+    <div class="good">
+      <div class="lbl">✅ With Context</div>
+      <div class="cmp-text" style="font-weight:600;margin-bottom:8px">"Fix this Python function that should calculate compound interest. The current error is a division by zero when the rate is 0. Here is the code: [code block]"</div>
+      <div class="cmp-text">Language ✓ · Purpose ✓ · Error description ✓ · Code provided ✓</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>What Context to Include</h3>
+    <ul>
+      <li><strong>Your level:</strong> "I am a first-year BIT student learning C for the first time"</li>
+      <li><strong>What you already know:</strong> "I understand basic if/else but not recursion yet"</li>
+      <li><strong>The goal:</strong> "I need to submit this as an assignment"</li>
+      <li><strong>What is going wrong:</strong> "My program compiles but gives wrong output for negative numbers"</li>
+      <li><strong>The environment:</strong> "I am using GCC on Windows / using VS Code / using an online compiler"</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Context Makes the Difference</h3>
+    <div class="code"><span class="cmt">❌ No context:</span>
+<span class="err">"Explain machine learning"</span>
+<span class="cmt">→ AI writes a textbook-level essay you cannot use</span>
+
+<span class="cmt">✅ With context:</span>
+<span class="str">"Explain machine learning to a first-year BIT student
+who knows Python basics but has never studied AI before.
+Use a real-world analogy. Keep it under 200 words."</span>
+<span class="cmt">→ AI writes something you can actually understand and use</span></div>
+  </div>
+</section>
+
+<!-- S9 -->
+<section class="section" id="s9">
+  <div class="day-badge">DAY 1 · 9 of 14</div>
+  <h1>Core Principle 3: Task Decomposition</h1>
+  <p class="section-sub">Break complex tasks into smaller steps — AI handles each step better.</p>
+
+  <div class="principle-box">
+    <h3>The Principle</h3>
+    <p>Instead of asking AI to do everything in one giant prompt, break the task into clear, numbered sub-tasks. This improves accuracy, makes the output more organised, and makes it easier for you to verify each part.</p>
+  </div>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">❌ All at Once</div>
+      <div class="cmp-text" style="font-weight:700;margin-bottom:8px">"Teach me C programming"</div>
+      <div class="cmp-text">Too broad. AI does not know where to start, what depth to use, or when to stop. The output will be massive and disorganised.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">✅ Decomposed</div>
+      <div class="cmp-text" style="font-weight:600;margin-bottom:8px">"Teach me arrays in C by doing the following steps:<br>1. Explain the concept<br>2. Show the syntax<br>3. Provide a working example<br>4. List 2 common beginner mistakes"</div>
+      <div class="cmp-text">Clear steps. AI follows them in order. Each part is verifiable.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Real Decomposition Example — Dataset Analysis</h3>
+    <div class="code"><span class="cmt">❌ Overloaded:</span>
+<span class="err">"Analyze this dataset and provide insights"</span>
+
+<span class="cmt">✅ Decomposed:</span>
+<span class="str">"Please analyze this student grade dataset following these steps:
+1. Summarize the data structure and key columns
+2. Calculate the average, minimum, and maximum marks
+3. Identify which subjects have the most failing students
+4. Suggest 2 actionable improvements based on the data"</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Programming Learning Example</h3>
+    <div class="code"><span class="cmt">Ask AI to teach you a concept in structured steps:</span>
+<span class="str">"Explain C++ classes using this structure:
+1. What is a class? (one paragraph, simple language)
+2. Syntax of a class definition (with a real-world example)
+3. A complete working C++ program using a class called 'Car'
+4. What are the most common beginner mistakes with classes?"</span></div>
+  </div>
+
+  <div class="alert-blue">
+    <strong style="color:#2b6cb0">Why it works:</strong> Each numbered step gives AI a clear deliverable. You can read each part, verify it, and continue — rather than getting an overwhelming wall of text.
+  </div>
+</section>
+
+<!-- S10 -->
+<section class="section" id="s10">
+  <div class="day-badge">DAY 1 · 10 of 14</div>
+  <h1>Core Principle 4: Output Format Specification</h1>
+  <p class="section-sub">Tell AI exactly how you want the answer structured — and it will deliver it that way.</p>
+
+  <div class="principle-box">
+    <h3>The Principle</h3>
+    <p>Clearly define the expected format, structure, and length of the response. If you need code + explanation, say so. If you want bullet points, ask for bullet points. If you need a specific length — specify it.</p>
+  </div>
+
+  <div class="card">
+    <h3>Format Options You Can Request</h3>
+    <div class="fmt-grid">
+      <div class="fmt-card" style="--c1:#4f46e5;--c2:#7c3aed;--bg:#f5f3ff;--bd:#c4b5fd">
+        <div class="fmt-icon">💬</div>
+        <div class="fmt-name">Code + Comments</div>
+        <div class="fmt-desc">Ask for code with inline comments on every line — the best way to learn what each line does.</div>
+      </div>
+      <div class="fmt-card" style="--c1:#0891b2;--c2:#0e7490;--bg:#ecfeff;--bd:#67e8f9">
+        <div class="fmt-icon">🔢</div>
+        <div class="fmt-name">Step-by-Step</div>
+        <div class="fmt-desc">Numbered steps — ideal for algorithms, debugging procedures, and multi-part explanations.</div>
+      </div>
+      <div class="fmt-card" style="--c1:#059669;--c2:#047857;--bg:#ecfdf5;--bd:#6ee7b7">
+        <div class="fmt-icon">📊</div>
+        <div class="fmt-name">Table / Comparison</div>
+        <div class="fmt-desc">A side-by-side table — great for comparing C vs C++ vs Python syntax at a glance.</div>
+      </div>
+      <div class="fmt-card" style="--c1:#d97706;--c2:#b45309;--bg:#fffbeb;--bd:#fcd34d">
+        <div class="fmt-icon">🗂️</div>
+        <div class="fmt-name">JSON / Structured</div>
+        <div class="fmt-desc">Ask for JSON output — clean, structured, easy to read and use in your own code.</div>
+      </div>
+      <div class="fmt-card" style="--c1:#dc2626;--c2:#b91c1c;--bg:#fff1f2;--bd:#fca5a5">
+        <div class="fmt-icon">📏</div>
+        <div class="fmt-name">Word Limit</div>
+        <div class="fmt-desc">"Explain in 3 sentences" or "under 100 words" — controls exactly how much AI writes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Format Examples for Programming</h3>
+    <div class="code"><span class="cmt">✅ Code with explanation format:</span>
+<span class="str">"Write a C program that finds the largest number in an array.
+For each line of code, add a comment explaining what it does.
+After the code, write a 3-sentence explanation of the logic."</span>
+
+<span class="cmt">✅ Comparison table format:</span>
+<span class="str">"Create a comparison table of for loops in C, C++, and Python.
+Columns: Syntax, Example, Key Difference.
+Keep each cell under 2 lines."</span>
+
+<span class="cmt">✅ Structured output format:</span>
+<span class="str">"Explain recursion in C using this format:
+- Definition (1 sentence)
+- When to use it (2 bullet points)
+- Working code example (with comments)
+- One common mistake beginners make"</span></div>
+  </div>
+</section>
+
+<!-- S11 -->
+<section class="section" id="s11">
+  <div class="day-badge">DAY 1 · 11 of 14</div>
+  <h1>Prompt Structure: Role + Task + Context + Output + Constraints</h1>
+  <p class="section-sub">Putting the four core principles into a single, memorable framework.</p>
+
+  <div class="card">
+    <h3>The Complete Formula</h3>
+    <div class="comp-grid">
+      <div class="comp-card"><div class="ic">🎭</div><div class="nm">ROLE</div><div class="dc">Who should AI act as?<br>(Clarity principle)</div></div>
+      <div class="comp-card"><div class="ic">🎯</div><div class="nm">TASK</div><div class="dc">What exactly do you want done?<br>(Clarity + Decomposition)</div></div>
+      <div class="comp-card"><div class="ic">📋</div><div class="nm">CONTEXT</div><div class="dc">What background info does AI need?<br>(Context principle)</div></div>
+      <div class="comp-card"><div class="ic">📄</div><div class="nm">OUTPUT</div><div class="dc">How should the answer look?<br>(Output Format principle)</div></div>
+      <div class="comp-card"><div class="ic">🚫</div><div class="nm">CONSTRAINTS</div><div class="dc">What should AI avoid or limit?<br>(Clarity + Specificity)</div></div>
+    </div>
+  </div>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">❌ No Structure</div>
+      <div class="cmp-text" style="font-weight:700;font-size:16px;margin-bottom:10px">"Fix this code"</div>
+      <div class="cmp-text">Missing: Role · Context · Language · Error description · Expected output format<br><br>AI has nothing useful to work with.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">✅ Full Structure</div>
+      <div class="cmp-text" style="font-weight:600;font-size:13px;margin-bottom:10px">"Act as a Python tutor. Fix this function that calculates compound interest — it crashes with division by zero when rate is 0. Show the corrected code with comments on changed lines. Do not change the function signature."</div>
+      <div class="cmp-text">Role ✓ · Task ✓ · Context ✓ · Output ✓ · Constraint ✓</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Full Prompt Examples</h3>
+    <div class="code"><span class="cmt">C — Arrays:</span>
+<span class="str">"Act as a C programming tutor.
+Explain arrays using: definition, syntax, a complete working
+program example, and 2 common beginner mistakes.
+Write for a BIT first-year student.
+Keep each section under 5 sentences. Avoid pointer arithmetic."</span></div>
+    <div class="code" style="margin-top:10px"><span class="cmt">C++ — Classes:</span>
+<span class="str">"You are a C++ instructor.
+Explain classes and objects using the analogy of a Car.
+Include a complete working class definition with constructor,
+attributes, and one method.
+Do not cover inheritance — only basic classes."</span></div>
+    <div class="code" style="margin-top:10px"><span class="cmt">Python — Functions:</span>
+<span class="str">"Act as a Python tutor for beginners.
+Explain functions: definition, def syntax, parameters,
+return values. Show a program that calculates BMI using a function.
+Add a comment on every line. No lambda or decorators."</span></div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-top:14px">For each prompt above, identify: which part is Role / Task / Context / Output / Constraint?</p>
+    <div class="part-strip" style="margin-top:10px">
+      <div class="ps"><strong>ROLE</strong><span>first phrase</span></div>
+      <div class="ps"><strong>TASK</strong><span>what to explain</span></div>
+      <div class="ps"><strong>CONTEXT</strong><span>audience / level</span></div>
+      <div class="ps"><strong>OUTPUT</strong><span>format / length</span></div>
+      <div class="ps"><strong>CONSTRAINT</strong><span>what to avoid</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- S12 -->
+<section class="section" id="s12">
+  <div class="day-badge">DAY 1 · 12 of 14</div>
+  <h1>Prompting Techniques</h1>
+  <p class="section-sub">Different situations call for different techniques. Learn when to use each one.</p>
+
+  <div class="card">
+    <h3>1. Zero-Shot Prompting</h3>
+    <p>Give a direct instruction with no examples. Works well for simple, clear tasks where the format is obvious.</p>
+    <div class="code" style="margin-top:12px"><span class="cmt">Best for: simple tasks, translations, definitions</span>
+<span class="str">"Translate this C variable declaration into Python syntax:
+int score = 0;"</span>
+
+<span class="cmt">Result → Python: score = 0</span></div>
+  </div>
+
+  <div class="card">
+    <h3>2. Few-Shot Prompting</h3>
+    <p>Show AI 2–3 examples of input → output pairs before asking your actual question. AI learns the pattern from your examples.</p>
+    <div class="code" style="margin-top:12px"><span class="cmt">Example: teaching AI a custom format</span>
+<span class="str">"Classify each statement as Good Prompt or Bad Prompt.
+
+Example 1: 'Write code' → Bad Prompt
+Example 2: 'Write a C function to reverse a string, with comments' → Good Prompt
+Example 3: 'Fix this' → Bad Prompt
+
+Now classify: 'Explain recursion in C with a factorial example for a beginner'"</span></div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-top:10px"><strong>Best practice:</strong> Use 2–5 examples. Keep them consistent in format. Never use more than 5 — it confuses the pattern.</p>
+  </div>
+
+  <div class="card">
+    <h3>3. Chain-of-Thought (CoT) Prompting</h3>
+    <p>Ask AI to think step by step. This improves accuracy for complex tasks — especially debugging, math, and multi-step logic problems.</p>
+    <div class="code" style="margin-top:12px"><span class="cmt">Instead of:</span>
+<span class="err">"Why does this C program output the wrong answer?"</span>
+
+<span class="cmt">Use:</span>
+<span class="str">"Look at this C program step by step.
+First, trace through the code manually with input = 5.
+Then identify where the output diverges from what is expected.
+Finally, explain the bug."</span></div>
+    <div class="code" style="margin-top:10px"><span class="cmt">Trigger phrase that works in most AI tools:</span>
+<span class="str">"Let's think through this step by step."
+"Work through this systematically."
+"Trace the execution line by line."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>4. Role-Based Prompting</h3>
+    <p>Assign AI a specific role or persona. This guides the tone, depth, and style of the response to match what you need.</p>
+    <div class="code" style="margin-top:12px"><span class="str">"You are a C programming tutor for complete beginners.
+Explain pointers as if your student has never seen them before.
+Use a simple real-world analogy first, then the syntax."</span>
+
+<span class="cmt">vs. no role — which gives a generic, too-advanced explanation</span></div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#111827;margin-top:10px">Role-based prompting is especially powerful when you want the answer tailored to a specific skill level — which is exactly what you need as a student learning programming.</p>
+  </div>
+
+  <div class="card">
+    <h3>5. Negative Prompting</h3>
+    <p>Explicitly tell AI what <em>not</em> to include. Use when you want to keep the response focused and avoid unnecessary complexity.</p>
+    <div class="code" style="margin-top:12px"><span class="str">"Explain C pointers without using the words 'memory address'
+or 'hexadecimal'. Use only everyday analogies."</span>
+
+<span class="str">"Write a Python sorting example.
+Do not use built-in sort() or sorted().
+Implement bubble sort manually."</span>
+
+<span class="str">"Explain what recursion is.
+Do not use Fibonacci — use a different example."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>6. Iterative Refinement</h3>
+    <p>Use AI as a conversation — build on its previous response. Each follow-up improves or extends what it gave you.</p>
+    <div class="code" style="margin-top:12px"><span class="cmt">Turn 1:</span>
+<span class="str">"Write a C function that finds the maximum value in an array."</span>
+
+<span class="cmt">Turn 2 (refine):</span>
+<span class="str">"Good — now add input validation. Handle the case where the
+array is empty or has only one element."</span>
+
+<span class="cmt">Turn 3 (extend):</span>
+<span class="str">"Now convert this to also track the index of the maximum value,
+not just the value itself."</span></div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#111827;margin-top:10px">This step-by-step approach lets you build complex solutions gradually, understanding each addition — rather than asking for everything at once and getting overwhelmed.</p>
+  </div>
+</section>
+
+<!-- S13 -->
+<section class="section" id="s13">
+  <div class="day-badge">DAY 1 · 13 of 14</div>
+  <h1>Common Prompting Pitfalls</h1>
+  <p class="section-sub">The most frequent mistakes when writing prompts — and exactly how to fix each one.</p>
+
+  <div class="pitfall">
+    <h4>Pitfall 1 — Ambiguous Instructions</h4>
+    <p><strong>Problem:</strong> Vague or unclear prompts lead to generic, inconsistent outputs. Using terms like "make it better", "analyze this", or "tell me about" without specific criteria leaves AI guessing.</p>
+    <div class="code" style="margin-top:10px"><span class="err">❌ "Make this text better"</span>
+
+<span class="str">✅ "Rewrite this code comment to be more specific:
+1. Use active voice
+2. Mention the exact variable being modified
+3. Keep it under 10 words"</span></div>
+  </div>
+
+  <div class="pitfall">
+    <h4>Pitfall 2 — Overloading with Examples</h4>
+    <p><strong>Problem:</strong> Giving 8–10 examples in one prompt can confuse the AI. Too many examples, especially if they are inconsistent, dilute the pattern you are trying to establish.</p>
+    <div class="code" style="margin-top:10px"><span class="err">❌ Providing 10+ examples with varying styles and formats</span>
+
+<span class="str">✅ Use 2–5 high-quality, consistent, clearly formatted examples
+that all follow the exact same pattern you want AI to replicate</span></div>
+  </div>
+
+  <div class="pitfall">
+    <h4>Pitfall 3 — Ignoring Context Limits</h4>
+    <p><strong>Problem:</strong> Pasting your entire 500-line program and asking "fix everything" overloads the model. It will miss things, lose track of context, or give incomplete fixes.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> Isolate the specific function or section that has the issue. Show only the relevant code. If your program is large — describe the structure and paste only the broken part.</p>
+  </div>
+
+  <div class="pitfall">
+    <h4>Pitfall 4 — Inconsistent Formatting</h4>
+    <p><strong>Problem:</strong> Using a different prompt structure each time means you cannot build on what worked before. Random prompt styles produce random quality output.</p>
+    <div class="code" style="margin-top:10px"><span class="cmt">Develop a consistent template you reuse:</span>
+<span class="str">Role: [who AI should be]
+Task: [what you need]
+Context: [background, your level, the language]
+Output: [format, length, structure]
+Constraints: [what to avoid]</span></div>
+  </div>
+
+  <div class="pitfall">
+    <h4>Pitfall 5 — Not Testing Edge Cases</h4>
+    <p><strong>Problem:</strong> Asking AI to generate code or explanations and only testing with the "ideal" scenario. Code that works for one input may fail on others.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> After getting AI-generated code, always test with: the normal case, an empty/zero input, a very large input, and negative numbers (if applicable).</p>
+  </div>
+</section>
+
+<!-- S14 -->
+<section class="section" id="s14">
+  <div class="day-badge">DAY 1 · 14 of 14</div>
+  <h1>Pre-Prompt Checklist &amp; Hands-on Practice</h1>
+  <p class="section-sub">A checklist to use before every prompt — and live practice rewriting bad prompts.</p>
+
+  <div class="card">
+    <h3>The 6-Question Checklist — Ask Before You Send</h3>
+    <ul class="cklist">
+      <li><div class="ck">1</div><div><strong>Clear objective</strong> — Is it completely obvious what I want AI to do?</div></li>
+      <li><div class="ck">2</div><div><strong>Sufficient context</strong> — Does AI have enough background information (language, level, purpose)?</div></li>
+      <li><div class="ck">3</div><div><strong>Specific format</strong> — Have I said exactly how I want the output structured?</div></li>
+      <li><div class="ck">4</div><div><strong>Edge cases</strong> — Have I addressed any special conditions, errors, or constraints?</div></li>
+      <li><div class="ck">5</div><div><strong>Concise language</strong> — Can I remove any unnecessary words without losing meaning?</div></li>
+      <li><div class="ck">6</div><div><strong>Testable</strong> — After I receive the response, will I be able to verify that it is actually correct?</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Practice — Rewrite These Prompts Using Everything We Learned</h3>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-bottom:14px">Apply: Role + Task + Context + Output + Constraints &amp; the checklist</p>
+    <div class="code"><span class="cmt">Prompt A (C):</span>
+<span class="err">"Explain loops"</span>
+
+<span class="cmt">Prompt B (C++):</span>
+<span class="err">"Show me classes"</span>
+
+<span class="cmt">Prompt C (Python):</span>
+<span class="err">"Fix my function"</span>
+
+<span class="cmt">Prompt D (general):</span>
+<span class="err">"What is recursion"</span></div>
+  </div>
+
+  <div class="bq">
+    <p>Day 1 Complete<br><span style="font-size:16px;opacity:.8">AI is a tool. The prompt is your control. You now have both.</span></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     DAY 2
+══════════════════════════════════════════ -->
+
+<!-- S15 -->
+<section class="section" id="s15">
+  <div class="day-badge d2">DAY 2 · 1 of 9</div>
+  <h1>Day 2 Recap</h1>
+  <p class="section-sub">Quick review of Day 1 before we apply everything to real programming.</p>
+
+  <div class="card">
+    <h3>What we covered yesterday</h3>
+    <ul>
+      <li>AI predicts output based on patterns — your prompt is the control lever</li>
+      <li>Hallucination: AI can invent convincing but false code and facts</li>
+      <li>Bias: AI reflects stereotypes from training data</li>
+      <li>Errors: AI code can compile but produce wrong output — always test</li>
+      <li>Why prompt engineering matters: Precision · Efficiency · Reliability · Cost · Security</li>
+      <li>Four core principles: Clarity, Context, Task Decomposition, Output Format</li>
+      <li>Prompt structure: Role + Task + Context + Output + Constraints</li>
+      <li>Six techniques: Zero-shot, Few-shot, Chain-of-Thought, Role-based, Negative, Iterative</li>
+      <li>Five pitfalls and how to avoid them</li>
+    </ul>
+  </div>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">Yesterday</div>
+      <div class="cmp-text">We learned <strong>how to talk to AI</strong>.<br>Prompt structure, principles, techniques.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">Today</div>
+      <div class="cmp-text">We apply everything to <strong>real programming</strong>: learning, generating, debugging, and working like a real developer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- S16 -->
+<section class="section" id="s16">
+  <div class="day-badge d2">DAY 2 · 2 of 9</div>
+  <h1>AI as a Tutor</h1>
+  <p class="section-sub">How to use AI to understand programming concepts faster — with real examples in C, C++, and Python.</p>
+
+  <div class="card">
+    <h3>The Key Idea</h3>
+    <p>Traditional learning: read the textbook → attend lecture → ask teacher (who has 30 other students).</p>
+    <br>
+    <p>With AI: ask for the exact explanation <em>you</em> need, at <em>your</em> level, with <em>your</em> choice of examples — instantly, as many times as you need, rephrased as many ways as you want.</p>
+    <br>
+    <p style="color:#4f8ef7;font-weight:600">AI = Personal Programming Tutor available 24/7.</p>
+  </div>
+
+  <div class="card">
+    <h3>C — Learning Concepts</h3>
+    <div class="code"><span class="cmt">Learning arrays from scratch:</span>
+<span class="str">"Act as a C programming tutor.
+Explain arrays in C using these steps:
+1. What is an array and why do we need it?
+2. How to declare and initialise an array (syntax)
+3. A complete working program: store 5 exam marks, find average
+4. Two common beginner mistakes with arrays
+Audience: first-year BIT student. Add code comments."</span>
+
+<span class="cmt">Learning pointers — scary topic, simplified:</span>
+<span class="str">"Explain C pointers to a complete beginner.
+Start with a simple real-world analogy (not memory addresses yet).
+Then introduce the & and * operators with one simple example.
+Avoid malloc and dynamic memory for now."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>C++ — Learning Object-Oriented Programming</h3>
+    <div class="code"><span class="cmt">Understanding classes:</span>
+<span class="str">"You are a C++ tutor.
+Explain classes and objects using the analogy of a real car.
+Show: class definition, constructor, attributes, one method.
+Write a complete program where a Car object is created and its
+details are printed. Add a comment on every line."</span>
+
+<span class="cmt">Comparing C and C++:</span>
+<span class="str">"I know C already. Explain the 3 biggest differences between C and C++
+that I will notice immediately when writing programs.
+Use side-by-side code examples."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Python — For Students Who Know C</h3>
+    <div class="code"><span class="cmt">Connecting what you know:</span>
+<span class="str">"I know C programming. Teach me Python by comparing it to C.
+Cover: variables (no type declaration), for loops, functions,
+and lists vs arrays.
+For each concept show: C version → Python version → key difference."</span>
+
+<span class="cmt">Understanding a confusing error:</span>
+<span class="str">"I am getting this Python error: 'list index out of range'.
+Explain why this happens in simple terms.
+Show a minimal example that causes it.
+Show how to fix it and how to prevent it."</span></div>
+  </div>
+</section>
+
+<!-- S17 -->
+<section class="section" id="s17">
+  <div class="day-badge d2">DAY 2 · 3 of 9</div>
+  <h1>Code Generation with AI</h1>
+  <p class="section-sub">How to use AI to generate working, readable, understandable code — not just code that runs.</p>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">❌ Lazy Generation Prompt</div>
+      <div class="cmp-text" style="font-weight:700;font-size:16px;margin-bottom:10px">"Write a C program"</div>
+      <div class="cmp-text">What program? What should it do? What data? What output format? What level?<br><br>AI will guess and produce something you probably cannot use or learn from.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">✅ Good Generation Prompt</div>
+      <div class="cmp-text" style="font-weight:600;margin-bottom:8px">"Write a C program that takes 5 integer inputs from the user and prints the maximum and minimum values. Add a comment on each line. Include the expected output for inputs: 3, 7, 1, 9, 4."</div>
+      <div class="cmp-text">Purpose ✓ · Input format ✓ · Expected output ✓ · Comments ✓ · Test case ✓</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>C — Generation Examples</h3>
+    <div class="code"><span class="cmt">Factorial with explanation:</span>
+<span class="str">"Write a C program that calculates the factorial of a number
+using a for loop (not recursion).
+Add comments explaining each line.
+Show expected output for input = 6."</span>
+
+<span class="cmt">Bubble sort — understanding the algorithm:</span>
+<span class="str">"Write a C program implementing bubble sort on an array of 6 integers.
+After each pass of the outer loop, print the current state of the array
+so I can see how it sorts step by step.
+Explain each part of the algorithm in comments."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>C++ — Generation Examples</h3>
+    <div class="code"><span class="cmt">Student class:</span>
+<span class="str">"Write a C++ program with a class called Student.
+Attributes: name (string), rollNo (int), marks (float).
+Methods: a constructor, and a display() function that prints all attributes.
+In main(), create 2 Student objects with different data.
+Add comments on every line. No inheritance needed."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Python — Generation Examples</h3>
+    <div class="code"><span class="cmt">Function with error handling:</span>
+<span class="str">"Write a Python function called calculate_average()
+that takes a list of numbers and returns the average.
+Handle the empty list case (do not divide by zero).
+Include a docstring. Show 3 test calls: normal, empty list, single item."</span>
+
+<span class="cmt">Reading a file and processing data:</span>
+<span class="str">"Write a Python program that reads numbers from a file called 'scores.txt'
+(one number per line), calculates the average, and prints the result.
+Handle the case where the file does not exist.
+Add comments on each important line."</span></div>
+  </div>
+
+  <div class="card" style="background:#fff8f0;border:1.5px solid #fbd38d">
+    <h3>⚠️ The Non-Negotiable Rule</h3>
+    <p style="font-size:14px;line-height:1.8">Do not run AI-generated code without reading it first. Read every line. If you do not understand a line — ask AI: <em>"Explain line 7 of this code in simple terms."</em></p>
+    <br>
+    <p style="font-size:14px">Code you do not understand is code you cannot fix, cannot explain to your teacher, and cannot learn from.</p>
+  </div>
+</section>
+
+<!-- S18 -->
+<section class="section" id="s18">
+  <div class="day-badge d2">DAY 2 · 4 of 9</div>
+  <h1>Debugging with AI</h1>
+  <p class="section-sub">AI is an exceptional debugging assistant — if you give it the right information.</p>
+
+  <div class="card">
+    <h3>The Debugging Workflow</h3>
+    <div class="wf">
+      <div class="wf-step">Find Error</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Explain</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Fix</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step p">Improve</div>
+    </div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-top:8px">Always ask AI to go through all four steps — not just give you the fixed code.</p>
+  </div>
+
+  <div class="card">
+    <h3>What to Include in a Debugging Prompt</h3>
+    <ul>
+      <li><strong>The code</strong> — paste the full function or section that is broken</li>
+      <li><strong>What it should do</strong> — the expected behaviour</li>
+      <li><strong>What it actually does</strong> — the wrong output or error message</li>
+      <li><strong>A test case</strong> — the input that causes the problem</li>
+      <li><strong>What you want</strong> — explanation + fixed code + how to prevent the error</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Debugging Prompt Structure</h3>
+    <div class="code"><span class="str">"Find the error in this C program.
+Explain step by step why the error happens.
+Show the corrected version.
+Tell me how to avoid this type of error in future.
+
+[paste your code here]"</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Live Example — Off-by-One Bug</h3>
+    <div class="code"><span class="cmt">/* Should print numbers 1 to 5, but prints 1 to 4 */</span>
+<span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+<span class="kw">int</span> <span class="fn">main</span>() {
+    <span class="kw">int</span> i = <span class="num">1</span>;
+    <span class="kw">while</span> (i &lt; <span class="num">5</span>) {        <span class="err">/* Bug: missing the = */</span>
+        printf(<span class="str">"%d\n"</span>, i);
+        i++;
+    }
+    <span class="kw">return</span> <span class="num">0</span>;
+}</div>
+    <div class="code" style="background:#1a1a2e;margin-top:8px"><span class="cmt"># Debugging prompt for this code:</span>
+<span class="str">"This C while loop should print 1, 2, 3, 4, 5 but it
+only prints 1, 2, 3, 4. Find the bug, explain why
+it happens step by step, and show the corrected loop."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Debugging Error Messages</h3>
+    <div class="code"><span class="cmt"># You got a compiler error? Paste it directly:</span>
+<span class="str">"I am compiling this C program and getting this error:
+'error: use of undeclared identifier x'
+Here is the code: [paste code]
+Explain what the error means and how to fix it."</span>
+
+<span class="cmt"># Python runtime error:</span>
+<span class="str">"My Python program crashes with:
+'IndexError: list index out of range'
+on line 12. Here is the relevant section: [paste code]
+Explain why this happens and how to fix it."</span></div>
+  </div>
+</section>
+
+<!-- S19 -->
+<section class="section" id="s19">
+  <div class="day-badge">DAY 2 · 5 of 9</div>
+  <h1>Template-Based Prompting</h1>
+  <p class="section-sub">Build a personal prompt library — reusable templates that produce consistent results every time.</p>
+
+  <div class="card">
+    <h3>Why Templates?</h3>
+    <p>Writing a great prompt from scratch every time is slow and inconsistent. Templates let you fill in the variables for each new task while keeping the structure that you already know works.</p>
+    <br>
+    <p style="color:#4f8ef7;font-weight:600">A prompt template is a repeatable pattern for a specific type of task.</p>
+  </div>
+
+  <div class="card">
+    <h3>The Master Template Structure</h3>
+    <div class="template-box">
+<span class="t-bracket">Role:</span>     <span class="t-field">[who AI should be]</span>
+<span class="t-bracket">Task:</span>     <span class="t-field">[what you need done, decomposed if complex]</span>
+<span class="t-bracket">Context:</span>  <span class="t-field">[your level, language, relevant background]</span>
+<span class="t-bracket">Output:</span>   <span class="t-field">[format, length, structure you want]</span>
+<span class="t-bracket">Avoid:</span>    <span class="t-field">[topics, jargon, approaches to exclude]</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Template 1 — Learning a New Concept</h3>
+    <div class="template-box">
+<span class="t-bracket">Role:</span>     <span class="t-field">Act as a [C / C++ / Python] tutor for beginners</span>
+<span class="t-bracket">Task:</span>     <span class="t-field">Teach me [concept name] using:
+          1. Simple explanation (1 paragraph)
+          2. Syntax with annotations
+          3. A complete working program example
+          4. Two common mistakes beginners make</span>
+<span class="t-bracket">Context:</span>  <span class="t-field">I am a first-year BIT student. I [know / do not know] [prior concept]</span>
+<span class="t-bracket">Output:</span>   <span class="t-field">Include comments on every line of code</span>
+<span class="t-bracket">Avoid:</span>    <span class="t-field">[advanced topic to exclude]</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Template 2 — Debugging</h3>
+    <div class="template-box">
+<span class="t-bracket">Task:</span>     <span class="t-field">Find the error in this [C / C++ / Python] program</span>
+<span class="t-bracket">Context:</span>  <span class="t-field">The program should [describe expected behaviour].
+          Instead it [describe actual wrong behaviour / error message].
+          The problem happens when I input: [test case]</span>
+<span class="t-bracket">Output:</span>   <span class="t-field">1. Identify the error and its exact location
+          2. Explain why it happens step by step
+          3. Show the corrected code
+          4. Tell me how to prevent this type of error in future</span>
+<span class="t-bracket">Code:</span>    <span class="t-field">[paste your code here]</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Template 3 — Code Generation</h3>
+    <div class="template-box">
+<span class="t-bracket">Role:</span>     <span class="t-field">Act as a [C / C++ / Python] programming tutor</span>
+<span class="t-bracket">Task:</span>     <span class="t-field">Write a [language] program that [specific task description]</span>
+<span class="t-bracket">Context:</span>  <span class="t-field">I am a beginner. The program should handle [input description]
+          and produce [output description]</span>
+<span class="t-bracket">Output:</span>   <span class="t-field">Add a comment on every line. Show expected output for [test case]</span>
+<span class="t-bracket">Avoid:</span>    <span class="t-field">[advanced features / libraries not yet covered]</span></div>
+  </div>
+
+  <div class="alert-purple">
+    <h3 style="color:#553c9a;margin-bottom:8px">Pro Tip: Keep a Prompt Library</h3>
+    <p style="color:#44337a">Save your best prompts in a text file. When you find a prompt that works well — keep it and reuse it. Adjust the [variables] for each new task. Over time you will build a personal toolkit that saves you hours.</p>
+  </div>
+</section>
+
+<!-- S20 -->
+<section class="section" id="s20">
+  <div class="day-badge">DAY 2 · 6 of 9</div>
+  <h1>Iterative Refinement</h1>
+  <p class="section-sub">The most powerful way to use AI — as a real conversation, not a single question.</p>
+
+  <div class="card">
+    <h3>The Concept</h3>
+    <p>Your first prompt rarely produces the perfect answer. That is completely normal — and expected. The real skill is knowing how to <strong>refine, extend, and improve</strong> across multiple turns of conversation.</p>
+    <br>
+    <p>AI remembers the context of your conversation. Each follow-up can build on what it already gave you.</p>
+  </div>
+
+  <div class="card">
+    <h3>Example — Building a C Program Step by Step</h3>
+    <div class="code"><span class="cmt">Turn 1 — Start simple:</span>
+<span class="str">"Write a C function that calculates the average of an array of integers."</span>
+
+<span class="cmt">Turn 2 — Add a specific requirement:</span>
+<span class="str">"Good. Now add input validation: the function should return -1
+if the array is empty (size = 0). Do not change anything else."</span>
+
+<span class="cmt">Turn 3 — Extend further:</span>
+<span class="str">"Now also find and return both the minimum and maximum values
+from the same single pass through the array.
+Update the function signature to return a struct."</span>
+
+<span class="cmt">Turn 4 — Ask for understanding:</span>
+<span class="str">"Explain why using a single pass (one for loop) is more efficient
+than using separate loops for min, max, and average."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Refinement Phrases That Work</h3>
+    <ul>
+      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Good. Now also add..."</code> — extend the solution</li>
+      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"That is correct but I need it to handle..."</code> — fix a gap</li>
+      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Can you simplify line 8?"</code> — improve a specific part</li>
+      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Explain what the for loop on line 12 is doing."</code> — understand before continuing</li>
+      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Now optimise this for performance."</code> — improve quality</li>
+      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Rewrite this using a while loop instead."</code> — learn alternatives</li>
+    </ul>
+  </div>
+
+  <div class="alert-blue">
+    <h3 style="color:#2b6cb0;margin-bottom:8px">The Mindset Shift</h3>
+    <p style="color:#1e3a8a;font-size:clamp(14px,1.3vw,17px)">Stop thinking of AI as a search engine where you type one question and get one answer. Think of it as a <strong>colleague sitting next to you</strong>. You work together, you ask follow-ups, you push back, you refine. That is when AI becomes truly powerful.</p>
+  </div>
+</section>
+
+<!-- S21 -->
+<section class="section" id="s21">
+  <div class="day-badge d2">DAY 2 · 7 of 9</div>
+  <h1>Common Mistakes When Using AI for Programming</h1>
+  <p class="section-sub">Why students fail with AI — and the specific fix for each problem.</p>
+
+  <div class="pitfall">
+    <h4>Mistake 1 — Vague Programming Prompts</h4>
+    <p>Asking "write a sorting program" or "explain pointers" without any context produces textbook-level responses that are too generic to be useful for your specific learning needs.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> Always specify the language, your level, the exact concept, and the format you need.</p>
+  </div>
+
+  <div class="pitfall">
+    <h4>Mistake 2 — Blind Copy-Paste</h4>
+    <p>Copying AI code into your program without understanding it means you have no idea if it is correct, if it matches your requirements, or why it works. If it breaks — you cannot fix it. If a teacher asks you to explain it — you cannot.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> Read every line. If something is unclear — ask AI: <em>"Explain line X in simple terms."</em> Only submit code you can explain.</p>
+  </div>
+
+  <div class="pitfall">
+    <h4>Mistake 3 — Not Verifying the Output</h4>
+    <p>AI hallucinations happen in code too. A function can look correct, compile without warnings, and still produce wrong results — or use a library function that does not exist.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> Compile the code. Run it with at least 2–3 different test inputs. Check the output manually against what you expect.</p>
+  </div>
+
+  <div class="pitfall">
+    <h4>Mistake 4 — Asking for Too Much at Once</h4>
+    <p>"Build me a complete student management system in C with file I/O, linked lists, and a menu" — this kind of prompt produces too much code to understand, with bugs you cannot locate.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> Break it into pieces. Build one function at a time, understand it, test it, then ask for the next part. Use iterative refinement.</p>
+  </div>
+
+  <div class="pitfall">
+    <h4>Mistake 5 — Not Using the Error Message</h4>
+    <p>When code fails, students often describe the problem in vague terms. "My program does not work" gives AI very little to work with.</p>
+    <div class="code" style="margin-top:10px"><span class="err">❌ "My C program does not work, please fix it"</span>
+
+<span class="str">✅ "My C program gives this compiler error:
+'error: expected ';' before 'return' on line 15'
+Here is the code: [paste code].
+Explain the error and fix it."</span></div>
+  </div>
+</section>
+
+<!-- S22 -->
+<section class="section" id="s22">
+  <div class="day-badge d2">DAY 2 · 8 of 9</div>
+  <h1>Real Developer Workflow with AI</h1>
+  <p class="section-sub">This is how professional developers actually integrate AI into their work — not as a shortcut, but as a thinking partner.</p>
+
+  <div class="card">
+    <h3>The Complete Workflow</h3>
+    <div class="wf">
+      <div class="wf-step">Problem</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Write Prompt</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">AI Output</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Understand</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Test</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step p">Improve</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Each Step Explained</h3>
+    <ul class="steps">
+      <li><div class="s-text"><strong>Problem</strong> — Define what you need to solve, completely and specifically. The clearer your problem definition, the better your prompt will be.</div></li>
+      <li><div class="s-text"><strong>Write Prompt</strong> — Use the template structure. Apply the principles. Check the 6-question checklist before sending.</div></li>
+      <li><div class="s-text"><strong>AI Output</strong> — Read the complete response. Do not skim. Highlight anything you do not fully understand.</div></li>
+      <li><div class="s-text"><strong>Understand</strong> — Before running any code — understand every line. Ask follow-up questions for anything unclear. This is the step most people skip — and it is the most important.</div></li>
+      <li><div class="s-text"><strong>Test</strong> — Compile and run the code. Test with your expected input. Test with edge cases (empty, zero, large numbers, wrong type).</div></li>
+      <li><div class="s-text"><strong>Improve</strong> — If it is not right — refine your prompt and go again. If it is right — ask AI: "How could this be written more efficiently?" or "What are the limitations of this approach?"</div></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>A Real Student Example</h3>
+    <div class="code"><span class="cmt">Problem: I need to write a C program to find duplicate numbers in an array</span>
+
+<span class="cmt">Step 1 — Write Prompt:</span>
+<span class="str">"Act as a C tutor. Write a function that finds and prints
+duplicate values in an integer array of size n.
+Add comments on each line. Show expected output for:
+{1, 2, 3, 2, 4, 1, 5}"</span>
+
+<span class="cmt">Step 2 — Read and understand the output</span>
+<span class="cmt">Step 3 — Compile and test</span>
+
+<span class="cmt">Step 4 — Iterative improvement:</span>
+<span class="str">"Good. Now modify the function to also count how many times
+each duplicate appears. Do not change the original logic."</span>
+
+<span class="cmt">Step 5 — Test again, understand the new parts</span></div>
+  </div>
+
+  <div class="alert-purple">
+    <h3 style="color:#553c9a;margin-bottom:8px">The Loop Mindset</h3>
+    <p style="color:#44337a;font-size:clamp(14px,1.3vw,17px)">The workflow is a loop, not a straight line. Your first attempt might need 2–3 refinements before it is right. That is normal, that is the process, and that is how real developers work. The skill is in the iteration — not the first prompt.</p>
+  </div>
+</section>
+
+<!-- S23 -->
+<section class="section" id="s23">
+  <div class="day-badge d2">DAY 2 · 9 of 9</div>
+  <h1>Workshop Closing</h1>
+  <p class="section-sub">What you now carry with you from these two days.</p>
+
+  <div class="card">
+    <h3>Complete Summary — What You Learned</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <p style="font-size:clamp(12px,1.1vw,14px);font-weight:700;color:#4f46e5;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Day 1 — Prompt Engineering</p>
+        <ul style="font-size:clamp(13px,1.2vw,16px);line-height:2">
+          <li>What AI and Generative AI is</li>
+          <li>How ChatGPT-style models work</li>
+          <li>Hallucination, Bias, Errors</li>
+          <li>Why prompt engineering matters (5 reasons)</li>
+          <li>Core Principle 1: Clarity &amp; Specificity</li>
+          <li>Core Principle 2: Context Provision</li>
+          <li>Core Principle 3: Task Decomposition</li>
+          <li>Core Principle 4: Output Format</li>
+          <li>Prompt Structure (Role+Task+Context+Output+Constraints)</li>
+          <li>6 Techniques (Zero-shot to Iterative)</li>
+          <li>5 Common Pitfalls</li>
+          <li>The 6-Question Pre-Prompt Checklist</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:clamp(12px,1.1vw,14px);font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Day 2 — AI Programming</p>
+        <ul style="font-size:clamp(13px,1.2vw,16px);line-height:2">
+          <li>AI as a personal tutor (C, C++, Python)</li>
+          <li>Code generation — the right way</li>
+          <li>Debugging with AI (4-step workflow)</li>
+          <li>Template-Based Prompting</li>
+          <li>Iterative Refinement (conversation approach)</li>
+          <li>5 Common programming mistakes with AI</li>
+          <li>Real developer workflow (Problem→Improve)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="bq">
+    <p>Student + AI + Good Prompt<br>= Fast Learning Developer</p>
+  </div>
+
+  <div class="card">
+    <h3>Three Things to Remember After Today</h3>
+    <ul class="steps">
+      <li><div class="s-text"><strong>AI is a tool, not a teacher.</strong> A tool can be used well or used badly. You now know how to use it well.</div></li>
+      <li><div class="s-text"><strong>Understand before you use.</strong> Never run code you do not understand. Ask follow-up questions. The goal is to learn — not just to get code that runs.</div></li>
+      <li><div class="s-text"><strong>The prompt is the skill.</strong> Any programmer can open ChatGPT. The ones who succeed are the ones who know how to communicate with it precisely, clearly, and strategically.</div></li>
+    </ul>
+  </div>
+
+  <div class="card" style="background:#f0fff4;border:1.5px solid #9ae6b4">
+    <h3 style="color:#276749">Final Message</h3>
+    <p style="color:#2d6a4f;font-size:15px;line-height:1.8">AI will not replace programmers. But programmers who use AI well will be significantly more effective than those who do not. You now have the foundation. The next step is practice — every assignment, every program, every concept you study is an opportunity to use what you learned here.</p>
+    <br>
+    <p style="color:#4f8ef7;font-weight:700;font-size:15px">Thank you. Now let us do the hands-on practice.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Bottom nav bar -->
+<div id="nav-bar">
+  <button class="nb-btn" id="btn-prev">&#8592; Prev</button>
+  <div id="nb-info">
+    <div id="nb-title"></div>
+    <div id="nb-counter"></div>
+    <div id="nb-dots"></div>
+  </div>
+  <button class="nb-btn" id="btn-next">Next &#8594;</button>
+</div>
+
+<!-- Progress bar -->
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<!-- Click hint -->
+<div id="hint">Click to continue &#8594;</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   SLIDE ENGINE
+═══════════════════════════════════════════════ */
+const STEP_SEL = '.card,.cmp,.alert-red,.alert-green,.alert-amber,.alert-blue,.alert-purple,.code,.why-grid,.tech-grid,.comp-grid,.pitfall,.principle-box,.wf,.bq,.hero,.steps,.cklist,.template-box';
+
+const slides   = Array.from(document.querySelectorAll('.section'));
+const navItems = document.querySelectorAll('.nav-item');
+const btnPrev  = document.getElementById('btn-prev');
+const btnNext  = document.getElementById('btn-next');
+const nbTitle  = document.getElementById('nb-title');
+const nbCounter= document.getElementById('nb-counter');
+const nbDots   = document.getElementById('nb-dots');
+const progFill = document.getElementById('progress-fill');
+const hint     = document.getElementById('hint');
+
+let cur    = 0;   // current slide index
+let stepIdx= 0;   // how many steps revealed on current slide
+let steps  = [];  // animatable children of current slide
+let visibleSlides = [];
+let activeFilter  = 0;
+
+/* ── Wrap slide header so it always shows ── */
+slides.forEach(sec => {
+  const badge = sec.querySelector('.day-badge');
+  const h1    = sec.querySelector('h1');
+  const sub   = sec.querySelector('.section-sub');
+  const wrap  = document.createElement('div');
+  wrap.className = 'slide-header';
+  if (badge) wrap.appendChild(badge);
+  if (h1)    wrap.appendChild(h1);
+  if (sub)   wrap.appendChild(sub);
+  sec.insertBefore(wrap, sec.firstChild);
+});
+
+/* ── Collect step children for a slide ── */
+function getSteps(idx) {
+  return Array.from(visibleSlides[idx].children).filter(el =>
+    !el.classList.contains('slide-header') && el.matches(STEP_SEL)
+  );
+}
+
+/* ── Apply step-item class to all children ── */
+function prepSteps(idx) {
+  const s = getSteps(idx);
+  s.forEach(el => {
+    el.classList.remove('step-in','step-skip');
+    el.classList.add('step-item');
+  });
+  return s;
+}
+
+/* ── Go to slide ── */
+function goSlide(idx, dir) {
+  if (idx < 0 || idx >= visibleSlides.length) return;
+  const prev = visibleSlides[cur];
+
+  // Exit current
+  prev.classList.remove('s-active','s-enter-bwd');
+  prev.classList.add(dir === 'fwd' ? 's-exit-fwd' : 's-exit-bwd');
+  setTimeout(() => prev.classList.remove('s-exit-fwd','s-exit-bwd'), 360);
+
+  cur     = idx;
+  stepIdx = 0;
+  steps   = prepSteps(idx);
+
+  const next = visibleSlides[cur];
+  next.classList.remove('s-exit-fwd','s-exit-bwd');
+  if (dir === 'fwd') {
+    next.classList.add('s-active');
+  } else {
+    next.classList.add('s-enter-bwd');
+  }
+  next.scrollTop = 0;
+
+  updateUI();
+}
+
+/* ── Reveal next step or go to next slide ── */
+function forward() {
+  if (stepIdx < steps.length) {
+    const el = steps[stepIdx];
+    el.classList.remove('step-item');
+    el.classList.add('step-in');
+    stepIdx++;
+    updateUI();
+    // Scroll revealed element into view inside its slide container
+    setTimeout(() => {
+      const section = visibleSlides[cur];
+      const elBottom = el.offsetTop + el.offsetHeight;
+      const visibleBottom = section.scrollTop + section.clientHeight;
+      if (elBottom > visibleBottom - 24) {
+        section.scrollTo({ top: elBottom - section.clientHeight + 64, behavior: 'smooth' });
+      }
+    }, 120);
+  } else if (cur < visibleSlides.length - 1) {
+    goSlide(cur + 1, 'fwd');
+  }
+}
+
+/* ── Go back one step or prev slide ── */
+function backward() {
+  if (stepIdx > 0) {
+    stepIdx--;
+    const el = steps[stepIdx];
+    el.classList.remove('step-in','step-skip');
+    el.classList.add('step-item');
+    updateUI();
+  } else if (cur > 0) {
+    // Go to prev slide and show ALL its steps
+    const prevIdx = cur - 1;
+    goSlide(prevIdx, 'bwd');
+    // After animation, reveal all steps instantly
+    setTimeout(() => {
+      steps = getSteps(cur);
+      steps.forEach(el => {
+        el.classList.remove('step-item','step-in');
+        el.classList.add('step-skip');
+      });
+      stepIdx = steps.length;
+      updateUI();
+    }, 60);
+  }
+}
+
+/* ── Update all UI chrome ── */
+function updateUI() {
+  // Progress bar
+  const pct = ((cur + 1) / visibleSlides.length) * 100;
+  progFill.style.width = pct + '%';
+
+  // Counter
+  nbCounter.textContent = `Slide ${cur + 1} of ${visibleSlides.length}`;
+
+  // Title from h1
+  const h1 = visibleSlides[cur].querySelector('h1');
+  nbTitle.textContent = h1 ? h1.textContent.replace(/\s*GUIDELINES\s*/g,'') : '';
+
+  // Step dots
+  nbDots.innerHTML = '';
+  steps.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'nb-dot' + (i < stepIdx ? ' d-done' : i === stepIdx ? ' d-cur' : '');
+    nbDots.appendChild(d);
+  });
+
+  // Buttons
+  btnPrev.disabled = (cur === 0 && stepIdx === 0);
+  btnNext.disabled = (cur === visibleSlides.length - 1 && stepIdx === steps.length);
+
+  // Hint
+  const allDone = stepIdx >= steps.length && cur === visibleSlides.length - 1;
+  hint.classList.toggle('hidden', allDone);
+  hint.textContent = stepIdx < steps.length
+    ? `Click · ${steps.length - stepIdx} more on this slide`
+    : (cur < visibleSlides.length - 1 ? 'Click for next slide →' : '✓ End of workshop');
+
+  // Sidebar nav (full mode)
+  const slideId = visibleSlides[cur].id;
+  navItems.forEach(item =>
+    item.classList.toggle('active', item.getAttribute('href') === '#' + slideId)
+  );
+  // Sidebar nav (mini mode)
+  updateSlideNums();
+}
+
+/* ── Sidebar day-group toggle ── */
+function toggleDay(id, lblId) {
+  const items = document.getElementById(id);
+  const lbl   = document.getElementById(lblId);
+  const c = items.classList.toggle('collapsed');
+  lbl.classList.toggle('collapsed', c);
+}
+
+/* ── Day filter ── */
+function setDayFilter(day) {
+  activeFilter = day;
+  visibleSlides = day === 0
+    ? slides.slice()
+    : slides.filter(s => {
+        const num = parseInt(s.id.replace('s',''));
+        return day === 1 ? num <= 14 : num >= 15;
+      });
+
+  // Clear all active states from all slides
+  slides.forEach(s => s.classList.remove('s-active','s-enter-bwd','s-exit-fwd','s-exit-bwd'));
+
+  // Show/hide sidebar day groups
+  const g1 = document.getElementById('d1').closest('.day-group');
+  const g2 = document.getElementById('d2').closest('.day-group');
+  g1.style.display = (day === 2) ? 'none' : '';
+  g2.style.display = (day === 1) ? 'none' : '';
+
+  // Update filter button active states
+  ['df-all','df-day1','df-day2'].forEach((id, i) => {
+    document.getElementById(id).classList.toggle('df-active', i === day);
+  });
+
+  // Reset to first visible slide
+  cur = 0; stepIdx = 0;
+  steps = prepSteps(0);
+  visibleSlides[0].classList.add('s-active');
+  visibleSlides[0].scrollTop = 0;
+
+  // Rebuild mini buttons and update URL param
+  buildMini();
+  const url = new URL(window.location.href);
+  if (day === 0) url.searchParams.delete('day');
+  else url.searchParams.set('day', day);
+  history.replaceState(null, '', url);
+
+  updateUI();
+}
+
+/* ── Sidebar nav click ── */
+function setActive(el) {
+  const href = el.getAttribute('href');
+  const targetId = href.replace('#','');
+  const idx = visibleSlides.findIndex(s => s.id === targetId);
+  if (idx !== -1 && idx !== cur) goSlide(idx, idx > cur ? 'fwd' : 'bwd');
+}
+
+/* ── Sidebar mini toggle ── */
+const sidebar    = document.getElementById('sidebar');
+const sbToggleBtn= document.getElementById('sb-toggle-btn');
+const slideNums  = document.getElementById('slide-nums');
+
+function buildMini() {
+  slideNums.innerHTML = '';
+  visibleSlides.forEach((s, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sn-btn';
+    btn.textContent = i + 1;
+    btn.title = s.querySelector('h1') ? s.querySelector('h1').textContent.trim().replace(/\s*GUIDELINES\s*/g,'') : `Slide ${i+1}`;
+    btn.addEventListener('click', () => {
+      if (i !== cur) goSlide(i, i > cur ? 'fwd' : 'bwd');
+    });
+    slideNums.appendChild(btn);
+  });
+}
+
+function setSidebarMini(mini) {
+  if (mini) {
+    sidebar.classList.add('mini');
+    document.documentElement.style.setProperty('--sb','56px');
+    sbToggleBtn.innerHTML = '&#9776;';
+    sbToggleBtn.title = 'Expand sidebar';
+  } else {
+    sidebar.classList.remove('mini');
+    document.documentElement.style.setProperty('--sb','280px');
+    sbToggleBtn.innerHTML = '&#8942;';
+    sbToggleBtn.title = 'Collapse sidebar';
+  }
+}
+
+sbToggleBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  setSidebarMini(!sidebar.classList.contains('mini'));
+});
+
+function updateSlideNums() {
+  document.querySelectorAll('.sn-btn').forEach((btn, i) => {
+    btn.classList.remove('sn-active','sn-done');
+    if (i === cur) btn.classList.add('sn-active');
+    else if (i < cur) btn.classList.add('sn-done');
+  });
+}
+
+/* ── Click main area = forward ── */
+document.getElementById('main').addEventListener('click', e => {
+  if (!e.target.closest('#nav-bar') && !e.target.closest('#hint')) forward();
+});
+
+/* ── Keyboard ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); forward(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); backward(); }
+});
+
+/* ── Nav buttons ── */
+btnNext.addEventListener('click', e => { e.stopPropagation(); forward(); });
+btnPrev.addEventListener('click', e => { e.stopPropagation(); backward(); });
+
+/* ── Init ── */
+const _urlDay = parseInt(new URLSearchParams(window.location.search).get('day')) || 0;
+
+function initWithMaxDay(maxDay) {
+  // Cap the requested day at what the server allows
+  const day = _urlDay === 0 ? 0 : Math.min(_urlDay, maxDay);
+  setDayFilter(day);
+  if (maxDay < 2) {
+    const btn2 = document.getElementById('df-day2');
+    btn2.disabled = true;
+    btn2.title = 'Day 2 not yet unlocked';
+    btn2.style.opacity = '0.35';
+    btn2.style.cursor = 'not-allowed';
+    btn2.onclick = null;
+  }
+}
+
+if (window.location.protocol === 'file:') {
+  // Local development: show everything
+  initWithMaxDay(2);
+} else {
+  fetch('/api/status')
+    .then(r => r.json())
+    .then(({ maxDay }) => initWithMaxDay(maxDay))
+    .catch(() => initWithMaxDay(1));
+}
+</script>
+</body>
+</html>
