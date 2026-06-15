@@ -372,6 +372,9 @@ body{
   <div id="slide-nums"></div>
 
   <div class="day-group">
+    <div class="day-label" onclick="toggleDay('d1','lbl1')" id="lbl1">
+      Day 1 — Prompt Engineering <span class="arrow">▼</span>
+    </div>
     <div class="day-items" id="d1">
       <a class="nav-item" href="#s1" onclick="setActive(this)">1 · Welcome &amp; Hook</a>
       <a class="nav-item" href="#s2" onclick="setActive(this)">2 · What is AI?</a>
@@ -391,6 +394,9 @@ body{
   </div>
 
   <div class="day-group">
+    <div class="day-label" onclick="toggleDay('d2','lbl2')" id="lbl2">
+      Day 2 — AI Programming <span class="arrow">▼</span>
+    </div>
     <div class="day-items" id="d2">
       <a class="nav-item" href="#s15" onclick="setActive(this)">15 · Day 2 Recap</a>
       <a class="nav-item" href="#s16" onclick="setActive(this)">16 · AI as a Tutor</a>
@@ -1884,6 +1890,14 @@ function updateUI() {
   );
   // Sidebar nav (mini mode)
   updateSlideNums();
+}
+
+/* ── Sidebar day-group toggle ── */
+function toggleDay(id, lblId) {
+  const items = document.getElementById(id);
+  const lbl   = document.getElementById(lblId);
+  const c = items.classList.toggle('collapsed');
+  lbl.classList.toggle('collapsed', c);
 }
 
 /* ── Day filter ── */
