@@ -368,11 +368,6 @@ body{
       </div>
       <button class="sb-toggle" id="sb-toggle-btn" title="Collapse sidebar">&#8942;</button>
     </div>
-    <div class="day-filter-row">
-      <button class="df-btn df-active" id="df-all"  onclick="setDayFilter(0)">All</button>
-      <button class="df-btn"           id="df-day1" onclick="setDayFilter(1)">Day 1</button>
-      <button class="df-btn"           id="df-day2" onclick="setDayFilter(2)">Day 2</button>
-    </div>
   </div>
   <div id="slide-nums"></div>
 
@@ -1924,23 +1919,13 @@ function setDayFilter(day) {
   g1.style.display = (day === 2) ? 'none' : '';
   g2.style.display = (day === 1) ? 'none' : '';
 
-  // Update filter button active states
-  ['df-all','df-day1','df-day2'].forEach((id, i) => {
-    document.getElementById(id).classList.toggle('df-active', i === day);
-  });
-
   // Reset to first visible slide
   cur = 0; stepIdx = 0;
   steps = prepSteps(0);
   visibleSlides[0].classList.add('s-active');
   visibleSlides[0].scrollTop = 0;
 
-  // Rebuild mini buttons and update URL param
   buildMini();
-  const url = new URL(window.location.href);
-  if (day === 0) url.searchParams.delete('day');
-  else url.searchParams.set('day', day);
-  history.replaceState(null, '', url);
 
   updateUI();
 }
@@ -2015,20 +2000,8 @@ btnNext.addEventListener('click', e => { e.stopPropagation(); forward(); });
 btnPrev.addEventListener('click', e => { e.stopPropagation(); backward(); });
 
 /* ── Init ── */
-const _urlDay = parseInt(new URLSearchParams(window.location.search).get('day')) || 0;
-
 function initWithMaxDay(maxDay) {
-  // Cap the requested day at what the server allows
-  const day = _urlDay === 0 ? 0 : Math.min(_urlDay, maxDay);
-  setDayFilter(day);
-  if (maxDay < 2) {
-    const btn2 = document.getElementById('df-day2');
-    btn2.disabled = true;
-    btn2.title = 'Day 2 not yet unlocked';
-    btn2.style.opacity = '0.35';
-    btn2.style.cursor = 'not-allowed';
-    btn2.onclick = null;
-  }
+  setDayFilter(maxDay >= 2 ? 0 : 1);
 }
 
 if (window.location.protocol === 'file:') {
