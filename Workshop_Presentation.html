@@ -371,9 +371,9 @@ body{
   </div>
   <div id="slide-nums"></div>
 
-  <a class="nav-item" href="#s0" onclick="setActive(this)" style="padding-left:20px;font-weight:700;border-left:3px solid #4f46e5;color:#4f46e5;background:linear-gradient(to right,#eef2ff,#fff)">&#128100; About Me</a>
+  <a class="nav-item" href="#s0" onclick="setActive(this)" style="padding-left:20px;font-weight:700;border-left:3px solid #4f46e5;color:#4f46e5;background:linear-gradient(to right,#eef2ff,#fff);margin-bottom:0">&#128100; About Me</a>
 
-  <div class="day-group">
+  <div class="day-group" style="padding-top:4px">
     <div class="day-label" onclick="toggleDay('d1','lbl1')" id="lbl1">
       Day 1 — Prompt Engineering <span class="arrow">▼</span>
     </div>
@@ -485,11 +485,12 @@ body{
       </div>
 
       <div style="background:#fff;border-radius:16px;padding:18px 22px;margin-top:14px;box-shadow:0 4px 20px rgba(0,120,212,.08);border:1px solid #b3d9f0;display:flex;align-items:center;gap:18px">
-        <div style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#0078d4,#00b7c3);display:flex;align-items:center;justify-content:center;font-size:22px">&#128188;</div>
+        <img src="./maitri-logo.png" alt="Maitri Services"
+          style="width:52px;height:52px;object-fit:contain;border-radius:10px;flex-shrink:0;border:1px solid #e0f0fb"/>
         <div style="flex:1">
-          <div style="font-size:12px;font-weight:800;color:#005a9e;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Current Role · Sept 2025 – Present</div>
-          <div style="font-size:15px;font-weight:700;color:#1e293b;margin-bottom:4px">Data Engineer &nbsp;·&nbsp; Maitri Services, Lalitpur</div>
-          <div style="font-size:13px;color:#0078d4">MARÉ Insights — AI-Powered Healthcare Sales Platform &nbsp;·&nbsp; dbt · Snowflake · SQL · Python</div>
+          <div style="font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px">Data Engineer</div>
+          <div style="font-size:14px;font-weight:600;color:#374151;margin-bottom:4px">Maitri Services, Lalitpur</div>
+          <div style="font-size:13px;color:#0078d4;font-weight:600">SQL &nbsp;·&nbsp; Python &nbsp;·&nbsp; dbt &nbsp;·&nbsp; Snowflake &nbsp;·&nbsp; US Healthcare</div>
         </div>
       </div>
     </div>
@@ -1960,7 +1961,7 @@ function updateUI() {
 
   // Hint
   const allDone = stepIdx >= steps.length && cur === visibleSlides.length - 1;
-  hint.classList.toggle('hidden', allDone);
+  hint.classList.toggle('hidden', allDone || visibleSlides[cur].id === 's0');
   hint.textContent = stepIdx < steps.length
     ? `Click · ${steps.length - stepIdx} more on this slide`
     : (cur < visibleSlides.length - 1 ? 'Click for next slide →' : '✓ End of workshop');
@@ -2068,7 +2069,7 @@ function updateSlideNums() {
 
 /* ── Click main area = forward ── */
 document.getElementById('main').addEventListener('click', e => {
-  if (!e.target.closest('#nav-bar') && !e.target.closest('#hint')) forward();
+  if (!e.target.closest('#nav-bar') && !e.target.closest('#hint') && visibleSlides[cur].id !== 's0') forward();
 });
 
 /* ── Keyboard ── */
