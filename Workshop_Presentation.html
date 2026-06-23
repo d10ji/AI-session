@@ -427,21 +427,23 @@ body{
       Day 2 — AI Programming <span class="arrow">▼</span>
     </div>
     <div class="day-items" id="d2">
-      <a class="nav-item" href="#s22" onclick="setActive(this)">22 · Day 2 Recap</a>
-      <a class="nav-item" href="#s23" onclick="setActive(this)">23 · Demo: Two Quick Python Demos <span class="nav-tag g">Demo</span></a>
-      <a class="nav-item" href="#s25" onclick="setActive(this)">24 · Lab 1: Learn Python by Asking <span class="nav-tag">Lab</span></a>
-      <a class="nav-item" href="#s26" onclick="setActive(this)">25 · AI as a Tutor</a>
-      <a class="nav-item" href="#s27" onclick="setActive(this)">26 · Code Generation</a>
-      <a class="nav-item" href="#s28" onclick="setActive(this)">27 · Demo: Debugging Python Live <span class="nav-tag g">Demo</span></a>
-      <a class="nav-item" href="#s29" onclick="setActive(this)">28 · Lab 2: Debug This Program <span class="nav-tag">Lab</span></a>
-      <a class="nav-item" href="#s30" onclick="setActive(this)">29 · Debugging with AI</a>
-      <a class="nav-item" href="#s31" onclick="setActive(this)">30 · Template Prompting</a>
-      <a class="nav-item" href="#s32" onclick="setActive(this)">31 · Iterative Refinement</a>
-      <a class="nav-item" href="#s33" onclick="setActive(this)">32 · Demo: Build in 4 Turns <span class="nav-tag g">Demo</span></a>
-      <a class="nav-item" href="#s34" onclick="setActive(this)">33 · Capstone Lab <span class="nav-tag">Lab</span></a>
-      <a class="nav-item" href="#s35" onclick="setActive(this)">34 · Common Mistakes</a>
-      <a class="nav-item" href="#s36" onclick="setActive(this)">35 · Real Workflow</a>
-      <a class="nav-item" href="#s37" onclick="setActive(this)">36 · Workshop Closing</a>
+      <a class="nav-item" href="#s22" onclick="setActive(this)">1 · Day 2 Recap</a>
+      <a class="nav-item" href="#s23" onclick="setActive(this)">2 · Demo: Two Quick Python Demos <span class="nav-tag g">Demo</span></a>
+      <a class="nav-item" href="#s25" onclick="setActive(this)">3 · Lab 1: Learn Python by Asking <span class="nav-tag">Lab</span></a>
+      <a class="nav-item" href="#s26" onclick="setActive(this)">4 · AI as Your Coding Partner</a>
+      <a class="nav-item" href="#s30" onclick="setActive(this)">5 · Debugging with AI</a>
+      <a class="nav-item" href="#s29" onclick="setActive(this)">6 · Lab 2: Debug This Program <span class="nav-tag">Lab</span></a>
+      <a class="nav-item" href="#s31" onclick="setActive(this)">7 · Template Prompting</a>
+      <a class="nav-item" href="#s34" onclick="setActive(this)">8 · Capstone Lab <span class="nav-tag">Lab</span></a>
+      <a class="nav-item" href="#s35" onclick="setActive(this)">9 · Common Mistakes &amp; Real Workflow</a>
+      <a class="nav-item" href="#s38" onclick="setActive(this)">10 · What is Vibe Coding?</a>
+      <a class="nav-item" href="#s39" onclick="setActive(this)">11 · OpenCode: Setup &amp; Hands-On <span class="nav-tag g">Demo</span></a>
+      <a class="nav-item" href="#s40" onclick="setActive(this)">12 · Vibe Coding Assignment <span class="nav-tag">Lab</span></a>
+      <a class="nav-item" href="#s41" onclick="setActive(this)">13 · Report Writing: ChatGPT Sources</a>
+      <a class="nav-item" href="#s42" onclick="setActive(this)">14 · Report Writing: DeepSeek Write</a>
+      <a class="nav-item" href="#s43" onclick="setActive(this)">15 · Fake Citations Warning</a>
+      <a class="nav-item" href="#s44" onclick="setActive(this)">16 · Humanize, Cite &amp; Check</a>
+      <a class="nav-item" href="#s37" onclick="setActive(this)">17 · Workshop Closing</a>
     </div>
   </div>
 </nav>
@@ -877,7 +879,7 @@ body{
   </div>
   <div class="code">
     <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Prompt to run on ChatGPT</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">I know C programming. Show me the same program in C and Python side by side: store 5 student marks, find the average, print pass or fail for each. Explain every difference between the two versions.</pre>
+    <pre style="white-space:pre-wrap">I know C programming. Show me the same program in C and Python side by side: store 5 student marks, find the average, print pass or fail for each. Explain every difference between the two versions.</pre>
   </div>
   <div class="card">
     <h3>What to Observe</h3>
@@ -945,29 +947,57 @@ body{
 <section class="section" id="s8">
   <div class="day-badge">DAY 1 · 8 of 21</div>
   <h1>Demo: Catch the Hallucination</h1>
-  <p class="section-sub">AI confidently describes a Python function that does not exist. Then Perplexity catches it.</p>
+  <p class="section-sub">Two prompts. Two confident, completely false AI responses. Run them live and watch what happens.</p>
+
   <div class="hero">
     <h2>Live Demo — Run on ChatGPT and DeepSeek</h2>
-    <p>Send this exact prompt to both tools simultaneously.</p>
+    <p>Send each prompt separately. Watch how confidently AI responds to both.</p>
   </div>
-  <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Prompt — send to ChatGPT, then DeepSeek</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">What does the Python function list.findall() do? Show me an example.</pre>
-  </div>
+
   <div class="card">
-    <h3>What Will Happen</h3>
-    <ul>
-      <li>One or both tools will describe a function that <strong>does not exist in Python</strong>.</li>
-      <li>They will give you a confident explanation and a code example.</li>
-      <li>If you run that code — it crashes with <code>AttributeError</code>.</li>
-    </ul>
+    <h3>Demo 1 — Fake Python Function</h3>
+    <p style="margin-bottom:10px;font-size:clamp(13px,1.2vw,16px);color:#374151">Send this to ChatGPT, then DeepSeek:</p>
+    <div class="code" style="position:relative">
+      <button class="copy-btn" onclick="(function(b){var t='What does the Python function list.findall() do? Show me an example.';if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.innerHTML='<svg width=\'14\' height=\'14\' viewBox=\'0 0 14 14\' fill=\'none\'><path d=\'M2.5 7l3 3 6-6\' stroke=\'#10b981\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg>';setTimeout(function(){b.innerHTML='<svg width=\'14\' height=\'14\' viewBox=\'0 0 14 14\' fill=\'none\'><rect x=\'3\' y=\'1\' width=\'8\' height=\'10\' rx=\'1.5\' stroke=\'currentColor\' stroke-width=\'1.5\'/><path d=\'M5 1V0h4v1\' stroke=\'currentColor\' stroke-width=\'1.5\'/></svg>'},1800)})}else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}})(this)" style="position:absolute;top:10px;right:10px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="1" width="8" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 1V0h4v1" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <pre style="white-space:pre-wrap">What does the Python function list.findall() do? Show me an example.</pre>
+    </div>
+    <div class="alert-red" style="margin-top:12px">
+      <strong style="color:#e53e3e">What will happen:</strong>
+      <ul style="margin-top:8px;padding-left:18px;color:#4a5568;font-size:clamp(12px,1.1vw,14px);line-height:1.9">
+        <li><code>list.findall()</code> does <strong>not exist</strong> in Python — there is no such method</li>
+        <li>AI will confidently explain it, give it parameters, and show a working code example</li>
+        <li>If you copy and run that code — it crashes with <code>AttributeError</code></li>
+        <li>AI invented it because it <em>sounds like</em> a real Python method name</li>
+      </ul>
+    </div>
   </div>
+
+  <div class="card">
+    <h3>Demo 2 — Fake News Event</h3>
+    <p style="margin-bottom:10px;font-size:clamp(13px,1.2vw,16px);color:#374151">Send this to ChatGPT, then DeepSeek:</p>
+    <div class="code" style="position:relative">
+      <button class="copy-btn" onclick="(function(b){var t='Tell me about the massive tropical storm that flooded downtown Las Vegas last week.';if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.innerHTML='<svg width=\'14\' height=\'14\' viewBox=\'0 0 14 14\' fill=\'none\'><path d=\'M2.5 7l3 3 6-6\' stroke=\'#10b981\' stroke-width=\'2\' stroke-linecap=\'round\'/></svg>';setTimeout(function(){b.innerHTML='<svg width=\'14\' height=\'14\' viewBox=\'0 0 14 14\' fill=\'none\'><rect x=\'3\' y=\'1\' width=\'8\' height=\'10\' rx=\'1.5\' stroke=\'currentColor\' stroke-width=\'1.5\'/><path d=\'M5 1V0h4v1\' stroke=\'currentColor\' stroke-width=\'1.5\'/></svg>'},1800)})}else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}})(this)" style="position:absolute;top:10px;right:10px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="3" y="1" width="8" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 1V0h4v1" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <pre style="white-space:pre-wrap">Tell me about the massive tropical storm that flooded downtown Las Vegas last week.</pre>
+    </div>
+    <div class="alert-red" style="margin-top:12px">
+      <strong style="color:#e53e3e">Why this is impossible — two reasons:</strong>
+      <ul style="margin-top:8px;padding-left:18px;color:#4a5568;font-size:clamp(12px,1.1vw,14px);line-height:1.9">
+        <li><strong>Geography:</strong> Las Vegas is in the Nevada desert — tropical storms cannot reach there. It is one of the driest cities in the world</li>
+        <li><strong>Time:</strong> "Last week" is beyond AI's knowledge cutoff — AI has no data about recent events</li>
+        <li>Despite both of these facts, AI may describe the storm in detail — flood heights, streets affected, number of evacuations — all completely invented</li>
+        <li>This is the most dangerous hallucination type: fabricated facts that sound exactly like real news</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Now open Perplexity and search the same thing</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">list.findall() Python — does this exist?</pre>
+    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Now open Perplexity — fact-check both</div>
+    <pre style="white-space:pre-wrap">list.findall() Python — does this function exist?
+Las Vegas tropical storm flood — did this happen?</pre>
   </div>
+
   <div class="alert-amber">
-    <strong>Key Message:</strong> Perplexity = your fact-checker. Any time AI gives you a function or method you have never seen — search it in Perplexity before trusting it.
+    <strong>Key lesson:</strong> AI does not know when it is wrong. It predicts a plausible-sounding answer — whether that answer is real or not. Use Perplexity to verify any fact, function, or event AI tells you about.
   </div>
 </section>
 
@@ -987,8 +1017,8 @@ body{
     <p style="margin-bottom:10px;font-size:clamp(13px,1.2vw,16px);color:#374151">Prompt given to AI:</p>
     <div class="code"><span class="cmt"># Write a short story about a software engineer.</span></div>
     <p style="margin:12px 0;font-size:clamp(13px,1.2vw,16px);color:#374151">A typical AI response:</p>
-    <div class="card" style="background:#f8f9fa;margin:0 0 12px">
-      <p style="font-style:italic;font-size:13px;line-height:1.8">"<strong>John</strong> is a brilliant software engineer who leads a team of developers. He works long hours and loves solving hard math problems. His wife, a schoolteacher, always supports him from home."</p>
+    <div class="card" style="background:#f8f9fa;margin:0 0 13px">
+      <p style="font-style:italic;font-size:15px;line-height:1.8">"<strong>John</strong> is a brilliant software engineer who leads a team of developers. He works long hours and loves solving hard math problems. His wife, a schoolteacher, always supports him from home."</p>
     </div>
     <div class="alert-amber">
       <strong style="color:#c05621">What is biased here:</strong>
@@ -1196,14 +1226,14 @@ Use a real-world analogy. Keep it under 200 words."</span>
   <div class="card">
     <h3>Round 1 — Open Any AI Tool and Type This</h3>
     <div class="code" style="margin-top:12px">
-      <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">Explain Python lists</pre>
+      <pre style="white-space:pre-wrap">Explain Python lists</pre>
     </div>
     <p style="margin-top:10px;color:#374151">Read the output. Note how general it is.</p>
   </div>
   <div class="card">
     <h3>Round 2 — Now Send This</h3>
     <div class="code" style="margin-top:12px">
-      <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">I know C arrays. Explain Python lists to me by comparing them to C arrays. Show what's different, what's easier, and what Python lists can do that C arrays can't.</pre>
+      <pre style="white-space:pre-wrap">I know C arrays. Explain Python lists to me by comparing them to C arrays. Show what's different, what's easier, and what Python lists can do that C arrays can't.</pre>
     </div>
   </div>
   <div class="cmp">
@@ -1405,7 +1435,7 @@ Add a comment on every line. No lambda or decorators."</span></div>
   </div>
   <div class="code">
     <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">The Prompt — send to ChatGPT · Claude · DeepSeek · Gemini</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">I know C programming. Explain what a Python list is, show me how to add and remove items, and give me one simple example using 3 student names. Keep it short.</pre>
+    <pre style="white-space:pre-wrap">I know C programming. Explain what a Python list is, show me how to add and remove items, and give me one simple example using 3 student names. Keep it short.</pre>
   </div>
   <div class="card">
     <h3>What to Compare</h3>
@@ -1521,21 +1551,6 @@ Implement bubble sort manually."</span>
 Do not use Fibonacci — use a different example."</span></div>
   </div>
 
-  <div class="card">
-    <h3>6. Iterative Refinement</h3>
-    <p>Use AI as a conversation — build on its previous response. Each follow-up improves or extends what it gave you.</p>
-    <div class="code" style="margin-top:12px"><span class="cmt">Turn 1:</span>
-<span class="str">"Write a C function that finds the maximum value in an array."</span>
-
-<span class="cmt">Turn 2 (refine):</span>
-<span class="str">"Good — now add input validation. Handle the case where the
-array is empty or has only one element."</span>
-
-<span class="cmt">Turn 3 (extend):</span>
-<span class="str">"Now convert this to also track the index of the maximum value,
-not just the value itself."</span></div>
-    <p style="font-size:clamp(13px,1.2vw,16px);color:#111827;margin-top:10px">This step-by-step approach lets you build complex solutions gradually, understanding each addition — rather than asking for everything at once and getting overwhelmed.</p>
-  </div>
 </section>
 
 <!-- S20 -->
@@ -1635,7 +1650,7 @@ Constraints: [what to avoid]</span></div>
 
 <!-- S22 -->
 <section class="section" id="s22">
-  <div class="day-badge d2">DAY 2 · 1 of 15</div>
+  <div class="day-badge d2">DAY 2 · 1 of 17</div>
   <h1>Day 2 Recap</h1>
   <p class="section-sub">Quick recap of Day 1 — today we move from prompting to programming.</p>
 
@@ -1649,7 +1664,7 @@ Constraints: [what to avoid]</span></div>
       <li>Why prompt engineering matters: Precision · Efficiency · Reliability · Cost · Security</li>
       <li>Four core principles: Clarity, Context, Task Decomposition, Output Format</li>
       <li>Prompt structure: Role + Task + Context + Output + Constraints</li>
-      <li>Six techniques: Zero-shot, Few-shot, Chain-of-Thought, Role-based, Negative, Iterative</li>
+      <li>Five techniques: Zero-shot, Few-shot, Chain-of-Thought, Role-based, Negative</li>
       <li>Five pitfalls and how to avoid them</li>
     </ul>
   </div>
@@ -1668,7 +1683,7 @@ Constraints: [what to avoid]</span></div>
 
 <!-- S23 -->
 <section class="section" id="s23">
-  <div class="day-badge d2">DAY 2 · 2 of 15</div>
+  <div class="day-badge d2">DAY 2 · 2 of 17</div>
   <h1>Demo: Two Quick Python Demos</h1>
   <p class="section-sub">Two prompts, two tools, 10 minutes. Students see Python working and understand where the skill takes them.</p>
   <div class="card">
@@ -1676,7 +1691,7 @@ Constraints: [what to avoid]</span></div>
   </div>
   <div class="code">
     <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Prompt — ChatGPT</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">Write a Python program that has a list of 3 student marks. Print each mark and whether it is a PASS (mark 40 or above) or FAIL. Add a comment on each line.</pre>
+    <pre style="white-space:pre-wrap">Write a Python program that has a list of 3 student marks. Print each mark and whether it is a PASS (mark 40 or above) or FAIL. Add a comment on each line.</pre>
   </div>
   <div class="alert-green" style="margin-bottom:20px"><strong>Point out:</strong> No <code>#include</code>, no <code>int main()</code>, no <code>printf</code>. Same logic as C — in 5 lines.</div>
   <div class="card">
@@ -1685,14 +1700,14 @@ Constraints: [what to avoid]</span></div>
   </div>
   <div class="code">
     <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Prompt — Claude</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">Here is a C program. Translate it to Python. For each line that changes, explain WHY in one sentence. Keep it simple — I am a beginner.</pre>
+    <pre style="white-space:pre-wrap">Here is a C program. Translate it to Python. For each line that changes, explain WHY in one sentence. Keep it simple — I am a beginner.</pre>
   </div>
   <div class="alert-blue"><strong>Why two tools?</strong> ChatGPT for quick tasks, Claude for structured explanations. Students should use both — they complement each other.</div>
 </section>
 
 <!-- S25 -->
 <section class="section" id="s25">
-  <div class="day-badge d2">DAY 2 · 3 of 15</div>
+  <div class="day-badge d2">DAY 2 · 3 of 17</div>
   <h1>Lab 1: Learn Python by Asking AI</h1>
   <p class="section-sub">Each student picks one concept and writes a full structured learning prompt. 30 minutes.</p>
   <div class="card">
@@ -1725,73 +1740,18 @@ Constraints: [what to avoid]</span></div>
 
 <!-- S26 -->
 <section class="section" id="s26">
-  <div class="day-badge d2">DAY 2 · 4 of 15</div>
-  <h1>AI as a Tutor</h1>
-  <p class="section-sub">How to use AI to understand programming concepts faster — with real examples in C, C++, and Python.</p>
+  <div class="day-badge d2">DAY 2 · 4 of 17</div>
+  <h1>AI as Your Coding Partner</h1>
+  <p class="section-sub">How to use AI to understand programming concepts and generate working code — available 24/7, endlessly patient.</p>
 
   <div class="card">
-    <h3>The Key Idea</h3>
+    <h3>AI as Your Personal Tutor</h3>
     <p>Traditional learning: read the textbook → attend lecture → ask teacher (who has 30 other students).</p>
     <br>
-    <p>With AI: ask for the exact explanation <em>you</em> need, at <em>your</em> level, with <em>your</em> choice of examples — instantly, as many times as you need, rephrased as many ways as you want.</p>
+    <p>With AI: ask for the exact explanation <em>you</em> need, at <em>your</em> level, with <em>your</em> choice of examples — instantly, rephrased as many ways as you want.</p>
     <br>
     <p style="color:#4f8ef7;font-weight:600">AI = Personal Programming Tutor available 24/7.</p>
   </div>
-
-  <div class="card">
-    <h3>C — Learning Concepts</h3>
-    <div class="code"><span class="cmt">Learning arrays from scratch:</span>
-<span class="str">"Act as a C programming tutor.
-Explain arrays in C using these steps:
-1. What is an array and why do we need it?
-2. How to declare and initialise an array (syntax)
-3. A complete working program: store 5 exam marks, find average
-4. Two common beginner mistakes with arrays
-Audience: first-year IT student. Add code comments."</span>
-
-<span class="cmt">Learning pointers — scary topic, simplified:</span>
-<span class="str">"Explain C pointers to a complete beginner.
-Start with a simple real-world analogy (not memory addresses yet).
-Then introduce the & and * operators with one simple example.
-Avoid malloc and dynamic memory for now."</span></div>
-  </div>
-
-  <div class="card">
-    <h3>C++ — Learning Object-Oriented Programming</h3>
-    <div class="code"><span class="cmt">Understanding classes:</span>
-<span class="str">"You are a C++ tutor.
-Explain classes and objects using the analogy of a real car.
-Show: class definition, constructor, attributes, one method.
-Write a complete program where a Car object is created and its
-details are printed. Add a comment on every line."</span>
-
-<span class="cmt">Comparing C and C++:</span>
-<span class="str">"I know C already. Explain the 3 biggest differences between C and C++
-that I will notice immediately when writing programs.
-Use side-by-side code examples."</span></div>
-  </div>
-
-  <div class="card">
-    <h3>Python — For Students Who Know C</h3>
-    <div class="code"><span class="cmt">Connecting what you know:</span>
-<span class="str">"I know C programming. Teach me Python by comparing it to C.
-Cover: variables (no type declaration), for loops, functions,
-and lists vs arrays.
-For each concept show: C version → Python version → key difference."</span>
-
-<span class="cmt">Understanding a confusing error:</span>
-<span class="str">"I am getting this Python error: 'list index out of range'.
-Explain why this happens in simple terms.
-Show a minimal example that causes it.
-Show how to fix it and how to prevent it."</span></div>
-  </div>
-</section>
-
-<!-- S27 -->
-<section class="section" id="s27">
-  <div class="day-badge d2">DAY 2 · 5 of 15</div>
-  <h1>Code Generation with AI</h1>
-  <p class="section-sub">How to use AI to generate working, readable, understandable code — not just code that runs.</p>
 
   <div class="cmp">
     <div class="bad">
@@ -1807,82 +1767,95 @@ Show how to fix it and how to prevent it."</span></div>
   </div>
 
   <div class="card">
-    <h3>C — Generation Examples</h3>
-    <div class="code"><span class="cmt">Factorial with explanation:</span>
-<span class="str">"Write a C program that calculates the factorial of a number
-using a for loop (not recursion).
-Add comments explaining each line.
-Show expected output for input = 6."</span>
+    <h3>Learning Examples — Ask AI to Teach You</h3>
+    <div class="code"><span class="cmt">Learning C pointers (scary topic, simplified):</span>
+<span class="str">"Explain C pointers to a complete beginner.
+Start with a simple real-world analogy (not memory addresses yet).
+Then introduce the & and * operators with one simple example.
+Avoid malloc and dynamic memory for now."</span>
 
-<span class="cmt">Bubble sort — understanding the algorithm:</span>
+<span class="cmt">Connecting C knowledge to Python:</span>
+<span class="str">"I know C programming. Teach me Python by comparing it to C.
+Cover: variables (no type declaration), for loops, functions,
+and lists vs arrays.
+For each concept show: C version → Python version → key difference."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Code Generation Examples</h3>
+    <div class="code"><span class="cmt">C — Bubble sort with step-by-step trace:</span>
 <span class="str">"Write a C program implementing bubble sort on an array of 6 integers.
 After each pass of the outer loop, print the current state of the array
 so I can see how it sorts step by step.
-Explain each part of the algorithm in comments."</span></div>
-  </div>
+Explain each part of the algorithm in comments."</span>
 
-  <div class="card">
-    <h3>C++ — Generation Examples</h3>
-    <div class="code"><span class="cmt">Student class:</span>
-<span class="str">"Write a C++ program with a class called Student.
-Attributes: name (string), rollNo (int), marks (float).
-Methods: a constructor, and a display() function that prints all attributes.
-In main(), create 2 Student objects with different data.
-Add comments on every line. No inheritance needed."</span></div>
-  </div>
-
-  <div class="card">
-    <h3>Python — Generation Examples</h3>
-    <div class="code"><span class="cmt">Function with error handling:</span>
+<span class="cmt">Python — Function with error handling:</span>
 <span class="str">"Write a Python function called calculate_average()
 that takes a list of numbers and returns the average.
 Handle the empty list case (do not divide by zero).
-Include a docstring. Show 3 test calls: normal, empty list, single item."</span>
-
-<span class="cmt">Reading a file and processing data:</span>
-<span class="str">"Write a Python program that reads numbers from a file called 'scores.txt'
-(one number per line), calculates the average, and prints the result.
-Handle the case where the file does not exist.
-Add comments on each important line."</span></div>
+Include a docstring. Show 3 test calls: normal, empty list, single item."</span></div>
   </div>
 
   <div class="card" style="background:#fff8f0;border:1.5px solid #fbd38d">
     <h3>⚠️ The Non-Negotiable Rule</h3>
-    <p style="font-size:14px;line-height:1.8">Do not run AI-generated code without reading it first. Read every line. If you do not understand a line — ask AI: <em>"Explain line 7 of this code in simple terms."</em></p>
+    <p>Do not run AI-generated code without reading it first. Read every line. If you do not understand a line — ask AI: <em>"Explain line 7 of this code in simple terms."</em></p>
     <br>
     <p>Code you do not understand is code you cannot fix, cannot explain to your teacher, and cannot learn from.</p>
   </div>
 </section>
 
-<!-- S28 -->
-<section class="section" id="s28">
-  <div class="day-badge d2">DAY 2 · 6 of 15</div>
-  <h1>Demo: Debugging Python Live</h1>
-  <p class="section-sub">Break code on purpose — then fix it with AI. Students see that bugs aren't scary, they're just information.</p>
+<!-- S30 -->
+<section class="section" id="s30">
+  <div class="day-badge d2">DAY 2 · 5 of 17</div>
+  <h1>Debugging with AI</h1>
+  <p class="section-sub">Before we break code — here is the framework. Understand this first, then apply it in the demo and lab.</p>
+
   <div class="card">
-    <h3>Setup — Live on Screen</h3>
-    <p>Open the Python code from Lab 1 (or any short program). Introduce ONE deliberate bug — wrong variable name, off-by-one index, missing colon. Run it. Show the error.</p>
+    <h3>The Debugging Workflow</h3>
+    <div class="wf">
+      <div class="wf-step">Find Error</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Explain</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step">Fix</div>
+      <div class="wf-arr">→</div>
+      <div class="wf-step p">Improve</div>
+    </div>
+    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-top:8px">Always ask AI to go through all four steps — not just hand you the fixed code.</p>
   </div>
-  <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Debugging Prompt — Claude or ChatGPT</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">Here is my Python code and the exact error message I got when I ran it.
 
-CODE:
-[paste code]
-
-ERROR:
-[paste error message]
-
-Explain what caused this error in plain language. Do not just give me the fix — tell me WHY this is wrong and what I should have written instead. Then show the corrected code.</pre>
+  <div class="card">
+    <h3>What to Include in a Debugging Prompt</h3>
+    <ul>
+      <li><strong>The code</strong> — paste the full function or section that is broken</li>
+      <li><strong>What it should do</strong> — the expected behaviour</li>
+      <li><strong>What it actually does</strong> — the wrong output or error message</li>
+      <li><strong>What you want</strong> — explanation + fixed code + how to prevent the error</li>
+    </ul>
   </div>
-  <div class="alert-green"><strong>Key teaching point:</strong> The error message IS the clue. AI turns cryptic messages into plain English — students stop fearing errors and start reading them.</div>
+
+  <div class="card">
+    <h3>The Prompt Template</h3>
+    <div class="code"><pre style="white-space:pre-wrap">Here is my code and the exact error I got.
+
+CODE: [paste code]
+ERROR: [paste error message]
+
+Explain what caused this error in plain language.
+Do not just give me the fix — tell me WHY this is wrong
+and what I should have written. Then show the corrected code.</pre></div>
+  </div>
+
+  <div class="alert-blue">
+    <strong>Key rule:</strong> Never describe the error in vague terms. <em>"My program doesn't work"</em> gives AI nothing. <em>"I get NameError: name 'number' is not defined on line 5"</em> gives AI everything it needs.
+  </div>
 </section>
 
 <!-- S29 -->
 <section class="section" id="s29">
-  <div class="day-badge d2">DAY 2 · 7 of 15</div>
+  <div class="day-badge d2">DAY 2 · 6 of 17</div>
   <h1>Lab 2: Debug This Program</h1>
-  <p class="section-sub">Every student gets a broken Python program. Their job: diagnose the bug using AI and explain the fix. 30 minutes.</p>
+  <p class="section-sub">Every student gets a broken Python program. Diagnose both bugs using AI and explain the fix in your own words. 30 minutes.</p>
   <div class="card">
     <h3>Broken Program — distribute to students</h3>
     <div class="code"><pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(11px,1.1vw,13px);line-height:1.7">def calculate_average(numbers):
@@ -1905,87 +1878,12 @@ print("The average score is: " + result)  # Bug 2</pre></div>
       <li>Answer: "What would you check FIRST next time you see a NameError?"</li>
     </ul>
   </div>
-  <div class="alert-blue"><strong>Instructor tip:</strong> Bugs: <code>number</code> should be <code>numbers</code> (NameError) and <code>+</code> should be <code>str()</code> or <code>f-string</code> (TypeError). Walk through both in debrief.</div>
-</section>
-
-<!-- S30 -->
-<section class="section" id="s30">
-  <div class="day-badge d2">DAY 2 · 8 of 15</div>
-  <h1>Debugging with AI</h1>
-  <p class="section-sub">AI is an exceptional debugging assistant — if you give it the right information.</p>
-
-  <div class="card">
-    <h3>The Debugging Workflow</h3>
-    <div class="wf">
-      <div class="wf-step">Find Error</div>
-      <div class="wf-arr">→</div>
-      <div class="wf-step">Explain</div>
-      <div class="wf-arr">→</div>
-      <div class="wf-step">Fix</div>
-      <div class="wf-arr">→</div>
-      <div class="wf-step p">Improve</div>
-    </div>
-    <p style="font-size:clamp(13px,1.2vw,16px);color:#374151;margin-top:8px">Always ask AI to go through all four steps — not just give you the fixed code.</p>
-  </div>
-
-  <div class="card">
-    <h3>What to Include in a Debugging Prompt</h3>
-    <ul>
-      <li><strong>The code</strong> — paste the full function or section that is broken</li>
-      <li><strong>What it should do</strong> — the expected behaviour</li>
-      <li><strong>What it actually does</strong> — the wrong output or error message</li>
-      <li><strong>A test case</strong> — the input that causes the problem</li>
-      <li><strong>What you want</strong> — explanation + fixed code + how to prevent the error</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>Debugging Prompt Structure</h3>
-    <div class="code"><span class="str">"Find the error in this C program.
-Explain step by step why the error happens.
-Show the corrected version.
-Tell me how to avoid this type of error in future.
-
-[paste your code here]"</span></div>
-  </div>
-
-  <div class="card">
-    <h3>Live Example — Off-by-One Bug</h3>
-    <div class="code"><span class="cmt">/* Should print numbers 1 to 5, but prints 1 to 4 */</span>
-<span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
-<span class="kw">int</span> <span class="fn">main</span>() {
-    <span class="kw">int</span> i = <span class="num">1</span>;
-    <span class="kw">while</span> (i &lt; <span class="num">5</span>) {        <span class="err">/* Bug: missing the = */</span>
-        printf(<span class="str">"%d\n"</span>, i);
-        i++;
-    }
-    <span class="kw">return</span> <span class="num">0</span>;
-}</div>
-    <div class="code" style="background:#1a1a2e;margin-top:8px"><span class="cmt"># Debugging prompt for this code:</span>
-<span class="str">"This C while loop should print 1, 2, 3, 4, 5 but it
-only prints 1, 2, 3, 4. Find the bug, explain why
-it happens step by step, and show the corrected loop."</span></div>
-  </div>
-
-  <div class="card">
-    <h3>Debugging Error Messages</h3>
-    <div class="code"><span class="cmt"># You got a compiler error? Paste it directly:</span>
-<span class="str">"I am compiling this C program and getting this error:
-'error: use of undeclared identifier x'
-Here is the code: [paste code]
-Explain what the error means and how to fix it."</span>
-
-<span class="cmt"># Python runtime error:</span>
-<span class="str">"My Python program crashes with:
-'IndexError: list index out of range'
-on line 12. Here is the relevant section: [paste code]
-Explain why this happens and how to fix it."</span></div>
-  </div>
+  <div class="alert-blue"><strong>Instructor tip:</strong> Bug 1: <code>number</code> → <code>numbers</code> (NameError). Bug 2: <code>+ result</code> → <code>+ str(result)</code> (TypeError). Walk through both in debrief.</div>
 </section>
 
 <!-- S31 -->
 <section class="section" id="s31">
-  <div class="day-badge d2">DAY 2 · 9 of 15</div>
+  <div class="day-badge d2">DAY 2 · 7 of 17</div>
   <h1>Template-Based Prompting</h1>
   <p class="section-sub">Build a personal prompt library — reusable templates that produce consistent results every time.</p>
 
@@ -2051,86 +1949,9 @@ Explain why this happens and how to fix it."</span></div>
   </div>
 </section>
 
-<!-- S32 -->
-<section class="section" id="s32">
-  <div class="day-badge d2">DAY 2 · 10 of 15</div>
-  <h1>Iterative Refinement</h1>
-  <p class="section-sub">The most powerful way to use AI — as a real conversation, not a single question.</p>
-
-  <div class="card">
-    <h3>The Concept</h3>
-    <p>Your first prompt rarely produces the perfect answer. That is completely normal — and expected. The real skill is knowing how to <strong>refine, extend, and improve</strong> across multiple turns of conversation.</p>
-    <br>
-    <p>AI remembers the context of your conversation. Each follow-up can build on what it already gave you.</p>
-  </div>
-
-  <div class="card">
-    <h3>Example — Building a C Program Step by Step</h3>
-    <div class="code"><span class="cmt">Turn 1 — Start simple:</span>
-<span class="str">"Write a C function that calculates the average of an array of integers."</span>
-
-<span class="cmt">Turn 2 — Add a specific requirement:</span>
-<span class="str">"Good. Now add input validation: the function should return -1
-if the array is empty (size = 0). Do not change anything else."</span>
-
-<span class="cmt">Turn 3 — Extend further:</span>
-<span class="str">"Now also find and return both the minimum and maximum values
-from the same single pass through the array.
-Update the function signature to return a struct."</span>
-
-<span class="cmt">Turn 4 — Ask for understanding:</span>
-<span class="str">"Explain why using a single pass (one for loop) is more efficient
-than using separate loops for min, max, and average."</span></div>
-  </div>
-
-  <div class="card">
-    <h3>Refinement Phrases That Work</h3>
-    <ul>
-      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Good. Now also add..."</code> — extend the solution</li>
-      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"That is correct but I need it to handle..."</code> — fix a gap</li>
-      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Can you simplify line 8?"</code> — improve a specific part</li>
-      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Explain what the for loop on line 12 is doing."</code> — understand before continuing</li>
-      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Now optimise this for performance."</code> — improve quality</li>
-      <li><code style="background:#e0e7ff;padding:3px 8px;border-radius:5px;font-size:clamp(12px,1.1vw,14px);color:#3730a3">"Rewrite this using a while loop instead."</code> — learn alternatives</li>
-    </ul>
-  </div>
-
-  <div class="alert-blue">
-    <h3 style="color:#2b6cb0;margin-bottom:8px">The Mindset Shift</h3>
-    <p style="color:#1e3a8a;font-size:clamp(14px,1.3vw,17px)">Stop thinking of AI as a search engine where you type one question and get one answer. Think of it as a <strong>colleague sitting next to you</strong>. You work together, you ask follow-ups, you push back, you refine. That is when AI becomes truly powerful.</p>
-  </div>
-</section>
-
-<!-- S33 -->
-<section class="section" id="s33">
-  <div class="day-badge d2">DAY 2 · 11 of 15</div>
-  <h1>Demo: Build in 4 Turns</h1>
-  <p class="section-sub">Watch iterative refinement live — from a vague idea to a working Python program in exactly 4 prompts.</p>
-  <div class="card">
-    <h3>Live Demo — Run this sequence on screen</h3>
-  </div>
-  <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Turn 1 — Start bare</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">"Write a Python program for a student grade calculator."</pre>
-  </div>
-  <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Turn 2 — Add specifics</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">"Good. Now make it ask for the student's name and 5 subject marks one by one. Calculate the average. Print PASS if average >= 40, FAIL otherwise."</pre>
-  </div>
-  <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Turn 3 — Handle edge case</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">"Add input validation: if the user enters a mark below 0 or above 100, print an error and ask again. Do not change the rest of the program."</pre>
-  </div>
-  <div class="code">
-    <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Turn 4 — Understand it</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">"Explain the while loop you used for validation. Why is a while loop better than an if statement here?"</pre>
-  </div>
-  <div class="alert-green"><strong>Teaching point:</strong> Same task, same AI — totally different quality. The difference is in how you direct the conversation.</div>
-</section>
-
 <!-- S34 -->
 <section class="section" id="s34">
-  <div class="day-badge d2">DAY 2 · 12 of 15</div>
+  <div class="day-badge d2">DAY 2 · 8 of 17</div>
   <h1>Capstone Lab: Build Something That Matters</h1>
   <p class="section-sub">Use everything from both days. 45 minutes to build a working Python program from scratch using AI — end to end. No shortcuts.</p>
   <div class="card">
@@ -2166,37 +1987,25 @@ than using separate loops for min, max, and average."</span></div>
 
 <!-- S35 -->
 <section class="section" id="s35">
-  <div class="day-badge d2">DAY 2 · 13 of 15</div>
-  <h1>Common Mistakes When Using AI for Programming</h1>
-  <p class="section-sub">Why students fail with AI — and the specific fix for each problem.</p>
+  <div class="day-badge d2">DAY 2 · 9 of 17</div>
+  <h1>Common Mistakes &amp; Real Workflow</h1>
+  <p class="section-sub">Why students fail with AI — and the proven workflow that professional developers actually use.</p>
 
   <div class="pitfall">
     <h4>Mistake 1 — Vague Programming Prompts</h4>
-    <p>Asking "write a sorting program" or "explain pointers" without any context produces textbook-level responses that are too generic to be useful for your specific learning needs.</p>
+    <p>Asking "write a sorting program" or "explain pointers" without any context produces textbook-level responses too generic to be useful for your specific learning needs.</p>
     <p style="margin-top:8px"><strong>Fix:</strong> Always specify the language, your level, the exact concept, and the format you need.</p>
   </div>
 
   <div class="pitfall">
     <h4>Mistake 2 — Blind Copy-Paste</h4>
-    <p>Copying AI code into your program without understanding it means you have no idea if it is correct, if it matches your requirements, or why it works. If it breaks — you cannot fix it. If a teacher asks you to explain it — you cannot.</p>
-    <p style="margin-top:8px"><strong>Fix:</strong> Read every line. If something is unclear — ask AI: <em>"Explain line X in simple terms."</em> Only submit code you can explain.</p>
+    <p>Copying AI code without understanding it means you cannot fix it when it breaks, and cannot explain it to your teacher.</p>
+    <p style="margin-top:8px"><strong>Fix:</strong> Read every line. Ask AI: <em>"Explain line X in simple terms."</em> Only submit code you can explain.</p>
   </div>
 
   <div class="pitfall">
-    <h4>Mistake 3 — Not Verifying the Output</h4>
-    <p>AI hallucinations happen in code too. A function can look correct, compile without warnings, and still produce wrong results — or use a library function that does not exist.</p>
-    <p style="margin-top:8px"><strong>Fix:</strong> Compile the code. Run it with at least 2–3 different test inputs. Check the output manually against what you expect.</p>
-  </div>
-
-  <div class="pitfall">
-    <h4>Mistake 4 — Asking for Too Much at Once</h4>
-    <p>"Build me a complete student management system in C with file I/O, linked lists, and a menu" — this kind of prompt produces too much code to understand, with bugs you cannot locate.</p>
-    <p style="margin-top:8px"><strong>Fix:</strong> Break it into pieces. Build one function at a time, understand it, test it, then ask for the next part. Use iterative refinement.</p>
-  </div>
-
-  <div class="pitfall">
-    <h4>Mistake 5 — Not Using the Error Message</h4>
-    <p>When code fails, students often describe the problem in vague terms. "My program does not work" gives AI very little to work with.</p>
+    <h4>Mistake 3 — Not Using the Error Message</h4>
+    <p>When code fails, vague descriptions give AI very little to work with.</p>
     <div class="code" style="margin-top:10px"><span class="err">❌ "My C program does not work, please fix it"</span>
 
 <span class="str">✅ "My C program gives this compiler error:
@@ -2204,16 +2013,9 @@ than using separate loops for min, max, and average."</span></div>
 Here is the code: [paste code].
 Explain the error and fix it."</span></div>
   </div>
-</section>
 
-<!-- S36 -->
-<section class="section" id="s36">
-  <div class="day-badge d2">DAY 2 · 14 of 15</div>
-  <h1>Real Developer Workflow with AI</h1>
-  <p class="section-sub">This is how professional developers actually integrate AI into their work — not as a shortcut, but as a thinking partner.</p>
-
-  <div class="card">
-    <h3>The Complete Workflow</h3>
+  <div class="card" style="margin-top:24px">
+    <h3>The Real Developer Workflow</h3>
     <div class="wf">
       <div class="wf-step">Problem</div>
       <div class="wf-arr">→</div>
@@ -2232,44 +2034,388 @@ Explain the error and fix it."</span></div>
   <div class="card">
     <h3>Each Step Explained</h3>
     <ul class="steps">
-      <li><div class="s-text"><strong>Problem</strong> — Define what you need to solve, completely and specifically. The clearer your problem definition, the better your prompt will be.</div></li>
+      <li><div class="s-text"><strong>Problem</strong> — Define what you need completely and specifically. The clearer your problem, the better your prompt.</div></li>
       <li><div class="s-text"><strong>Write Prompt</strong> — Use the template structure. Apply the principles. Check the 6-question checklist before sending.</div></li>
       <li><div class="s-text"><strong>AI Output</strong> — Read the complete response. Do not skim. Highlight anything you do not fully understand.</div></li>
-      <li><div class="s-text"><strong>Understand</strong> — Before running any code — understand every line. Ask follow-up questions for anything unclear. This is the step most people skip — and it is the most important.</div></li>
-      <li><div class="s-text"><strong>Test</strong> — Compile and run the code. Test with your expected input. Test with edge cases (empty, zero, large numbers, wrong type).</div></li>
-      <li><div class="s-text"><strong>Improve</strong> — If it is not right — refine your prompt and go again. If it is right — ask AI: "How could this be written more efficiently?" or "What are the limitations of this approach?"</div></li>
+      <li><div class="s-text"><strong>Understand</strong> — Before running any code — understand every line. This is the step most people skip — and it is the most important.</div></li>
+      <li><div class="s-text"><strong>Test</strong> — Compile and run. Test with your expected input. Test with edge cases (empty, zero, large numbers).</div></li>
+      <li><div class="s-text"><strong>Improve</strong> — Not right? Refine your prompt and go again. Right? Ask: "How could this be written more efficiently?"</div></li>
     </ul>
-  </div>
-
-  <div class="card">
-    <h3>A Real Student Example</h3>
-    <div class="code"><span class="cmt">Problem: I need to write a C program to find duplicate numbers in an array</span>
-
-<span class="cmt">Step 1 — Write Prompt:</span>
-<span class="str">"Act as a C tutor. Write a function that finds and prints
-duplicate values in an integer array of size n.
-Add comments on each line. Show expected output for:
-{1, 2, 3, 2, 4, 1, 5}"</span>
-
-<span class="cmt">Step 2 — Read and understand the output</span>
-<span class="cmt">Step 3 — Compile and test</span>
-
-<span class="cmt">Step 4 — Iterative improvement:</span>
-<span class="str">"Good. Now modify the function to also count how many times
-each duplicate appears. Do not change the original logic."</span>
-
-<span class="cmt">Step 5 — Test again, understand the new parts</span></div>
   </div>
 
   <div class="alert-purple">
     <h3 style="color:#553c9a;margin-bottom:8px">The Loop Mindset</h3>
-    <p style="color:#44337a;font-size:clamp(14px,1.3vw,17px)">The workflow is a loop, not a straight line. Your first attempt might need 2–3 refinements before it is right. That is normal, that is the process, and that is how real developers work. The skill is in the iteration — not the first prompt.</p>
+    <p style="color:#44337a;font-size:clamp(14px,1.3vw,17px)">The workflow is a loop, not a straight line. Your first attempt might need 2–3 refinements before it is right. That is normal — and that is how real developers work. The skill is in the iteration, not the first prompt.</p>
+  </div>
+</section>
+
+<!-- S38 -->
+<section class="section" id="s38">
+  <div class="day-badge d2">DAY 2 · 10 of 17</div>
+  <h1>What is Vibe Coding?</h1>
+  <p class="section-sub">A new way of building software — describe what you want in plain English, and AI writes the code for you.</p>
+
+  <div class="card">
+    <h3>The Concept</h3>
+    <p>Vibe coding (coined by Andrej Karpathy, 2025) means staying in a high-level creative flow: <strong>describe → review → iterate</strong>. You are the architect; AI is the builder.</p>
+    <br>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px">
+      <div style="background:#FEF3C7;border-radius:10px;padding:16px">
+        <div style="font-weight:700;color:#92400E;margin-bottom:8px">Traditional Coding</div>
+        <ul style="font-size:clamp(13px,1.1vw,15px);color:#78350F;line-height:2">
+          <li>Write every line manually</li>
+          <li>Know syntax before you start</li>
+          <li>Debug character by character</li>
+          <li>Speed limited by typing ability</li>
+        </ul>
+      </div>
+      <div style="background:#D1FAE5;border-radius:10px;padding:16px">
+        <div style="font-weight:700;color:#065F46;margin-bottom:8px">Vibe Coding</div>
+        <ul style="font-size:clamp(13px,1.1vw,15px);color:#064E3B;line-height:2">
+          <li>Describe the goal in plain English</li>
+          <li>AI writes the syntax — you review</li>
+          <li>Iterate with natural language</li>
+          <li>Focus on logic, not keystrokes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Vibe Coding Tools</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:clamp(12px,1.1vw,15px)">
+      <thead><tr style="background:#EEF2FF">
+        <th style="padding:10px 12px;text-align:left;border-bottom:2px solid #c7d2fe">Tool</th>
+        <th style="padding:10px 12px;text-align:center;border-bottom:2px solid #c7d2fe">Free?</th>
+        <th style="padding:10px 12px;text-align:left;border-bottom:2px solid #c7d2fe">Type</th>
+        <th style="padding:10px 12px;text-align:left;border-bottom:2px solid #c7d2fe">Best for</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e5e7eb;background:#F5F3FF">
+          <td style="padding:10px 12px;font-weight:700;color:#5B21B6">OpenCode (SST)</td>
+          <td style="padding:10px 12px;text-align:center">✅ Free</td>
+          <td style="padding:10px 12px">Terminal CLI</td>
+          <td style="padding:10px 12px">Students, open-source projects</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:10px 12px;font-weight:600">Bolt.new</td>
+          <td style="padding:10px 12px;text-align:center">✅ Free tier</td>
+          <td style="padding:10px 12px">Web browser</td>
+          <td style="padding:10px 12px">Quick web apps, no install needed</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:10px 12px;font-weight:600">Windsurf</td>
+          <td style="padding:10px 12px;text-align:center">✅ Free tier</td>
+          <td style="padding:10px 12px">Desktop IDE</td>
+          <td style="padding:10px 12px">VS Code-style editor with AI built in</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:10px 12px;font-weight:600">Continue.dev</td>
+          <td style="padding:10px 12px;text-align:center">✅ Free</td>
+          <td style="padding:10px 12px">VS Code plugin</td>
+          <td style="padding:10px 12px">AI inside VS Code — no new tool to learn</td>
+        </tr>
+        <tr style="border-bottom:1px solid #e5e7eb">
+          <td style="padding:10px 12px;font-weight:600">Aider</td>
+          <td style="padding:10px 12px;text-align:center">✅ Free</td>
+          <td style="padding:10px 12px">Terminal CLI</td>
+          <td style="padding:10px 12px">Git-aware, edits your files directly</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px;font-weight:600;color:#6B7280">Cursor</td>
+          <td style="padding:10px 12px;text-align:center;color:#6B7280">❌ Paid</td>
+          <td style="padding:10px 12px;color:#6B7280">Desktop IDE</td>
+          <td style="padding:10px 12px;color:#6B7280">Professional use</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- S39 -->
+<section class="section" id="s39">
+  <div class="day-badge d2">DAY 2 · 11 of 17</div>
+  <h1>OpenCode: Setup &amp; Hands-On</h1>
+  <p class="section-sub">Free, open-source, terminal-based AI coding assistant by SST — the recommended tool for this workshop.</p>
+
+  <div class="card">
+    <h3>What is OpenCode?</h3>
+    <p>OpenCode (by SST) is a free, open-source AI coding assistant that runs in your terminal. It uses Claude AI to understand your project, write code, edit files, and run commands — all from a conversation in your terminal window.</p>
+  </div>
+
+  <div class="card">
+    <h3>Install (Pick One)</h3>
+    <div class="code"><span class="cmt"># Option 1 — npm (recommended, works on all platforms):</span>
+<pre style="white-space:pre-wrap">npm install -g opencode-ai</pre>
+
+<span class="cmt"># Option 2 — macOS / Linux via Homebrew:</span>
+<pre style="white-space:pre-wrap">brew install sst/tap/opencode</pre>
+
+<span class="cmt"># Option 3 — Download binary from opencode.ai</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Configure with Claude</h3>
+    <div class="code"><span class="cmt"># Get a free API key from console.anthropic.com, then:</span>
+<pre style="white-space:pre-wrap">ANTHROPIC_API_KEY=your-key-here opencode</pre>
+
+<span class="cmt"># Windows PowerShell — set it permanently:</span>
+<pre style="white-space:pre-wrap">$env:ANTHROPIC_API_KEY = "your-key-here"
+opencode</pre></div>
+    <p style="font-size:clamp(12px,1.1vw,14px);color:#6B7280;margin-top:10px">OpenCode will prompt you to select a model. Choose <strong>Claude Sonnet</strong> for the best balance of speed and quality.</p>
+  </div>
+
+  <div class="card" style="background:#F5F3FF;border:1.5px solid #c4b5fd">
+    <h3>Activity — 5 Steps (10 min)</h3>
+    <ol style="line-height:2.4;font-size:clamp(14px,1.2vw,16px)">
+      <li>Install OpenCode using npm</li>
+      <li>Create a new empty folder on your Desktop</li>
+      <li>Open a terminal in that folder and run <code style="background:#e0e7ff;padding:2px 7px;border-radius:4px">opencode</code></li>
+      <li>Type: <em>"Create a Python file that asks for a name and says hello"</em></li>
+      <li>Review the file it created. Then iterate: <em>"Now also ask for their age and print both"</em></li>
+    </ol>
+  </div>
+
+  <div class="alert-blue">
+    <h3 style="color:#2b6cb0;margin-bottom:8px">Key Commands</h3>
+    <ul style="color:#1e3a8a;line-height:2.2;font-size:clamp(13px,1.15vw,16px)">
+      <li><code style="background:#dbeafe;padding:2px 7px;border-radius:4px">opencode</code> — start a new session in any folder</li>
+      <li>Type your request in plain English — no special syntax needed</li>
+      <li>OpenCode reads your files, edits them, and shows you exactly what changed</li>
+      <li>Press <code style="background:#dbeafe;padding:2px 7px;border-radius:4px">Ctrl+C</code> to exit</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S40 -->
+<section class="section" id="s40">
+  <div class="day-badge d2">DAY 2 · 12 of 17</div>
+  <h1>Vibe Coding Assignment</h1>
+  <p class="section-sub">Build a working Python program using only plain-English descriptions — no typing code manually. 10–15 minutes.</p>
+
+  <div class="card">
+    <h3>Pick One Project</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px">
+      <div style="background:#EEF2FF;border-radius:10px;padding:18px;border:2px solid #c7d2fe">
+        <div style="font-weight:800;color:#3730A3;font-size:clamp(14px,1.2vw,17px);margin-bottom:8px">Option A</div>
+        <div style="font-weight:600;margin-bottom:8px">Temperature Converter</div>
+        <p style="font-size:clamp(12px,1.1vw,14px);color:#4B5563">Ask the user for a Celsius value. Convert and print both Fahrenheit and Kelvin.</p>
+      </div>
+      <div style="background:#F5F3FF;border-radius:10px;padding:18px;border:2px solid #c4b5fd">
+        <div style="font-weight:800;color:#5B21B6;font-size:clamp(14px,1.2vw,17px);margin-bottom:8px">Option B</div>
+        <div style="font-weight:600;margin-bottom:8px">Simple Quiz</div>
+        <p style="font-size:clamp(12px,1.1vw,14px);color:#4B5563">3 questions, user types answers, print score out of 3 at the end.</p>
+      </div>
+      <div style="background:#ECFDF5;border-radius:10px;padding:18px;border:2px solid #6ee7b7">
+        <div style="font-weight:800;color:#065F46;font-size:clamp(14px,1.2vw,17px);margin-bottom:8px">Option C</div>
+        <div style="font-weight:600;margin-bottom:8px">Grade Organiser</div>
+        <p style="font-size:clamp(12px,1.1vw,14px);color:#4B5563">Add student names and grades. Print the list sorted by grade (highest first).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Rules</h3>
+    <ul style="line-height:2.3;font-size:clamp(14px,1.2vw,16px)">
+      <li>No typing code manually — only describe, review, and iterate</li>
+      <li>You must iterate at least once (refine your description after seeing the first output)</li>
+      <li>You must be able to explain one part of the code in your own words</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Grading</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px">
+      <div style="background:#FEF3C7;border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:clamp(22px,2vw,28px);font-weight:900;color:#92400E">50</div>
+        <div style="font-size:clamp(12px,1.1vw,14px);color:#78350F;margin-top:4px">Program works correctly</div>
+      </div>
+      <div style="background:#D1FAE5;border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:clamp(22px,2vw,28px);font-weight:900;color:#065F46">30</div>
+        <div style="font-size:clamp(12px,1.1vw,14px);color:#064E3B;margin-top:4px">Can explain one part of the code</div>
+      </div>
+      <div style="background:#EEF2FF;border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:clamp(22px,2vw,28px);font-weight:900;color:#3730A3">20</div>
+        <div style="font-size:clamp(12px,1.1vw,14px);color:#312E81;margin-top:4px">Iterated at least once</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-green" style="margin-top:20px">
+    <strong>Remember:</strong> The goal is not just to get it working — it is to understand what AI built for you. If you cannot explain it, you have not finished.
+  </div>
+</section>
+
+<!-- S41 -->
+<section class="section" id="s41">
+  <div class="day-badge d2">DAY 2 · 13 of 17</div>
+  <h1>Report Writing: Step 1 — ChatGPT &amp; Sources</h1>
+  <p class="section-sub">Before writing a single word — use ChatGPT to understand your assignment and find real, verified sources from 2020–2026.</p>
+
+  <div class="card">
+    <h3>Why Sources Come First</h3>
+    <p>If you upload your assignment and immediately say <em>"write my report"</em>, AI will fabricate citations — real-sounding but entirely invented. The fix: <strong>find real sources first, then write from them.</strong></p>
+  </div>
+
+  <div class="card">
+    <h3>Step 1A — Upload &amp; Read Your Assignment</h3>
+    <p style="margin-bottom:12px">Go to <strong>chatgpt.com</strong> → attach your assignment PDF → send this first prompt:</p>
+    <div class="code"><pre style="white-space:pre-wrap">Read this file in detail — understand the task, word count, learning outcomes, and any specific requirements.</pre></div>
+    <div style="margin-top:16px;text-align:center">
+      <img src="rw_assets/s1_chatgpt_upload.png" alt="ChatGPT reading the assignment file" style="max-width:100%;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.15)">
+      <div style="font-size:clamp(11px,1vw,13px);color:#6B7280;margin-top:6px">ChatGPT reading and analysing the uploaded assignment file</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Step 1B — Search for Real Sources</h3>
+    <p style="margin-bottom:12px">Once ChatGPT has read the file, send this source search prompt:</p>
+    <div class="code"><pre style="white-space:pre-wrap">You understand my assignment. Now search the best sources for this task — articles, journals, org reports, national reports, and books — from 2020–2026 only. List each source with a working link and Harvard-style citation.</pre></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px">
+      <div>
+        <img src="rw_assets/s1_chatgpt_prompt.png" alt="Source search prompt in ChatGPT" style="max-width:100%;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.12)">
+        <div style="font-size:clamp(11px,1vw,13px);color:#6B7280;margin-top:5px;text-align:center">ChatGPT actively searching for sources</div>
+      </div>
+      <div>
+        <img src="rw_assets/s1_chatgpt_sources.png" alt="ChatGPT source results table" style="max-width:100%;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.12)">
+        <div style="font-size:clamp(11px,1vw,13px);color:#6B7280;margin-top:5px;text-align:center">Real sources with citations — copy this list for Step 2</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-green">
+    <strong>Save the source list.</strong> Copy all sources ChatGPT returns — you will paste them directly into DeepSeek in the next step.
+  </div>
+</section>
+
+<!-- S42 -->
+<section class="section" id="s42">
+  <div class="day-badge d2">DAY 2 · 14 of 17</div>
+  <h1>Report Writing: Step 2 — DeepSeek Writes</h1>
+  <p class="section-sub">Now that you have real sources — feed them to DeepSeek and let it write from actual content, not fabricated citations.</p>
+
+  <div class="card">
+    <h3>Why DeepSeek?</h3>
+    <p>DeepSeek can read long source lists and write from them in a single session. Combined with real sources from ChatGPT, it produces a report grounded in real evidence — not invented references.</p>
+  </div>
+
+  <div class="card">
+    <h3>Step 2A — Upload Your Assignment to DeepSeek</h3>
+    <p style="margin-bottom:12px">Go to <strong>chat.deepseek.com</strong> → attach your assignment file → send this prompt:</p>
+    <div class="code"><pre style="white-space:pre-wrap">Read this file in detail — understand the task, word count, learning outcomes, and any specific requirements.</pre></div>
+    <div style="margin-top:16px;text-align:center">
+      <img src="rw_assets/s2_deepseek_upload.png" alt="DeepSeek reading the assignment" style="max-width:100%;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.15)">
+      <div style="font-size:clamp(11px,1vw,13px);color:#6B7280;margin-top:6px">DeepSeek analysing the uploaded assignment brief</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Step 2B — Feed Sources &amp; Write the Report</h3>
+    <p style="margin-bottom:12px">Paste the source list from Step 1 and send this writing prompt:</p>
+    <div class="code"><pre style="white-space:pre-wrap">These are my sources — read each one, then write the full report using real content from them. Structure it to address all learning outcomes. Use Harvard referencing throughout.</pre></div>
+    <div style="margin-top:16px;text-align:center">
+      <img src="rw_assets/s2_deepseek_output.png" alt="DeepSeek structured report output" style="max-width:100%;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.15)">
+      <div style="font-size:clamp(11px,1vw,13px);color:#6B7280;margin-top:6px">DeepSeek outputs a structured, sourced report — ready for review</div>
+    </div>
+  </div>
+
+  <div style="background:#FEF3C7;border-left:4px solid #D97706;padding:16px 20px;border-radius:0 10px 10px 0;margin-top:8px">
+    <p style="color:#92400E;font-size:clamp(13px,1.2vw,16px)"><strong>Before moving on:</strong> Read the report. Check that sources cited actually appear in your ChatGPT list. Verify at least 2–3 citations exist by searching for them.</p>
+  </div>
+</section>
+
+<!-- S43 -->
+<section class="section" id="s43">
+  <div class="day-badge d2">DAY 2 · 15 of 17</div>
+  <h1>The Hidden Danger: Fake Citations</h1>
+  <p class="section-sub">The most common mistake students make — and why it can get you failed even when the report looks good.</p>
+
+  <div class="cmp">
+    <div class="bad">
+      <div class="lbl">❌ The Lazy Way — Do NOT do this</div>
+      <div class="cmp-text" style="font-weight:700;margin-bottom:10px">Upload file → "Write my assignment"</div>
+      <div class="cmp-text" style="line-height:1.9">AI does not have access to real journals. It will <strong>fabricate</strong> citations:<br>— Real-sounding author names that do not exist<br>— Journal titles that were never published<br>— Correct-looking DOI numbers that lead nowhere<br><br>Your report looks complete. The references are 100% fake.</div>
+    </div>
+    <div class="good">
+      <div class="lbl">✅ The Right Way — What we taught today</div>
+      <div class="cmp-text" style="font-weight:700;margin-bottom:10px">Step 1: ChatGPT finds real sources → Step 2: DeepSeek writes from them</div>
+      <div class="cmp-text" style="line-height:1.9">AI writes from actual sources you found.<br>Citations are verifiable — they exist.<br>Content is grounded in real evidence.<br><br>Still verify: check 2–3 citations before submitting.</div>
+    </div>
+  </div>
+
+  <div class="card" style="background:#FFF5F5;border:1.5px solid #FCA5A5;margin-top:20px">
+    <h3>⚠️ How Turnitin Catches This</h3>
+    <p>Turnitin checks two things: <strong>text similarity</strong> (copy-paste detection) and <strong>AI writing detection</strong>. A report with fabricated citations often fails both — the writing pattern is recognisably AI, and missing citation matches flag it immediately.</p>
+    <br>
+    <p>Submitting a report with fake citations is academic misconduct. The AI fabricated them, but you submitted them. <strong>Always verify before you submit.</strong></p>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Quick Verification Checklist</h3>
+    <ul style="line-height:2.4;font-size:clamp(14px,1.2vw,16px)">
+      <li>Search each citation title on Google Scholar — does the article exist?</li>
+      <li>Check the author name — is it a real researcher in this field?</li>
+      <li>Verify the publication year is within 2020–2026</li>
+      <li>Click any DOI or link — does it resolve to a real paper?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- S44 -->
+<section class="section" id="s44">
+  <div class="day-badge d2">DAY 2 · 16 of 17</div>
+  <h1>Step 3 &amp; 4 — Humanize, Cite &amp; Check</h1>
+  <p class="section-sub">Reduce AI detection, generate proper citations, and verify your report before submitting.</p>
+
+  <div class="card">
+    <h3>Step 3 — Humanize with StealthWriter</h3>
+    <p style="margin-bottom:12px">Go to <strong>stealthwriter.ai/dashboard/humanizer</strong> → paste your AI-written text → click Humanize. Free: 5 × 1,000 words per session.</p>
+    <div style="margin-top:12px;text-align:center">
+      <img src="rw_assets/s3_stealth_result.png" alt="StealthWriter showing 100% looks human result" style="max-width:100%;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.15)">
+      <div style="font-size:clamp(11px,1vw,13px);color:#6B7280;margin-top:6px">StealthWriter output — 100% "Looks Human" score after humanising</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Step 4 — Check Turnitin Results</h3>
+    <p style="margin-bottom:4px">After humanising, submit a draft through your institution's Turnitin check:</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+      <div>
+        <div style="background:#FFF5F5;border:2px solid #FCA5A5;border-radius:8px;padding:10px;text-align:center;font-weight:700;color:#DC2626;margin-bottom:8px">Before Humanising</div>
+        <img src="rw_assets/s3_turnitin_ai.png" alt="Turnitin showing 71% AI detected" style="max-width:100%;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.12)">
+        <div style="font-size:clamp(11px,1vw,13px);color:#DC2626;margin-top:5px;text-align:center;font-weight:600">71% detected as AI — needs humanising</div>
+      </div>
+      <div>
+        <div style="background:#F0FFF4;border:2px solid #9AE6B4;border-radius:8px;padding:10px;text-align:center;font-weight:700;color:#065F46;margin-bottom:8px">After Humanising</div>
+        <img src="rw_assets/s3_turnitin_clean.png" alt="Turnitin showing 7% similarity" style="max-width:100%;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.12)">
+        <div style="font-size:clamp(11px,1vw,13px);color:#065F46;margin-top:5px;text-align:center;font-weight:600">7% similarity — safe to submit</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Citations — Mendeley / Zotero (Both Free)</h3>
+    <p>Use a citation manager to generate proper APA / Harvard / Vancouver references from your sources. Both tools auto-generate citations from URLs, DOIs, or PDFs — paste into your report.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+      <div style="background:#EEF2FF;border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:clamp(15px,1.3vw,18px);font-weight:800;color:#3730A3">Mendeley</div>
+        <div style="font-size:clamp(12px,1.1vw,14px);color:#4B5563;margin-top:6px">mendeley.com · Free · browser + desktop · great for students</div>
+      </div>
+      <div style="background:#ECFDF5;border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:clamp(15px,1.3vw,18px);font-weight:800;color:#065F46">Zotero</div>
+        <div style="font-size:clamp(12px,1.1vw,14px);color:#4B5563;margin-top:6px">zotero.org · Free · open-source · browser plugin available</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FEF3C7;border-left:4px solid #D97706;padding:18px 20px;border-radius:0 10px 10px 0;margin-top:8px">
+    <p style="color:#92400E;font-size:clamp(14px,1.3vw,17px)"><strong>AI is a research and drafting assistant — not a replacement for reading your sources.</strong> If you cannot explain what your report says, AI wrote it for you, not <em>with</em> you.</p>
   </div>
 </section>
 
 <!-- S37 -->
 <section class="section" id="s37">
-  <div class="day-badge d2">DAY 2 · 15 of 15</div>
+  <div class="day-badge d2">DAY 2 · 17 of 17</div>
   <h1>Workshop Closing</h1>
   <p class="section-sub">One last live demo — then three things to carry with you.</p>
   <div class="card">
@@ -2277,7 +2423,7 @@ each duplicate appears. Do not change the original logic."</span>
   </div>
   <div class="code">
     <div style="font-size:11px;font-weight:800;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Prompt — ChatGPT or Claude</div>
-    <pre style="white-space:pre-wrap;color:#e2e8f0;font-size:clamp(12px,1.1vw,14px);line-height:1.7">I am a computer engineering student in Nepal. I know C. I just learned Python basics in a 2-day workshop. What are 3 simple Python projects I can build this week to practice what I learned?</pre>
+    <pre style="white-space:pre-wrap">I am a computer engineering student in Nepal. I know C. I just learned Python basics in a 2-day workshop. What are 3 simple Python projects I can build this week to practice what I learned?</pre>
   </div>
   <div class="card">
     <h3>Three Things to Take Home</h3>
