@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI for IT Students — Supplemental Materials</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --ground:#F8F8F7;
+  --card:#FFFFFF;
+  --text:#18181B;
+  --muted:#4B5563;
+  --light:#9CA3AF;
+  --border:#E5E7EB;
+  --sb:#1B3A5C;
+  --sb-text:#BDD3EE;
+  --sb-hl:#FFFFFF;
+  --d1:#6366F1;
+  --d1-bg:#EEF2FF;
+  --d2:#8B5CF6;
+  --d2-bg:#F5F3FF;
+  --code-bg:#0F172A;
+  --code-text:#E2E8F0;
+  --ok:#10B981;
+  --amber:#F59E0B;
+  --W:268px;
+  --r:12px;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--ground);color:var(--text);display:flex;min-height:100vh;font-size:18px;line-height:1.65}
+
+/* ── SIDEBAR ── */
+#sb{width:var(--W);min-width:var(--W);background:var(--sb);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+#sb::-webkit-scrollbar{width:3px}
+#sb::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+
+.sb-head{padding:24px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sb-title{font-size:14px;font-weight:700;color:#FFFFFF;letter-spacing:.3px;line-height:1.3}
+.sb-sub{font-size:12px;color:var(--sb-text);margin-top:3px}
+
+.prog-area{padding:14px 20px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
+.prog-label{font-size:12px;color:var(--sb-text);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.prog-track{height:4px;background:rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--ok);border-radius:4px;transition:width .4s ease;width:0%}
+
+.nav-group{padding:12px 0 4px}
+.nav-group-label{font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.4);padding:0 20px 8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;text-decoration:none;border-left:3px solid transparent;transition:background .15s}
+.nav-item:hover{background:rgba(255,255,255,.08)}
+.nav-item.active{background:rgba(255,255,255,.14);border-left-color:var(--d1)}
+.nav-item.active.d2{border-left-color:var(--d2)}
+
+.nav-dot{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.nav-dot.done{background:var(--ok);border-color:var(--ok)}
+.nav-dot svg{display:none}
+.nav-dot.done svg{display:block}
+
+.nav-sid{font-size:11px;font-weight:700;font-family:'SF Mono','Fira Code',monospace;color:rgba(255,255,255,.45);letter-spacing:.4px;width:30px;flex-shrink:0}
+.nav-txt{font-size:13.5px;color:var(--sb-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.nav-item.active .nav-txt{color:var(--sb-hl);font-weight:600}
+.nav-dur{font-size:11px;color:rgba(255,255,255,.35);flex-shrink:0}
+
+.sb-foot{margin-top:auto;padding:16px 20px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:8px}
+.sb-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:var(--sb-text);font-size:13px;padding:8px 12px;border-radius:7px;cursor:pointer;text-align:left;width:100%;transition:background .15s}
+.sb-btn:hover{background:rgba(255,255,255,.14)}
+
+/* ── MAIN ── */
+#main{margin-left:var(--W);flex:1;padding:44px 56px 90px}
+
+.page-head{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.page-eye{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--d1);font-family:'SF Mono','Fira Code',monospace;margin-bottom:12px}
+.page-title{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.5px;line-height:1.12}
+.page-desc{font-size:18px;color:var(--muted);margin-top:10px;max-width:620px}
+
+/* ── SECTION ── */
+.ms{margin-bottom:60px;scroll-margin-top:24px}
+
+.ms-head{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--border);border-bottom:none;border-radius:var(--r) var(--r) 0 0;padding:32px 38px 28px}
+.ghost{position:absolute;right:-6px;top:-10px;font-size:110px;font-weight:900;font-family:'SF Mono','Fira Code',monospace;color:var(--d1);opacity:.055;letter-spacing:-4px;line-height:1;pointer-events:none;user-select:none}
+.ms.d2 .ghost{color:var(--d2)}
+
+.ms-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.dtag{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:5px}
+.dtag.d1{background:var(--d1-bg);color:var(--d1)}
+.dtag.d2{background:var(--d2-bg);color:var(--d2)}
+.stag{font-size:11px;font-weight:600;font-family:'SF Mono','Fira Code',monospace;color:var(--light);letter-spacing:.4px}
+.ttag{font-size:12px;color:var(--light);margin-left:auto}
+
+.ms-title{font-size:clamp(24px,2.8vw,34px);font-weight:800;letter-spacing:-.4px;line-height:1.2}
+.ms-desc{font-size:17px;color:var(--muted);margin-top:8px}
+
+.ms-body{background:var(--card);border:1px solid var(--border);border-top:none;border-bottom:none;padding:0 38px 28px}
+.ms-foot{background:var(--card);border:1px solid var(--border);border-top:1px solid var(--border);border-radius:0 0 var(--r) var(--r);padding:18px 38px;display:flex;align-items:center;justify-content:space-between}
+
+/* ── BLOCKS ── */
+.blk{margin-top:28px}
+.blk:first-child{margin-top:0;padding-top:28px}
+.blk-label{font-size:12px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+
+/* ── INFO BOXES ── */
+.box{border-radius:8px;padding:15px 18px;font-size:17px;line-height:1.65;margin:14px 0}
+.box.blue{background:#EFF6FF;border-left:3px solid #3B82F6;color:#1E3A8A}
+.box.amber{background:#FFFBEB;border-left:3px solid var(--amber);color:#78350F}
+.box.green{background:#ECFDF5;border-left:3px solid var(--ok);color:#064E3B}
+.box.purple{background:var(--d2-bg);border-left:3px solid var(--d2);color:#4C1D95}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:16px}
+.tbl th{text-align:left;padding:11px 13px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border);background:var(--ground)}
+.tbl td{padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+
+/* ── INPUT ── */
+.field{width:100%;border:1.5px solid var(--border);border-radius:7px;padding:11px 14px;font-size:16px;font-family:inherit;color:var(--text);background:var(--ground);resize:vertical;min-height:58px;transition:border-color .15s;outline:none}
+.field:focus{border-color:var(--d1);background:#fff}
+.field::placeholder{color:var(--light)}
+
+/* ── SCENARIO CARDS ── */
+.sc-card{border:1.5px solid var(--border);border-radius:9px;overflow:hidden;margin-bottom:18px}
+.sc-head{display:flex;align-items:center;gap:12px;padding:15px 22px;background:var(--ground);border-bottom:1px solid var(--border)}
+.sc-badge{font-size:14px;font-weight:800;padding:5px 12px;border-radius:6px;background:var(--d1);color:#fff;font-family:'SF Mono','Fira Code',monospace}
+.sc-title{font-size:17px;font-weight:700}
+.sc-body{padding:18px 22px}
+.sc-sit{font-size:16px;color:var(--muted);margin-bottom:16px;line-height:1.65}
+.pf{display:flex;flex-direction:column;gap:9px}
+.pf-row{display:grid;grid-template-columns:110px 1fr;gap:9px;align-items:start}
+.pf-lbl{font-size:13px;font-weight:700;font-family:'SF Mono','Fira Code',monospace;color:var(--text);padding-top:11px}
+
+/* ── CODE BLOCK ── */
+.cb{background:var(--code-bg);border-radius:9px;overflow:hidden;margin:16px 0}
+.cb-head{display:flex;align-items:center;justify-content:space-between;padding:11px 16px 10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.cb-lang{font-size:12px;font-weight:600;color:rgba(255,255,255,.4);font-family:'SF Mono','Fira Code',monospace;letter-spacing:.5px;text-transform:uppercase}
+.cp{background:rgba(255,255,255,.08);border:none;border-radius:5px;color:rgba(255,255,255,.5);font-size:12px;padding:4px 11px;cursor:pointer;transition:all .15s;font-family:'SF Mono','Fira Code',monospace}
+.cp:hover{background:rgba(255,255,255,.14);color:rgba(255,255,255,.8)}
+.cp.ok{background:rgba(16,185,129,.2);color:#10B981}
+.cb pre{padding:18px;font-size:15px;font-family:'SF Mono','Fira Code','Cascadia Code','Consolas',monospace;color:var(--code-text);line-height:1.8;overflow-x:auto;margin:0;white-space:pre}
+.cm{color:#4B5563}
+.bug{background:rgba(239,68,68,.15);color:#FCA5A5;border-radius:3px;padding:0 2px}
+.kw{color:#93C5FD}
+.fn{color:#FDE68A}
+.st{color:#86EFAC}
+.nm{color:#FCA5A5}
+
+/* ── REVEAL ── */
+.reveal-btn{display:flex;align-items:center;gap:9px;background:none;border:1.5px solid var(--border);border-radius:8px;padding:12px 18px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;width:100%;justify-content:center;margin-top:8px}
+.reveal-btn:hover{border-color:var(--d2);color:var(--d2)}
+.reveal-cnt{display:none}
+.reveal-cnt.open{display:block}
+
+/* ── CHECKLIST ── */
+.cklist{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.ck{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.ck input[type=checkbox]{width:20px;height:20px;margin-top:3px;flex-shrink:0;accent-color:var(--d1);cursor:pointer}
+.ck-txt{font-size:17px;color:var(--text);line-height:1.5}
+.ck input:checked~.ck-txt{text-decoration:line-through;color:var(--light)}
+.score-lbl{font-size:14px;color:var(--muted);margin-top:12px;font-weight:600;font-family:'SF Mono','Fira Code',monospace}
+
+/* ── CSV TABLE ── */
+.csv-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;margin-top:10px}
+.csv-tbl{border-collapse:collapse;width:100%;font-size:15px;font-family:'SF Mono','Fira Code',monospace}
+.csv-tbl th{background:var(--ground);border-bottom:2px solid var(--border);padding:9px 13px;text-align:left;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.4px}
+.csv-tbl td{padding:8px 13px;border-bottom:1px solid var(--border);color:var(--text)}
+.csv-tbl tr:last-child td{border-bottom:none}
+.csv-tbl tr:hover td{background:var(--ground)}
+
+/* ── SCORES PILLS ── */
+.pill-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.pill{background:var(--d2-bg);color:var(--d2);font-family:'SF Mono','Fira Code',monospace;font-size:18px;font-weight:700;padding:7px 16px;border-radius:7px;border:1px solid rgba(139,92,246,.2)}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;margin-top:12px}
+.si{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.si:last-child{border-bottom:none}
+.snum{width:30px;height:30px;border-radius:50%;background:var(--d2);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-family:'SF Mono','Fira Code',monospace}
+.ms.d1 .snum{background:var(--d1)}
+.si-t{font-size:17px;font-weight:700;color:var(--text)}
+.si-d{font-size:16px;color:var(--muted);margin-top:3px;line-height:1.55}
+
+/* ── PROJECT GRID ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
+.proj-card{border:1.5px solid var(--border);border-radius:9px;padding:18px;background:var(--ground);transition:border-color .15s}
+.proj-card:hover{border-color:var(--d2)}
+.proj-n{font-size:11px;font-weight:700;font-family:'SF Mono','Fira Code',monospace;color:var(--d2);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}
+.proj-t{font-size:17px;font-weight:700;margin-bottom:7px}
+.proj-d{font-size:15px;color:var(--muted);line-height:1.55}
+
+/* ── RUBRIC ── */
+.rub{width:100%;border-collapse:collapse;font-size:16px;margin-top:12px}
+.rub th{text-align:left;padding:10px 13px;background:var(--ground);font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border)}
+.rub td{padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+.rub .pts{font-weight:700;font-family:'SF Mono','Fira Code',monospace;color:var(--d2);text-align:right}
+.rub tr.tot{background:var(--d2-bg)}
+.rub tr.tot td{font-weight:700;border-bottom:none}
+
+/* ── TEMPLATE BOX ── */
+.tmpl{background:var(--code-bg);border-radius:9px;margin-bottom:26px;overflow:hidden}
+.tmpl-head{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
+.tmpl-lbl{font-size:12px;font-weight:600;color:rgba(255,255,255,.4);font-family:'SF Mono','Fira Code',monospace;letter-spacing:.5px;text-transform:uppercase}
+.tmpl pre{padding:20px;font-size:14.5px;font-family:'SF Mono','Fira Code','Cascadia Code',monospace;color:var(--code-text);line-height:1.85;margin:0;white-space:pre-wrap}
+
+/* ── TIPS ── */
+.tips{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.tips li{font-size:17px;color:var(--muted);padding-left:22px;position:relative;line-height:1.55}
+.tips li::before{content:'→';position:absolute;left:0;color:var(--light)}
+
+/* ── IDEAL ANSWER REVEAL ── */
+.show-ans-btn{display:inline-flex;align-items:center;gap:7px;background:none;border:2px solid var(--d1);border-radius:8px;padding:9px 16px;font-size:14px;font-weight:700;color:var(--d1);cursor:pointer;transition:all .18s;letter-spacing:.2px}
+.show-ans-btn:hover{background:var(--d1);color:#fff}
+.ideal-ans{display:none;margin-top:12px;background:var(--d1-bg);border:2px solid var(--d1);border-radius:10px;padding:20px 22px;font-size:17px;color:#2D3282;line-height:1.65}
+.ideal-ans.open{display:block}
+.ideal-ans-label{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--d1);margin-bottom:14px}
+.ideal-field-row{display:grid;grid-template-columns:130px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid rgba(99,102,241,.15);font-size:16px;line-height:1.55;font-style:normal}
+.ideal-field-row:last-child{border-bottom:none}
+.ideal-field-tag{font-size:11px;font-weight:800;font-family:'SF Mono','Fira Code',monospace;background:var(--d1);color:#fff;padding:3px 8px;border-radius:5px;letter-spacing:.5px;align-self:start;margin-top:2px;white-space:nowrap}
+
+/* ── COMPLETE BUTTON ── */
+.done-btn{display:flex;align-items:center;gap:8px;background:var(--ground);border:1.5px solid var(--border);border-radius:7px;padding:9px 16px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s}
+.done-btn:hover{border-color:var(--ok);color:var(--ok)}
+.done-btn.done{background:#ECFDF5;border-color:var(--ok);color:var(--ok)}
+.foot-hint{font-size:13px;color:var(--light)}
+
+/* ── PRINT ── */
+@media print{
+  #sb{display:none}
+  #main{margin-left:0;padding:16px}
+  .ms-foot{display:none}
+  .ms{break-inside:avoid}
+}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sb" aria-label="Navigation">
+  <div class="sb-head">
+    <div class="sb-title">Supplemental Materials</div>
+    <div class="sb-sub">AI for IT Students Workshop</div>
+  </div>
+
+  <div class="prog-area">
+    <div class="prog-label" id="prog-lbl">0 of 9 sections complete</div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Day 1 — Prompting</div>
+    <a class="nav-item d1" href="#s13" data-s="s13">
+      <span class="nav-dot" id="nd-s13"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S13</span>
+      <span class="nav-txt">Add Context</span>
+      <span class="nav-dur">10m</span>
+    </a>
+    <a class="nav-item d1" href="#s18" data-s="s18">
+      <span class="nav-dot" id="nd-s18"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S18</span>
+      <span class="nav-txt">Scenario Cards</span>
+      <span class="nav-dur">20m</span>
+    </a>
+    <a class="nav-item d1" href="#s21" data-s="s21">
+      <span class="nav-dot" id="nd-s21"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S21</span>
+      <span class="nav-txt">Prompt Checklist</span>
+      <span class="nav-dur">10m</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Day 2 — Programming</div>
+    <a class="nav-item d2" href="#s23" data-s="s23">
+      <span class="nav-dot" id="nd-s23"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S23</span>
+      <span class="nav-txt">Student Marks CSV</span>
+      <span class="nav-dur">Data</span>
+    </a>
+    <a class="nav-item d2" href="#s25" data-s="s25">
+      <span class="nav-dot" id="nd-s25"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S25</span>
+      <span class="nav-txt">Lab 1: Learn Python</span>
+      <span class="nav-dur">30m</span>
+    </a>
+    <a class="nav-item d2" href="#s27" data-s="s27">
+      <span class="nav-dot" id="nd-s27"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S27</span>
+      <span class="nav-txt">Scores Data</span>
+      <span class="nav-dur">Data</span>
+    </a>
+    <a class="nav-item d2" href="#s29" data-s="s29">
+      <span class="nav-dot" id="nd-s29"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S29</span>
+      <span class="nav-txt">Lab 2: Debug Code</span>
+      <span class="nav-dur">Lab</span>
+    </a>
+    <a class="nav-item d2" href="#s31" data-s="s31">
+      <span class="nav-dot" id="nd-s31"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S31</span>
+      <span class="nav-txt">Prompt Templates</span>
+      <span class="nav-dur">Ref</span>
+    </a>
+    <a class="nav-item d2" href="#s34" data-s="s34">
+      <span class="nav-dot" id="nd-s34"><svg width="9" height="9" viewBox="0 0 9 9"><path d="M2 4.5l1.8 1.8L7 2.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="nav-sid">S34</span>
+      <span class="nav-txt">Capstone Lab</span>
+      <span class="nav-dur">45m</span>
+    </a>
+  </div>
+
+  <div class="sb-foot">
+    <button class="sb-btn" onclick="window.print()">Print this page</button>
+    <button class="sb-btn" id="reset-btn">Reset all progress</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+
+<header class="page-head">
+  <div class="page-eye">AI FOR IT STUDENTS · WORKSHOP MATERIALS</div>
+  <h1 class="page-title">Supplemental Materials</h1>
+  <p class="page-desc">Activities, labs, datasets, and templates — one per slide. Mark each section complete as you go.</p>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════ S13 -->
+<section class="ms d1" id="s13">
+  <div class="ms-head">
+    <div class="ghost">S13</div>
+    <div class="ms-meta">
+      <span class="dtag d1">DAY 1</span>
+      <span class="stag">SLIDE 13</span>
+      <span class="ttag">⏱ 10 min</span>
+    </div>
+    <h2 class="ms-title">Add Context to a Vague Prompt</h2>
+    <p class="ms-desc">Individual exercise → class discussion. Rewrite each vague prompt into a specific, context-rich one.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">What to Add</div>
+      <div class="box blue">A strong prompt includes: <strong>who you are</strong> · <strong>what you need</strong> · <strong>the format</strong> · <strong>a length or constraint</strong></div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Exercise — Rewrite Each Prompt</div>
+      <table class="tbl" style="margin-top:8px">
+        <thead><tr><th style="width:28px">#</th><th>Vague Prompt</th><th>Your Improved Version</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-family:monospace;font-weight:700;color:var(--d1)">1</td>
+            <td style="font-size:17px">"Explain databases"</td>
+            <td>
+              <textarea class="field" placeholder="Add who you are, what you need, and a format constraint…" rows="2"></textarea>
+              <button class="show-ans-btn" onclick="toggleAns(this)">Show ideal answer</button>
+              <div class="ideal-ans">
+                <div class="ideal-ans-label">Ideal Answer</div>
+                "I am a first-year IT student preparing for my database module. Explain what a relational database is in simple terms. Include a one-sentence definition, a real-life example such as a school record system, and two reasons why databases are better than a spreadsheet. Use bullet points. Keep the answer under 150 words."
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-family:monospace;font-weight:700;color:var(--d1)">2</td>
+            <td style="font-size:17px">"Help me write an email"</td>
+            <td>
+              <textarea class="field" placeholder="Add who you are, what you need, and a format constraint…" rows="2"></textarea>
+              <button class="show-ans-btn" onclick="toggleAns(this)">Show ideal answer</button>
+              <div class="ideal-ans">
+                <div class="ideal-ans-label">Ideal Answer</div>
+                "I am an IT student writing to my lecturer to request a one-week extension on my assignment due to unexpected illness. Write a formal but polite email. Include a subject line, a greeting, the reason for the request, the new deadline I am asking for, and a professional closing. Keep it under 150 words."
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-family:monospace;font-weight:700;color:var(--d1)">3</td>
+            <td style="font-size:17px">"What is Python?"</td>
+            <td>
+              <textarea class="field" placeholder="Add who you are, what you need, and a format constraint…" rows="2"></textarea>
+              <button class="show-ans-btn" onclick="toggleAns(this)">Show ideal answer</button>
+              <div class="ideal-ans">
+                <div class="ideal-ans-label">Ideal Answer</div>
+                "I am an IT student who already knows C programming. Explain what Python is in 3–4 sentences. Connect it to C — how is Python similar and how is it different? Mention one real use case where Python is preferred over C. No code examples needed, just a clear explanation in plain language."
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-family:monospace;font-weight:700;color:var(--d1)">4</td>
+            <td style="font-size:17px">"Summarize this topic"</td>
+            <td>
+              <textarea class="field" placeholder="Add who you are, what you need, and a format constraint…" rows="2"></textarea>
+              <button class="show-ans-btn" onclick="toggleAns(this)">Show ideal answer</button>
+              <div class="ideal-ans">
+                <div class="ideal-ans-label">Ideal Answer</div>
+                "I am a first-year IT student studying networking. Summarize the concept of IP addressing. Include what it is, why it matters, and the difference between IPv4 and IPv6. Write it as 4–5 clear bullet points. Use simple language — avoid jargon I would not know as a first-year student."
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Example</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px">
+        <div style="background:var(--ground);border:1px solid var(--border);border-radius:10px;padding:20px">
+          <div style="font-size:13px;font-weight:700;color:#EF4444;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Vague</div>
+          <div style="font-size:19px;color:var(--muted);font-style:italic;line-height:1.5">"Tell me about networking"</div>
+        </div>
+        <div style="background:var(--d1-bg);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:20px">
+          <div style="font-size:13px;font-weight:700;color:var(--d1);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Better</div>
+          <div style="font-size:18px;color:#3730A3;line-height:1.65">"I am a first-year IT student. Explain computer networking simply. Cover what it is, why it matters, and one real-life example. Use bullet points, under 150 words."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="box amber"><strong>Class discussion:</strong> Share your best rewrite. Compare AI's response to the vague vs improved version — how different were the outputs?</div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s13" onclick="toggle('s13')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 13 · Day 1</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S18 -->
+<section class="ms d1" id="s18">
+  <div class="ms-head">
+    <div class="ghost">S18</div>
+    <div class="ms-meta">
+      <span class="dtag d1">DAY 1</span>
+      <span class="stag">SLIDE 18</span>
+      <span class="ttag">⏱ 20 min</span>
+    </div>
+    <h2 class="ms-title">Assign One Scenario Per Student or Group</h2>
+    <p class="ms-desc">Each student writes a full structured prompt — Role · Task · Context · Output · Constraints — for their assigned scenario.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="box blue">Every prompt must include all five elements: <strong>Role</strong> (who AI is) · <strong>Task</strong> (what to do) · <strong>Context</strong> (your C background) · <strong>Output</strong> (format: explain + code + mistake) · <strong>Constraints</strong> (what to avoid)</div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Scenario Cards</div>
+
+      <div class="sc-card">
+        <div class="sc-head"><span class="sc-badge">A</span><span class="sc-title">Python Functions with Default Parameters</span></div>
+        <div class="sc-body">
+          <p class="sc-sit">You have never used Python functions with default parameters. Write a prompt to learn what they are, get a working example, and understand the difference from C functions.</p>
+          <div class="pf">
+            <div class="pf-row"><div class="pf-lbl">ROLE</div><textarea class="field" placeholder="e.g. Act as a Python tutor for beginners…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">TASK</div><textarea class="field" placeholder="e.g. Explain Python functions with default parameters…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">CONTEXT</div><textarea class="field" placeholder="e.g. I know C programming and understand how C functions work…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">OUTPUT</div><textarea class="field" placeholder="e.g. Definition, working code example with comments, one common mistake…" rows="2"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">CONSTRAINTS</div><textarea class="field" placeholder="e.g. Do not cover decorators, *args, or **kwargs…" rows="1"></textarea></div>
+          </div>
+          <button class="show-ans-btn" onclick="toggleAns(this)" style="margin-top:14px">Show complete ideal prompt</button>
+          <div class="ideal-ans">
+            <div class="ideal-ans-label">Complete Ideal Prompt — Scenario A</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">ROLE</span> Act as a Python programming tutor for first-year students.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">TASK</span> Explain what default parameters are in Python functions — what they are, how to define them, and how to call a function with and without the default value.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">CONTEXT</span> I already know C programming and understand how regular C functions work. I have never used default parameters in any language before.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">OUTPUT</span> Give me a one-sentence definition, a complete working Python code example with a comment on every line, and one common mistake beginners make with default parameters.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">CONSTRAINTS</span> Do not cover decorators, *args, or **kwargs. Keep the code example under 15 lines. Avoid any advanced Python features.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-head"><span class="sc-badge">B</span><span class="sc-title">Lists vs Tuples vs Sets</span></div>
+        <div class="sc-body">
+          <p class="sc-sit">You understand C arrays. Write a prompt to learn Python lists, tuples, and sets — what each one is, when to use it, and why Python has three where C has one.</p>
+          <div class="pf">
+            <div class="pf-row"><div class="pf-lbl">ROLE</div><textarea class="field" placeholder="e.g. Act as a Python instructor…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">TASK</div><textarea class="field" placeholder="e.g. Compare Python lists, tuples, and sets…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">CONTEXT</div><textarea class="field" placeholder="e.g. I know C arrays well — connect the explanation to arrays…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">OUTPUT</div><textarea class="field" placeholder="e.g. A comparison table, then one code example for each type…" rows="2"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">CONSTRAINTS</div><textarea class="field" placeholder="e.g. No list comprehensions or generators — keep it basic…" rows="1"></textarea></div>
+          </div>
+          <button class="show-ans-btn" onclick="toggleAns(this)" style="margin-top:14px">Show complete ideal prompt</button>
+          <div class="ideal-ans">
+            <div class="ideal-ans-label">Complete Ideal Prompt — Scenario B</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">ROLE</span> Act as a Python instructor explaining data structures.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">TASK</span> Compare Python lists, tuples, and sets — what each one is, when to use each, and why Python has three types where C only has arrays.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">CONTEXT</span> I am an IT student who knows C arrays well. Connect the explanation to C arrays wherever possible so I can build on existing knowledge.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">OUTPUT</span> Show me a side-by-side comparison table of the key differences, then one short working code example for each type with a "when to use it" note.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">CONSTRAINTS</span> No list comprehensions, generators, or dictionary types. Keep each code example under 8 lines. Use simple, beginner-friendly language.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-head"><span class="sc-badge">C</span><span class="sc-title">Debugging a TypeError in Python</span></div>
+        <div class="sc-body">
+          <p class="sc-sit">You got a TypeError in Python. Write a prompt that helps you understand what it means, why it happens, and how to fix it — connecting to what you know about types in C.</p>
+          <div class="pf">
+            <div class="pf-row"><div class="pf-lbl">ROLE</div><textarea class="field" placeholder="e.g. Act as a Python debugging assistant…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">TASK</div><textarea class="field" placeholder="e.g. Explain what a TypeError is and why it happens…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">CONTEXT</div><textarea class="field" placeholder="e.g. I have a C background and know how typed variables work in C…" rows="1"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">OUTPUT</div><textarea class="field" placeholder="e.g. Broken code (before) and fixed version (after), with a one-line explanation…" rows="2"></textarea></div>
+            <div class="pf-row"><div class="pf-lbl">CONSTRAINTS</div><textarea class="field" placeholder="e.g. Do not assume I know Python type casting — explain from scratch…" rows="1"></textarea></div>
+          </div>
+          <button class="show-ans-btn" onclick="toggleAns(this)" style="margin-top:14px">Show complete ideal prompt</button>
+          <div class="ideal-ans">
+            <div class="ideal-ans-label">Complete Ideal Prompt — Scenario C</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">ROLE</span> Act as a Python debugging assistant for beginners.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">TASK</span> Explain what a TypeError is in Python — why it happens and how to fix it.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">CONTEXT</span> I have a C programming background and understand how typed variables work in C. I am confused about how Python handles types differently from C.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">OUTPUT</span> Show me a simple broken code example that causes a TypeError, then the fixed version. Add a one-line explanation of exactly what was changed and why.</div>
+            <div class="ideal-field-row"><span class="ideal-field-tag">CONSTRAINTS</span> Do not assume I know Python type casting — explain from scratch. Keep both code examples under 10 lines. Use a simple example like adding a number to a string.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Evaluate Live — Score a Prompt Together</div>
+      <div class="box purple" style="margin-bottom:10px">Pick 2–3 student prompts. Run them on screen. Score each one using the checklist below.</div>
+      <div class="cklist" id="ck18">
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Has a clear Role defined</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Task is specific — AI knows exactly what to produce</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Context mentions C background or student level</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Output format is specified (table, example, explanation)</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">At least one Constraint is included</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Language is precise — no vague words like "good" or "nice"</span></label>
+      </div>
+      <div class="score-lbl" id="sc18">Score: 0 / 6</div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s18" onclick="toggle('s18')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 18 · Day 1</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S21 -->
+<section class="ms d1" id="s21">
+  <div class="ms-head">
+    <div class="ghost">S21</div>
+    <div class="ms-meta">
+      <span class="dtag d1">DAY 1</span>
+      <span class="stag">SLIDE 21</span>
+      <span class="ttag">⏱ 10 min</span>
+    </div>
+    <h2 class="ms-title">Prompt Checklist Self-Assessment</h2>
+    <p class="ms-desc">Score your own prompt. Rewrite it if needed, then run it again. End with a partner review.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">Paste a Prompt You Wrote Today</div>
+      <textarea class="field" placeholder="Paste your prompt here…" rows="4" style="margin-top:8px"></textarea>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Score It — One Point Per Box</div>
+      <div class="cklist" id="ck21">
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Clear task — AI knows exactly what to do</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Context included — AI knows who you are or what situation you're in</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Format specified — bullet points, table, steps, etc.</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Constraint set — word count, reading level, or tone</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">Specific language — no vague words like "good", "nice", or "stuff"</span></label>
+        <label class="ck"><input type="checkbox"><span class="ck-txt">One focused request — not 5 things at once</span></label>
+      </div>
+      <div class="score-lbl" id="sc21">Score: 0 / 6</div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Rewrite It (If Score ≤ 4)</div>
+      <textarea class="field" placeholder="Improved version of your prompt…" rows="4" style="margin-top:8px"></textarea>
+      <div class="box amber" style="margin-top:10px">Run both versions in ChatGPT or Gemini. Note how the output changed — quality, length, format, usefulness.</div>
+      <button class="show-ans-btn" onclick="toggleAns(this)" style="margin-top:14px">Show example of a perfect 6/6 prompt</button>
+      <div class="ideal-ans">
+        <div class="ideal-ans-label">Example — 6/6 Prompt (all boxes checked)</div>
+        <div class="ideal-field-row"><span class="ideal-field-tag">ROLE ✓</span> Act as a Python tutor for first-year IT students.</div>
+        <div class="ideal-field-row"><span class="ideal-field-tag">TASK ✓</span> Explain how a Python for loop works by comparing it step by step to a for loop in C.</div>
+        <div class="ideal-field-row"><span class="ideal-field-tag">CONTEXT ✓</span> I have studied C programming and I know how for loops work in C, but this is my first time writing Python.</div>
+        <div class="ideal-field-row"><span class="ideal-field-tag">OUTPUT ✓</span> Give me: a C loop example, the equivalent Python loop, and the key differences listed as bullet points.</div>
+        <div class="ideal-field-row"><span class="ideal-field-tag">CONSTRAINTS ✓</span> Keep the total answer under 200 words. Only use basic for loops — no while loops or list comprehensions.</div>
+        <div class="ideal-field-row"><span class="ideal-field-tag">SPECIFIC ✓</span> Use plain language — no jargon I would not know as a first-year student.</div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(99,102,241,.2);font-size:15px;color:#3730A3;font-style:normal;font-weight:600">Why this scores 6/6: it names a role, gives a precise task, states C background as context, specifies an exact output format, sets word and topic constraints, and uses specific measurable language throughout.</div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="box green"><strong>Group reflection:</strong> Share your best prompt with a partner. Let them rate it using the checklist. Discuss: what made the strongest prompts better?</div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s21" onclick="toggle('s21')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 21 · Day 1</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S23 -->
+<section class="ms d2" id="s23">
+  <div class="ms-head">
+    <div class="ghost">S23</div>
+    <div class="ms-meta">
+      <span class="dtag d2">DAY 2</span>
+      <span class="stag">SLIDE 23</span>
+      <span class="ttag">Dataset</span>
+    </div>
+    <h2 class="ms-title">Student Marks — Sample Dataset</h2>
+    <p class="ms-desc">Use for the pandas demo. Save as <code style="font-family:monospace;background:var(--ground);padding:2px 6px;border-radius:3px;font-size:15px">student_marks.csv</code> on Replit.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">Preview</div>
+      <div class="csv-wrap">
+        <table class="csv-tbl">
+          <thead><tr><th>Name</th><th>Subject1</th><th>Subject2</th><th>Subject3</th><th>Subject4</th><th>Subject5</th></tr></thead>
+          <tbody>
+            <tr><td>Alice Tamang</td><td>78</td><td>85</td><td>62</td><td>90</td><td>73</td></tr>
+            <tr><td>Bob Shrestha</td><td>45</td><td>52</td><td>60</td><td>48</td><td>55</td></tr>
+            <tr><td>Carol Rai</td><td>92</td><td>88</td><td>95</td><td>91</td><td>87</td></tr>
+            <tr><td>David Karki</td><td>33</td><td>40</td><td>38</td><td>42</td><td>35</td></tr>
+            <tr><td>Eve Gurung</td><td>70</td><td>75</td><td>68</td><td>80</td><td>72</td></tr>
+            <tr><td>Frank Lama</td><td>55</td><td>60</td><td>58</td><td>65</td><td>50</td></tr>
+            <tr><td>Grace Thapa</td><td>88</td><td>92</td><td>85</td><td>90</td><td>93</td></tr>
+            <tr><td>Henry Magar</td><td>25</td><td>30</td><td>28</td><td>35</td><td>22</td></tr>
+            <tr><td>Isha Poudel</td><td>80</td><td>77</td><td>83</td><td>79</td><td>85</td></tr>
+            <tr><td>Jay Adhikari</td><td>61</td><td>68</td><td>72</td><td>65</td><td>70</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Raw CSV — Copy to File</div>
+      <div class="cb">
+        <div class="cb-head"><span class="cb-lang">CSV</span><button class="cp" onclick="doCopy(this,'raw-csv')">Copy</button></div>
+        <pre id="raw-csv">Name,Subject1,Subject2,Subject3,Subject4,Subject5
+Alice Tamang,78,85,62,90,73
+Bob Shrestha,45,52,60,48,55
+Carol Rai,92,88,95,91,87
+David Karki,33,40,38,42,35
+Eve Gurung,70,75,68,80,72
+Frank Lama,55,60,58,65,50
+Grace Thapa,88,92,85,90,93
+Henry Magar,25,30,28,35,22
+Isha Poudel,80,77,83,79,85
+Jay Adhikari,61,68,72,65,70</pre>
+      </div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s23" onclick="toggle('s23')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 23 · Day 2</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S25 -->
+<section class="ms d2" id="s25">
+  <div class="ms-head">
+    <div class="ghost">S25</div>
+    <div class="ms-meta">
+      <span class="dtag d2">DAY 2</span>
+      <span class="stag">SLIDE 25</span>
+      <span class="ttag">⏱ 30 min</span>
+    </div>
+    <h2 class="ms-title">Lab 1 — Learn a Python Concept Using AI</h2>
+    <p class="ms-desc">Pick one concept. Use AI to learn it. Write and run a working program on Replit.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">Pick One Concept</div>
+      <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:8px">
+        <div style="display:grid;grid-template-columns:36px 150px 1fr;background:var(--ground);border-bottom:2px solid var(--border)">
+          <div style="padding:8px 10px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)">#</div>
+          <div style="padding:10px 12px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)">Concept</div>
+          <div style="padding:10px 12px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)">What it does</div>
+        </div>
+        <div style="display:grid;grid-template-columns:36px 150px 1fr;border-bottom:1px solid var(--border)"><div style="padding:10px 12px;font-family:monospace;font-weight:700;color:var(--d2);font-size:15px">1</div><div style="padding:10px 12px;font-size:16px;font-weight:600"><code>for</code> loop</div><div style="padding:10px 12px;font-size:16px;color:var(--muted)">Repeat something multiple times</div></div>
+        <div style="display:grid;grid-template-columns:36px 150px 1fr;border-bottom:1px solid var(--border)"><div style="padding:10px 12px;font-family:monospace;font-weight:700;color:var(--d2);font-size:15px">2</div><div style="padding:10px 12px;font-size:16px;font-weight:600"><code>if / else</code></div><div style="padding:10px 12px;font-size:16px;color:var(--muted)">Make a decision in code</div></div>
+        <div style="display:grid;grid-template-columns:36px 150px 1fr;border-bottom:1px solid var(--border)"><div style="padding:10px 12px;font-family:monospace;font-weight:700;color:var(--d2);font-size:15px">3</div><div style="padding:10px 12px;font-size:16px;font-weight:600">Function <code>def</code></div><div style="padding:10px 12px;font-size:16px;color:var(--muted)">Package code so you can reuse it</div></div>
+        <div style="display:grid;grid-template-columns:36px 150px 1fr;border-bottom:1px solid var(--border)"><div style="padding:10px 12px;font-family:monospace;font-weight:700;color:var(--d2);font-size:15px">4</div><div style="padding:10px 12px;font-size:16px;font-weight:600">List</div><div style="padding:10px 12px;font-size:16px;color:var(--muted)">Store many values in one variable</div></div>
+        <div style="display:grid;grid-template-columns:36px 150px 1fr"><div style="padding:10px 12px;font-family:monospace;font-weight:700;color:var(--d2);font-size:15px">5</div><div style="padding:10px 12px;font-size:16px;font-weight:600"><code>input()</code></div><div style="padding:10px 12px;font-size:16px;color:var(--muted)">Ask the user to type something</div></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">5 Steps</div>
+      <div class="steps">
+        <div class="si"><div class="snum">1</div><div><div class="si-t">Ask AI to explain it — 5 min</div><div class="si-d">"Explain Python [concept] to a beginner IT student in 3–4 sentences. Show the simplest possible example."</div></div></div>
+        <div class="si"><div class="snum">2</div><div><div class="si-t">Ask AI for starter code — 5 min</div><div class="si-d">"Give me a very simple Python program using [concept] to solve a small real-life problem. No more than 10 lines."</div></div></div>
+        <div class="si"><div class="snum">3</div><div><div class="si-t">Run it on Replit — 10 min</div><div class="si-d">Create a new Python repl · paste the code · click Run. If there's an error, paste it into AI: "I got this error, what does it mean and how do I fix it?"</div></div></div>
+        <div class="si"><div class="snum">4</div><div><div class="si-t">Make one small change — 5 min</div><div class="si-d">Change a number, a word, or a list item and run again. This proves you understand what the code does.</div></div></div>
+        <div class="si"><div class="snum">5</div><div><div class="si-t">Share with class — 5 min</div><div class="si-d">Which concept? What does your program do in one sentence? What surprised you about using AI to learn?</div></div></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <ul class="tips">
+        <li>If AI gives complex code, say: <em>"Simplify it — remove anything that isn't needed for a beginner."</em></li>
+        <li>Errors are normal. Copy the error and ask AI to explain it.</li>
+        <li>It is OK to ask the same question multiple ways until you understand.</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s25" onclick="toggle('s25')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 25 · Day 2</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S27 -->
+<section class="ms d2" id="s27">
+  <div class="ms-head">
+    <div class="ghost">S27</div>
+    <div class="ms-meta">
+      <span class="dtag d2">DAY 2</span>
+      <span class="stag">SLIDE 27</span>
+      <span class="ttag">Dataset</span>
+    </div>
+    <h2 class="ms-title">Scores — Plain Text Dataset</h2>
+    <p class="ms-desc">One number per line. Save as <code style="font-family:monospace;background:var(--ground);padding:2px 6px;border-radius:3px;font-size:15px">scores.txt</code> on Replit for the file-reading demo.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">Data</div>
+      <div class="pill-row">
+        <span class="pill">85</span><span class="pill">92</span><span class="pill">78</span><span class="pill">96</span><span class="pill">88</span>
+        <span class="pill">73</span><span class="pill">65</span><span class="pill">91</span><span class="pill">54</span><span class="pill">80</span>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Raw File — Copy to scores.txt</div>
+      <div class="cb">
+        <div class="cb-head"><span class="cb-lang">TXT</span><button class="cp" onclick="doCopy(this,'raw-scores')">Copy</button></div>
+        <pre id="raw-scores">85
+92
+78
+96
+88
+73
+65
+91
+54
+80</pre>
+      </div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s27" onclick="toggle('s27')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 27 · Day 2</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S29 -->
+<section class="ms d2" id="s29">
+  <div class="ms-head">
+    <div class="ghost">S29</div>
+    <div class="ms-meta">
+      <span class="dtag d2">DAY 2</span>
+      <span class="stag">SLIDE 29</span>
+      <span class="ttag">Lab</span>
+    </div>
+    <h2 class="ms-title">Lab 2 — Debug This Program</h2>
+    <p class="ms-desc">Exactly 2 bugs. Find them, fix them, and add a comment on each fixed line explaining what you changed.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="steps">
+        <div class="si"><div class="snum">1</div><div><div class="si-t">Run the code</div><div class="si-d">Paste into Replit and click Run. Read the error message carefully — the line number tells you where to look.</div></div></div>
+        <div class="si"><div class="snum">2</div><div><div class="si-t">Ask AI about the error</div><div class="si-d">Paste the exact error message into AI: "What does this error mean and where does it come from?"</div></div></div>
+        <div class="si"><div class="snum">3</div><div><div class="si-t">Fix both bugs</div><div class="si-d">Add a comment on each fixed line: what you changed and why. Then run it again to confirm it works.</div></div></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Broken Code — Student Copy</div>
+      <div class="cb">
+        <div class="cb-head"><span class="cb-lang">Python</span><button class="cp" onclick="doCopy(this,'broken')">Copy</button></div>
+        <pre id="broken"><span class="cm"># This program has 2 bugs. Find them and fix them.</span>
+
+<span class="kw">def</span> <span class="fn">calculate_average</span>(numbers):
+    total = <span class="nm">0</span>
+    <span class="kw">for</span> num <span class="kw">in</span> numbers:
+        total = total + num
+    average = total / <span class="fn">len</span>(<span class="bug">number</span>)   <span class="cm"># BUG 1 — look at the variable name carefully</span>
+    <span class="kw">return</span> average
+
+scores = [<span class="nm">85</span>, <span class="nm">92</span>, <span class="nm">78</span>, <span class="nm">96</span>, <span class="nm">88</span>]
+result = <span class="fn">calculate_average</span>(scores)
+<span class="fn">print</span>(<span class="st">"The average score is: "</span> + <span class="bug">result</span>)  <span class="cm"># BUG 2 — what type is result?</span></pre>
+      </div>
+    </div>
+
+    <div class="blk">
+      <button class="reveal-btn" onclick="doReveal(this)">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M7 0C3.5 0 .6 2.1 0 5c.6 2.9 3.5 5 7 5s6.4-2.1 7-5C13.4 2.1 10.5 0 7 0zm0 8a3 3 0 110-6 3 3 0 010 6z" fill="currentColor" opacity=".45"/></svg>
+        Show instructor answer key
+      </button>
+      <div class="reveal-cnt" style="margin-top:10px">
+        <div class="box green" style="margin-bottom:10px">
+          <strong>Bug 1:</strong> <code style="font-family:monospace">number</code> → <code style="font-family:monospace">numbers</code> — NameError. The parameter is called <code style="font-family:monospace">numbers</code> but the body typed <code style="font-family:monospace">number</code> (missing the s).<br><br>
+          <strong>Bug 2:</strong> <code style="font-family:monospace">result</code> is a float, not a string — TypeError. You cannot join a number and a string with <code style="font-family:monospace">+</code>. Wrap in <code style="font-family:monospace">str()</code>, or use an f-string.
+        </div>
+        <div class="cb">
+          <div class="cb-head"><span class="cb-lang">Python — Fixed</span><button class="cp" onclick="doCopy(this,'fixed')">Copy</button></div>
+          <pre id="fixed"><span class="kw">def</span> <span class="fn">calculate_average</span>(numbers):
+    total = <span class="nm">0</span>
+    <span class="kw">for</span> num <span class="kw">in</span> numbers:
+        total = total + num
+    average = total / <span class="fn">len</span>(numbers)   <span class="cm"># FIXED: "number" → "numbers"</span>
+    <span class="kw">return</span> average
+
+scores = [<span class="nm">85</span>, <span class="nm">92</span>, <span class="nm">78</span>, <span class="nm">96</span>, <span class="nm">88</span>]
+result = <span class="fn">calculate_average</span>(scores)
+<span class="fn">print</span>(<span class="st">"The average score is: "</span> + <span class="fn">str</span>(result))  <span class="cm"># FIXED: str() wraps the float</span>
+
+<span class="cm"># Alternative fix for Bug 2 (f-string — also correct):</span>
+<span class="cm"># print(f"The average score is: {result}")</span></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s29" onclick="toggle('s29')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 29 · Day 2</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S31 -->
+<section class="ms d2" id="s31">
+  <div class="ms-head">
+    <div class="ghost">S31</div>
+    <div class="ms-meta">
+      <span class="dtag d2">DAY 2</span>
+      <span class="stag">SLIDE 31</span>
+      <span class="ttag">Reference</span>
+    </div>
+    <h2 class="ms-title">Reusable Prompt Templates</h2>
+    <p class="ms-desc">Three templates that cover almost every situation in this workshop. Keep this open while working.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">Template 1 — Learning a New Concept</div>
+      <div class="tmpl">
+        <div class="tmpl-head"><span class="tmpl-lbl">Use when: learning something for the first time</span><button class="cp" onclick="doCopy(this,'t1')">Copy</button></div>
+        <pre id="t1">I am an IT student learning [topic].
+
+Explain [specific concept] to me as if I have never seen it before.
+Use simple language and avoid jargon.
+Give me:
+- A one-sentence definition
+- A real-life example I can relate to
+- One thing beginners usually get wrong
+
+Keep the total answer under 200 words.</pre>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Template 2 — Debugging Code</div>
+      <div class="tmpl">
+        <div class="tmpl-head"><span class="tmpl-lbl">Use when: your code has an error</span><button class="cp" onclick="doCopy(this,'t2')">Copy</button></div>
+        <pre id="t2">I am learning Python and I have an error in my code.
+
+Here is my code:
+[paste your code here]
+
+Here is the error message I got:
+[paste the exact error message]
+
+Please:
+1. Explain what the error means in simple terms
+2. Point to the exact line causing the problem
+3. Show me the corrected code
+4. Explain in one sentence what I did wrong so I don't repeat it</pre>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Template 3 — Generating Code</div>
+      <div class="tmpl">
+        <div class="tmpl-head"><span class="tmpl-lbl">Use when: you need AI to write a program</span><button class="cp" onclick="doCopy(this,'t3')">Copy</button></div>
+        <pre id="t3">Write a Python program that [describe what it should do in plain English].
+
+Requirements:
+- [requirement 1]
+- [requirement 2]
+- [requirement 3]
+
+Keep the code:
+- Simple and beginner-friendly
+- Under [number] lines
+- With short comments explaining each section
+
+Do not use any advanced libraries. Only use standard Python.</pre>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">If the Answer Isn't Good</div>
+      <ul class="tips">
+        <li><em>"Simplify this — make it shorter and easier to understand."</em></li>
+        <li><em>"Give me a different example."</em></li>
+        <li><em>"I don't understand [specific part]. Explain just that part."</em></li>
+        <li><em>"Rewrite this without using [word/concept]."</em></li>
+        <li><em>"Can you show me a step-by-step version?"</em></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s31" onclick="toggle('s31')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 31 · Day 2</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════ S34 -->
+<section class="ms d2" id="s34">
+  <div class="ms-head">
+    <div class="ghost">S34</div>
+    <div class="ms-meta">
+      <span class="dtag d2">DAY 2</span>
+      <span class="stag">SLIDE 34</span>
+      <span class="ttag">⏱ 45 min</span>
+    </div>
+    <h2 class="ms-title">Capstone Lab — Build a Mini Python Program</h2>
+    <p class="ms-desc">Solo or pairs. Pick one project. Use AI as your coding assistant. Deliver a working demo.</p>
+  </div>
+  <div class="ms-body">
+
+    <div class="blk">
+      <div class="blk-label">Choose a Project</div>
+      <div class="proj-grid">
+        <div class="proj-card"><div class="proj-n">Project 1</div><div class="proj-t">Grade Calculator</div><div class="proj-d">Takes a list of marks and prints the average, highest, and lowest score.</div></div>
+        <div class="proj-card"><div class="proj-n">Project 2</div><div class="proj-t">Quiz Game</div><div class="proj-d">Asks the user 3 multiple-choice questions and shows their score at the end.</div></div>
+        <div class="proj-card"><div class="proj-n">Project 3</div><div class="proj-t">Name List Manager</div><div class="proj-d">Add student names to a list, view the list, and count how many are in it.</div></div>
+        <div class="proj-card"><div class="proj-n">Project 4</div><div class="proj-t">Number Guessing</div><div class="proj-d">Random number 1–10. User guesses until correct. Count how many guesses.</div></div>
+        <div class="proj-card"><div class="proj-n">Project 5</div><div class="proj-t">File Score Reader</div><div class="proj-d">Reads scores.txt, calculates average, prints highest and lowest.</div></div>
+        <div class="proj-card"><div class="proj-n">Project 6</div><div class="proj-t">Contact Book</div><div class="proj-d">Dictionary-based: add contacts and look them up by name.</div></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">How to Work</div>
+      <div class="steps">
+        <div class="si"><div class="snum">1</div><div><div class="si-t">Prompt AI</div><div class="si-d">Use Template 3 (Slide 31). Describe your project in plain English. Adjust based on what AI gives you.</div></div></div>
+        <div class="si"><div class="snum">2</div><div><div class="si-t">Run on Replit</div><div class="si-d">Paste the code, click Run, read the output carefully.</div></div></div>
+        <div class="si"><div class="snum">3</div><div><div class="si-t">Fix errors with AI</div><div class="si-d">Copy error messages into AI. Use Template 2. Ask what the error means and how to fix it.</div></div></div>
+        <div class="si"><div class="snum">4</div><div><div class="si-t">Test all features</div><div class="si-d">Try edge cases: empty input, wrong type, large numbers. Make sure nothing crashes.</div></div></div>
+        <div class="si"><div class="snum">5</div><div><div class="si-t">Demo to instructor</div><div class="si-d">Show it running live before the 45 minutes is up.</div></div></div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="blk-label">Grading Rubric</div>
+      <table class="rub">
+        <thead><tr><th>Criteria</th><th style="text-align:right">Points</th></tr></thead>
+        <tbody>
+          <tr><td>Program runs without errors</td><td class="pts">40</td></tr>
+          <tr><td>At least 2 features work correctly</td><td class="pts">30</td></tr>
+          <tr><td>Can explain what the code does</td><td class="pts">20</td></tr>
+          <tr><td>Used AI effectively (asked good prompts)</td><td class="pts">10</td></tr>
+          <tr class="tot"><td>Total</td><td class="pts">100</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="blk">
+      <div class="box purple"><strong>Demo talking points:</strong> 1) What does your program do? · 2) One prompt you wrote to AI and what it gave you · 3) One thing you had to fix or improve</div>
+    </div>
+
+  </div>
+  <div class="ms-foot">
+    <button class="done-btn" id="db-s34" onclick="toggle('s34')">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+      Mark complete
+    </button>
+    <span class="foot-hint">Slide 34 · Day 2</span>
+  </div>
+</section>
+
+</main>
+
+<script>
+var IDS=['s13','s18','s21','s23','s25','s27','s29','s31','s34'];
+
+function getState(){try{return JSON.parse(localStorage.getItem('ws-prog')||'{}')}catch(e){return{}}}
+function setState(s){localStorage.setItem('ws-prog',JSON.stringify(s))}
+
+function updateBar(){
+  var s=getState(),done=IDS.filter(function(id){return s[id]}).length;
+  document.getElementById('prog-fill').style.width=Math.round(done/IDS.length*100)+'%';
+  document.getElementById('prog-lbl').textContent=done+' of '+IDS.length+' sections complete';
+}
+
+function applyAll(){
+  var s=getState();
+  IDS.forEach(function(id){
+    var done=!!s[id];
+    var dot=document.getElementById('nd-'+id);
+    var btn=document.getElementById('db-'+id);
+    if(dot) dot.classList.toggle('done',done);
+    if(btn){
+      btn.classList.toggle('done',done);
+      btn.innerHTML=done
+        ?'<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" fill="currentColor" opacity=".25"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg> Done'
+        :'<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M4 6.5l2 2 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg> Mark complete';
+    }
+  });
+  updateBar();
+}
+
+function toggle(id){
+  var s=getState();s[id]=!s[id];setState(s);applyAll();
+}
+
+/* scroll spy */
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      document.querySelectorAll('.nav-item').forEach(function(el){el.classList.remove('active')});
+      var l=document.querySelector('.nav-item[data-s="'+e.target.id+'"]');
+      if(l) l.classList.add('active');
+    }
+  });
+},{threshold:0.15});
+IDS.forEach(function(id){var el=document.getElementById(id);if(el) obs.observe(el)});
+
+/* copy */
+function doCopy(btn,preId){
+  var txt=document.getElementById(preId).innerText;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(function(){flash(btn)});
+  }else{
+    var ta=document.createElement('textarea');
+    ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+    flash(btn);
+  }
+}
+function flash(btn){
+  btn.textContent='Copied!';btn.classList.add('ok');
+  setTimeout(function(){btn.textContent='Copy';btn.classList.remove('ok')},1800);
+}
+
+/* ideal answer toggle */
+function toggleAns(btn){
+  var ans=btn.nextElementSibling;
+  var open=ans.classList.toggle('open');
+  btn.innerHTML=open
+    ?'<span style="font-size:13px">✅</span> Hide ideal answer'
+    :'<span style="font-size:13px">💡</span> Show ideal answer';
+  btn.style.background=open?'var(--d1)':'';
+  btn.style.color=open?'#fff':'';
+}
+
+/* reveal */
+function doReveal(btn){
+  var c=btn.nextElementSibling,open=c.classList.toggle('open');
+  btn.innerHTML=open
+    ?'<svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M7 0C3.5 0 .6 2.1 0 5c.6 2.9 3.5 5 7 5s6.4-2.1 7-5C13.4 2.1 10.5 0 7 0zm0 8a3 3 0 110-6 3 3 0 010 6z" fill="currentColor" opacity=".45"/></svg> Hide answer key'
+    :'<svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M7 0C3.5 0 .6 2.1 0 5c.6 2.9 3.5 5 7 5s6.4-2.1 7-5C13.4 2.1 10.5 0 7 0zm0 8a3 3 0 110-6 3 3 0 010 6z" fill="currentColor" opacity=".45"/></svg> Show instructor answer key';
+}
+
+/* checklist scores */
+function wireScore(listId,scoreId){
+  var list=document.getElementById(listId);
+  var scoreEl=document.getElementById(scoreId);
+  if(!list||!scoreEl) return;
+  var boxes=list.querySelectorAll('input[type=checkbox]');
+  boxes.forEach(function(cb){
+    cb.addEventListener('change',function(){
+      var done=list.querySelectorAll('input:checked').length;
+      scoreEl.textContent='Score: '+done+' / '+boxes.length;
+    });
+  });
+}
+wireScore('ck18','sc18');
+wireScore('ck21','sc21');
+
+/* reset */
+document.getElementById('reset-btn').addEventListener('click',function(){
+  if(confirm('Reset all progress? This cannot be undone.')){
+    localStorage.removeItem('ws-prog');applyAll();
+  }
+});
+
+applyAll();
+</script>
+</body>
+</html>
